@@ -9,8 +9,8 @@ description: >
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'https://frothyjin.github.io/'
-baseurl:          '/FrothyJin.github.io'
+url:              'https://frothyjin.github.io'
+baseurl:          '/frothyjin.github.io'
 rss:              RSS
 
 # bootstrap: use the remote theme for the site itself
