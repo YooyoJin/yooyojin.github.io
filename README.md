@@ -5,6 +5,8 @@ permalink: /
 ---
 
 Make Jelly site have a GitBook look!
+Make Jelly site have a GitBook look!
+Make Jelly site have a GitBook look!
 
 ## Demo
 
