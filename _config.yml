@@ -14,7 +14,7 @@ baseurl:          '/FrothyJin.github.io'
 rss:              RSS
 
 # bootstrap: use the remote theme for the site itself
-remote_theme:     FrothyJin/FrothyJin.github.io
+remote_theme:     sighingnow/jekyll-gitbook
 
 toc:
   enabled: true
