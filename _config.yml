@@ -2,19 +2,19 @@
 title:            Jekyll Gitbook
 longtitle:        Jekyll Gitbook
 author:           HE Tao
-email:            sighingnow@gmail.com
+email:            @gmail.com
 description: >
   Build Jekyll site with the GitBook style.
 
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'https://frothyjin.github.io'
-baseurl:          '/jekyll-gitbook'
+url:              'https://FrothyJin.github.io'
+baseurl:          '/FrothyJin.github.io'
 rss:              RSS
 
 # bootstrap: use the remote theme for the site itself
-remote_theme: frothyjin/jekyll-gitbook
+remote_theme: FrothyJin/FrothyJin.github.io
 
 toc:
   enabled: true
