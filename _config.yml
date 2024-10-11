@@ -1,8 +1,8 @@
 # Configurations
-title:            Jekyll Gitbook
-longtitle:        Jekyll Gitbook
-author:           HE Tao
-email:            1206491370@qq.com
+title:            Home
+longtitle:        Home
+author:           FrothyJin
+email:            y.5464@foxmail.com
 description: >
   Build Jekyll site with the GitBook style.
 
@@ -43,7 +43,7 @@ markdown_ext:             markdown,mkdown,mkdn,mkd,md
 permalink:                /:categories/:year-:month-:day-:title:output_ext
 
 # Disqus comments
-# disqushandler:            sighingnow
+disqushandler:            sighingnow
 
 exclude:
   - _drafts

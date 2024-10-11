@@ -1,6 +1,8 @@
 ---
 layout: home
-title: Jekyll Gitbook Theme
+title: ForthyJin's bolg
 permalink: /
 ---
-11w
+# Just only recode my stady trace
+
+hope nobady watch it, beacues my english was ugly
