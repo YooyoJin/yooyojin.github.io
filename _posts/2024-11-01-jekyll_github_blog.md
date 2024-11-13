@@ -8,9 +8,10 @@ layout: post
 
 就像当前你所看到的这个博客一样，目前使用的就是利用Jekeyll和Github Page配合创建的一个博客页面
 
-# 博客搭建详细步骤
+博客搭建详细步骤
+-------------
 
-## 准备本地Jekyll环境
+### 准备本地Jekyll环境
 
 1. 安装Ruby
 
@@ -64,7 +65,7 @@ layout: post
 
     例如：2024-11-01-jekyll_github_blog.md
 
-## 部署代码到 Github
+### 部署代码到 Github
 
 1. 创建GitHub账号
 
@@ -76,7 +77,7 @@ layout: post
 
     Github Page 设置好的话，就可以自动部署啦
 
-## 关于主题
+### 关于主题
 
 比较便的办法是fork大佬的仓库即可
 
@@ -84,7 +85,8 @@ layout: post
 
 Github 上的博客模板：https://github.com/jekyll/jekyll/wiki/Sites
 
-# 参考资料
+参考资料
+-------------
 
 [关于 GitHub Pages (这是Github官方一样的入门文档)](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages)
 
