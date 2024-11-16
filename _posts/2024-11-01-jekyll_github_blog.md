@@ -6,7 +6,8 @@ category: Jekyll
 layout: post
 ---
 
-就像当前你所看到的这个博客一样，目前使用的就是利用Jekeyll和Github Page配合创建的一个博客页面
+就像当前你所看到的这个博客一样，目前使用的就是利用Jekeyll和Github Page配合创建的一个博客页面。
+一方面像这种静态网站就非常的简洁，比较符合我的期望，另外操作起来也十分方面，可以白嫖 :)
 
 博客搭建详细步骤
 -------------
@@ -79,11 +80,11 @@ layout: post
 
 ### 关于主题
 
-比较便的办法是fork大佬的仓库即可
+比较便的办法是fork大佬的仓库即可，我这里用的是这个[Gitbook](http://jekyllthemes.org/themes/gitbook/)的主题，在原来的基础上进行了简单的修改
 
-官方主题网站：http://jekyllthemes.org/
+官方主题网站：[http://jekyllthemes.org/](http://jekyllthemes.org/)
 
-Github 上的博客模板：https://github.com/jekyll/jekyll/wiki/Sites
+Github 上的博客模板：[https://github.com/jekyll/jekyll/wiki/Sites](https://github.com/jekyll/jekyll/wiki/Sites)
 
 参考资料
 -------------
