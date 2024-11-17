@@ -62,7 +62,7 @@ layout: post
 
 1. 添加MarkDown相关内容文档
 
-    在项目根目录下的 _posts 目录创建 markdown 文档。这里注意 md 文档命名要添加 “yyyy-mm-dd”的前缀。
+    在项目根目录下的_posts目录创建markdown文档。这里注意.md文档命名要添加 “yyyy-mm-dd”的前缀。
 
     例如：2024-11-01-jekyll_github_blog.md
 
@@ -76,7 +76,7 @@ layout: post
 
 1. 提交代码到仓库
 
-    Github Page 设置好的话，就可以自动部署啦
+    Github Page设置好的话，就可以自动部署啦
 
 ### 关于主题
 

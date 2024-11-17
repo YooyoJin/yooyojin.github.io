@@ -1,9 +1,9 @@
 ---
-title: About
-author: Tao He
+title: 关于
+author: FrothyJin
 date: 2022-02-04
 category: Jekyll
 layout: post
 ---
 
-This is an about page.
+This is an about page.1
