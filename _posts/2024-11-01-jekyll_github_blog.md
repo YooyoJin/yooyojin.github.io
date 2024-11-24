@@ -9,8 +9,7 @@ layout: post
 就像当前你所看到的这个博客一样，目前使用的就是利用Jekeyll和Github Page配合创建的一个博客页面。
 一方面像这种静态网站就非常的简洁，比较符合我的期望，另外操作起来也十分方面，可以白嫖 :)
 
-博客搭建详细步骤
--------------
+## 博客搭建详细步骤
 
 ### 准备本地Jekyll环境
 
@@ -86,8 +85,7 @@ layout: post
 
 Github 上的博客模板：[https://github.com/jekyll/jekyll/wiki/Sites](https://github.com/jekyll/jekyll/wiki/Sites)
 
-参考资料
--------------
+## 参考资料
 
 [关于 GitHub Pages (这是Github官方一样的入门文档)](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages)
 
