@@ -25,3 +25,4 @@ Disallow:https://frothyjin.github.io/sitemap/sitemap.xml
 Disallow:/
 User-agent: *
 Disallow:
+Sitemap:https://frothyjin.github.io/sitemap/sitemap.xml
