@@ -71,7 +71,7 @@ layout: post
 
 1. 创建代码仓库
 
-    仓库名称：账号名称.http://github.io
+    仓库名称：账号名称.github.io
 
 1. 提交代码到仓库
 
