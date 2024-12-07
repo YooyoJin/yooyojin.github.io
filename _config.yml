@@ -10,15 +10,16 @@ version:          1.0
 gitbook_version:  3.2.3
 
 url:              'https://frothyjin.github.io'
-baseurl:          ''
+baseurl:          '/jekyll-gitbook'
 rss:              RSS
 
 # bootstrap: use the remote theme for the site itself
-remote_theme: sighingnow/jekyll-gitbook
+# remote_theme: sighingnow/jekyll-gitbook 
+
 toc:
   enabled: true
   h_min:   1
-  h_max:   3
+  h_max:   4
 
 # customize the link favicon in header, will be {{site.baseurl}}/{{site.favicon_path}}
 favicon_path:     /assets/gitbook/images/favicon.ico
@@ -71,3 +72,7 @@ plugins:
   - jekyll-feed
   - jekyll-readme-index
   - jemoji
+
+# 本页未使用远程主题，通过fork下来自定义主题，若使用远程主题需要增加插件
+# plugins:
+#   - jekyll-remote-theme
