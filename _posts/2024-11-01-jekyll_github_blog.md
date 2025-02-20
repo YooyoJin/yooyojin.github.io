@@ -9,9 +9,9 @@ layout: post
 就像当前你所看到的这个博客一样，目前使用的就是利用Jekeyll和Github Page配合创建的一个博客页面。
 一方面像这种静态网站就非常的简洁，比较符合我的期望，另外操作起来也十分方面，可以白嫖 :)
 
-## 博客搭建详细步骤
+## 一、博客搭建详细步骤
 
-### 准备本地Jekyll环境
+### 1.1 准备本地Jekyll环境
 
 1. 安装Ruby
 
@@ -65,7 +65,7 @@ layout: post
 
     例如：2024-11-01-jekyll_github_blog.md
 
-### 部署代码到 Github
+### 1.2部署代码到 Github
 
 1. 创建GitHub账号
 
@@ -77,7 +77,7 @@ layout: post
 
     Github Page设置好的话，就可以自动部署啦
 
-### 关于主题
+### 1.3 关于主题
 
 比较便的办法是fork大佬的仓库即可，我这里用的是这个[Gitbook](http://jekyllthemes.org/themes/gitbook/)的主题，在原来的基础上进行了简单的修改
 
@@ -85,9 +85,9 @@ layout: post
 
 Github 上的博客模板：[https://github.com/jekyll/jekyll/wiki/Sites](https://github.com/jekyll/jekyll/wiki/Sites)
 
-## 常见问题&解决办法
+## 二、常见问题&解决办法
 
-### 博客图标和博客样式消失问题
+### 2.1 博客图标和博客样式消失问题
 
 原作者的_config.yml文件如下，
 
@@ -119,7 +119,7 @@ rss:              RSS
 favicon_path:     assets/gitbook/images/favicon.ico
 ```
 
-## 参考资料
+## 三、参考资料
 
 [关于 GitHub Pages (这是Github官方一样的入门文档)](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages)
 
