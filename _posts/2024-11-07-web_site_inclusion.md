@@ -53,6 +53,8 @@ site:https://frothyjin.github.io/
 
 ### 2.1、google
 
+[google网站收录提交入口](https://search.google.com/)
+
 ## 三、常见问题&解决办法
 
 ### 3.1、页面具有多个<h1>标记，管理页面SEO提示报错
@@ -60,6 +62,8 @@ site:https://frothyjin.github.io/
 找到问题确实页面中存在多个<h1>标题的现象，找到后屏蔽重复标题解决
 
 ### 3.2、bing显示已发现未收录
+
+很难受，仍未收录，google已经收录了
 
 
 
