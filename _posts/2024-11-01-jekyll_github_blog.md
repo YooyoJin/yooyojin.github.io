@@ -65,7 +65,7 @@ layout: post
 
     例如：2024-11-01-jekyll_github_blog.md
 
-### 1.2部署代码到 Github
+### 1.2 部署代码到 Github
 
 1. 创建GitHub账号
 
