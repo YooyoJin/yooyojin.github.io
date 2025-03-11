@@ -1,7 +1,7 @@
 ---
 title: ATE测试机行业发展现状分析
 author: FrothyJin
-date: 2025-01-16
+date: 2025-01-17
 category: Jekyll
 layout: post
 ---
