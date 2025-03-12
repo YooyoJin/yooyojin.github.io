@@ -310,3 +310,104 @@ sequenceDiagram
 ```
 
 ## 三、USB
+
+USB（Universal Serial Bus）技术自问世以来，经历了多次重大升级，不断满足日益增长的数据传输和供电需求。从USB2.0、USB3.0和Type-C，带来了显著的性能提升
+
+USB 2.0于2000年发布，最大传输速率480Mbps，是USB 1.1的40倍。它采用半双工通信方式，使用4线制连接（VBUS、D+、D-、GND）。供电能力方面，USB 2.0可提供最大500mA电流。
+
+USB3.0于2008年发布，理论传输速率达到5Gbps。它采用全双工通信，新增了5个触点（2对差分信号线和1根地线）。供电能力提升至900mA，后续的USB 3.1更支持最大3A电流。
+
+USB Type-C于2014年发布，是USB接口的物理形态革新。它采用24针对称设计，支持正反插拔。Type-C接口整合了USB 3.1、DisplayPort、Thunderbolt等多种协议，最大传输速率可达40Gbps（USB4）。
+
+### 3.1 USB工作原理
+
+USB相较于传统的通信方式要复杂的多，主要基于D+、D-两根差分信号线配合来传输数据，当D+高于D-时，表示逻辑高；当D+低于D-时，表示逻辑低。
+
+协议层机制要复杂的多，目前没有实用场景，所以将来如果用到了再深入学习吧。
+
+## 四、CAN
+
+CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽车电子领域的现场总线技术。
+
+特点：
+- 差分信号传输，最大距离可达10km；
+- 支持多主架构，通信速率可配置，最高可达1Mbps；
+- 节点可热插拔；
+- 异步，半双工通信；
+- 可实现广播式、请求式两种通信方式；
+
+仅需要两跟信号线（CAN_H、CAN_L），无需共地；
+
+### 3.1 CAN工作原理
+
+硬件电路包含CAN总线上的设备，需要包含CAN控制器、CAN收发器
+
+```mermaid
+graph
+    subgraph Node1[设备1]
+        CANController1[CAN控制器]
+        CANTransceiver1[CAN收发器]
+        CANController1 -->|TX| CANTransceiver1
+        CANController1 -->|RX| CANTransceiver1
+    end
+
+    subgraph Node2[设备2]
+        CANController2[CAN控制器]
+        CANTransceiver2[CAN收发器]
+        CANController2 -->|TX| CANTransceiver2
+        CANController2 -->|RX| CANTransceiver2
+    end
+
+    subgraph Node3[设备3]
+        CANController3[CAN控制器]
+        CANTransceiver3[CAN收发器]
+        CANController3 -->|TX| CANTransceiver3
+        CANController3 -->|RX| CANTransceiver3
+    end
+
+    subgraph Node4[CAN总线]
+    CANTransceiver1 -->|CAN_H| CANBus_H[CAN_H]
+    CANTransceiver1 -->|CAN_L| CANBus_L[CAN_L]
+    CANTransceiver2 -->|CAN_H| CANBus_H
+    CANTransceiver2 -->|CAN_L| CANBus_L
+    CANTransceiver3 -->|CAN_H| CANBus_H
+    CANTransceiver3 -->|CAN_L| CANBus_L
+    end
+```
+
+CAN总线采用差分信号传输，电平状态由CAN_H和CAN_L的电压差决定。显性电平（Dominant）表示逻辑0，CAN_H约为3.5V，CAN_L约为1.5V，电压差约为2V。隐性电平（Recessive）表示逻辑1，CAN_H和CAN_L均为2.5V，电压差为0V。
+
+这里隐性是指默认状态，两线没有压差；反之亦然。
+
+标准数据帧格式：
+
+```mermaid
+packet-beta
+    0:"SOF"
+    1-11:"ID"
+    12:"RTR"
+    13:"IDE"
+    14:"r0"
+    15-18:"DLC"
+    19-83:"Data[64bit]"
+    84-98:"CRC"
+    99:"CRC"
+    100:"ACK"
+    101:"ACK"
+    102-109:"EOF"
+```
+
+- 0: SOF（Start of Frame）：第 0 位，1 位显性电平（逻辑 0），标志帧的开始。
+- 1-11: 标识符（Identifier）：第 1-11 位，表示消息的优先级和内容。
+- 12-15: 控制字段（Control Field）：
+- 12: RTR（Remote Transmission Request）：1 位显性电平（逻辑 0），表示数据帧；隐性电平（逻辑 1）表示远程帧。
+- 13: IDE（Identifier Extension Bit）：1 位显性电平（逻辑 0），表示标准帧；隐性电平（逻辑 1）表示扩展帧。
+- 14: r0（Reserved Bit）：1 位显性电平（逻辑 0），保留位。
+- 15-18: DLC（Data Length Code）：4 位，表示数据场的字节数（0-8 字节）。
+- 19-XX: 数据场（Data Field）：从第 19 位开始，长度为 0-8 字节，实际传输的数据。
+- XX+1-XX+15: CRC（Cyclic Redundancy Check）：15 位 CRC 校验码，用于错误检测。
+- XX+16: CRC界定符（CRC Delimiter）：1 位隐性电平（逻辑 1），标志 CRC 字段结束。
+- XX+17: ACK槽（ACK Slot）：1 位隐性电平（逻辑 1），发送节点发送，等待接收节点确认。
+- XX+17: ACK（Acknowledge）：1 位显性电平（逻辑 0），接收节点发送，确认接收成功。
+- XX+18: ACK界定符（ACK Delimiter）：1 位隐性电平（逻辑 1），标志 ACK 字段结束。
+- XX+19-XX+25: EOF（End of Frame）：7 位隐性电平（逻辑 1），标志帧的结束。
