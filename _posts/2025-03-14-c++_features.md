@@ -88,3 +88,50 @@ error: cannot declare variable 'obj' to be of abstract type 'AbstractClass'
 
 ### 2.4 STL容器
 
+STL是指C++标准模板库，包含了容器、迭代器、算法、函数、一些其他辅助功能，功能强大。
+
+STL容器部分常用的就是`std::vector`、`std::list`、`std::map`、`std::set`
+
+<div style="overflow-x: auto;">
+    <style>
+    td {
+        border: 1px solid #000;
+        padding: 8px;
+        white-space: nowrap; /* 所有文字不换行 */
+    }
+    </style>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>容器</th>
+                <th>特点</th>
+                <th>底层实现</th>
+                <th>存储状态</th>
+            </tr>
+        </thead>
+            <tr>
+                <td><code>std::vector</code></td>
+                <td>支持随机访问；尾部插入和删除高效；<br>需要预分配内存，可能引发内存重新分配；</td>
+                <td>动态数组</td>
+                <td>内存连续</td>
+            </tr>
+            <tr>
+                <td><code>std::list</code></td>
+                <td>任意位置插入和删除高效；不支持随机访问；</td>
+                <td>双向链表</td>
+                <td>内存不连续</td>
+            </tr>
+            <tr>
+                <td><code>std::map</code></td>
+                <td>键值对集合，键唯一；基于<b>键</b>自动排序；插入、删除和查找高效</td>
+                <td>红黑树</td>
+                <td>元素按键排序存储，内存不连续</td>
+            </tr>
+            <tr>
+                <td><code>std::set</code></td>
+                <td>有序集合，元素唯一；基于<b>值</b>自动排序；插入、删除和查找高效</td>
+                <td>红黑树</td>
+                <td>元素按值排序存储，内存不连续</td>
+            </tr>
+    </table>
+</div>
