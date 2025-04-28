@@ -338,6 +338,47 @@ CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽
 
 仅需要两跟信号线（CAN_H、CAN_L），无需共地；
 
+**Q: CAN和RS-485有什么区别？**<br>
+**A:** 
+<div style="overflow-x: auto;">
+    <style>
+    td {
+        border: 1px solid #000;
+        padding: 8px;
+        white-space: nowrap; /* 所有文字不换行 */
+    }
+    </style>
+    <table border="1">
+    <thead>
+        <tr>
+        <th>/</th>
+        <th>RS-485</th>
+        <th>CAN</th>
+        </tr>
+    </thead>
+        <tr>
+        <td>协议完整性</td>
+        <td>需外挂协议（如Modbus）</td>
+        <td>自带完整协议</td>
+        </tr>
+        <tr>
+        <td>多主机支持</td>
+        <td>需软件协调</td>
+        <td>硬件级多主机仲裁</td>
+        </tr>
+        <tr>
+        <td>错误恢复</td>
+        <td>无自动恢复机制</td>
+        <td>自动重发错误帧</td>
+        </tr>
+        <tr>
+        <td>成本</td>
+        <td>低（简单驱动芯片）</td>
+        <td>较高（专用CAN控制器）</td>
+        </tr>
+    </table>
+</div>
+
 ### 3.1 CAN工作原理
 
 硬件电路包含CAN总线上的设备，需要包含CAN控制器、CAN收发器
@@ -411,3 +452,28 @@ packet-beta
 - XX+17: ACK（Acknowledge）：1 位显性电平（逻辑 0），接收节点发送，确认接收成功。
 - XX+18: ACK界定符（ACK Delimiter）：1 位隐性电平（逻辑 1），标志 ACK 字段结束。
 - XX+19-XX+25: EOF（End of Frame）：7 位隐性电平（逻辑 1），标志帧的结束。
+
+## 五、MODBUS
+
+MODBUS工业领域常用的通信协议之一，是一种串行通信协议，协议规范公开，无需授权费用，支持广泛厂商设备兼容。
+
+特点：
+- 帧格式清晰（地址+功能码+数据+校验）；
+- 可以基于串口（RS-485/RS-232）进行二进制编码；
+- 也可以基于以太网，通过TCP端口502传输
+
+基于串口的标准数据帧格式：
+```mermaid
+packet-beta
+    0-7:"Header"
+    8-15:"Function Code"
+    16-31:"Start Address" 
+    32-47:"Register Count"
+    48-63:"CRC" 
+```
+
+- 0-7:从站地址
+- 8-15:功能码
+- 16-31:写入寄存器地址 
+- 32-47:寄存器值
+- 48-63:CRC校验
