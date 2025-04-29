@@ -67,7 +67,7 @@ virtual 返回类型 函数名(参数列表) = 0;
 - 抽象类适合作为接口。
 
 在 C++ 中，抽象类是不能直接实例化的。如果尝试直接创建抽象类的对象，编译器会报错。这是因为抽象类中包含至少一个纯虚函数，而纯虚函数没有实现，因此抽象类是一个不完整的类型，无法创建对象。
-```
+``` cmd
 error: cannot declare variable 'obj' to be of abstract type 'AbstractClass'
 ```
 

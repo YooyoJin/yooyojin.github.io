@@ -46,7 +46,7 @@ C++中常用的设计模式可以分为三大类：创建型模式、结构型�
 1. 创建工厂类（Factory）
 1. 在main函数中，通过调Factory::CreateProduct()方法来创建产品对象，并调用其AnOperation()方法。
 
-```mermaid
+``` mermaid
 classDiagram
 direction LR
     class Factory {

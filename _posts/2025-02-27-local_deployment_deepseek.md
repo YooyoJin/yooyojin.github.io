@@ -16,12 +16,12 @@ Ollama是一个开源工具，专注于在本地运行、管理和部署大型�
 
 1. 安装Ollama，[Ollama官网](https://ollama.com/)
 1. 配置用户环境变量
-    ```
-    OLLAMA_HOST     0.0.0.0:11434
-    OLLAMA_MODELS   D:\ollamaModels
+    ``` cmd
+    OLLAMA_HOS          0.0.0.0:11434
+    OLLAMA_MODELS       D:\ollamaModels
     ```
 1. 下载DeepSeek模型，根据本地环境，量力而行
-    ```
+    ``` cmd
     ollama run deepseek-r1:1.5b
     ollama run deepseek-r1:32b
     ```

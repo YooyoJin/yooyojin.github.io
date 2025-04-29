@@ -9,7 +9,7 @@ layout: post
 今天在bing上尝试搜索自己的网站，发现bing并未收录，很伤心，尝试寻找解决办法
 
 ## 一、如何查看网址是否被收录？
-```
+``` cmd
 # 使用site命令查询你的网址
 site:https://frothyjin.github.io/              
 ```
