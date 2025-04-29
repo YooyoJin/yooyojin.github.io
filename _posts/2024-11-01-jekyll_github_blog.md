@@ -27,32 +27,32 @@ layout: post
 
     解压下载的安装包
 
-    ```html
-    cd D:\rubygems-3.0.6                #切换文件目录
-    ruby setup.rb                       #安装
-    gem -v                              #查看rubygems版本号
-    gem list                            #查看已安装的 gems
-    gem update                          #更新
-    gem uninstall                       #卸载
+    ``` cmd
+    cd D:\rubygems-3.0.6            #切换文件目录
+    ruby setup.rb                   #安装
+    gem -v                          #查看rubygems版本号
+    gem list                        #查看已安装的 gems
+    gem update                      #更新
+    gem uninstall                   #卸载
     ```
 
 1. 安装Jekyll
 
     Jekyll的核心是一个文本转换引擎。它的方便之处在于支持多种文本标记语言：Markdown、Textile、HTML，然后Jekyll就会帮你加入你选择主题的样式的布局中。最终生成你自己的静态博客网站。
 
-    ```html
-    gem install jekyll                  #安装jekyll  
-    jekyll -v                           #查看jekyll版本号
+    ``` cmd
+    gem install jekyll              #安装jekyll  
+    jekyll -v                       #查看jekyll版本号
     ```
 
 1. 创建本地项目
 
     本地项目的话，只能通过本地打开
 
-    ```html
-    jekyll new restlessManBlog          #新建博客 
-    cd restlessManBlog                  #切换目录 
-    jekyll server                       #启动服务器
+    ``` cmd
+    jekyll new restlessManBlog      #新建博客 
+    cd restlessManBlog              #切换目录 
+    jekyll server                   #启动服务器
     ```
 
 1. 启动服务器
@@ -91,7 +91,7 @@ Github 上的博客模板：[https://github.com/jekyll/jekyll/wiki/Sites](https:
 
 原作者的_config.yml文件如下，
 
-```
+``` yaml
 url:              'https://sighingnow.github.io'
 baseurl:          '/jekyll-gitbook'
 rss:              RSS
@@ -110,13 +110,25 @@ favicon_path:     /assets/gitbook/images/favicon.ico
 
 修改后，我的_config.yml 文件如下
 
-```
+``` yaml
 url:              'https://frothyjin.github.io'
 baseurl:          ''
 rss:              RSS
 
 # customize the link favicon in header, will be {{site.baseurl}}/{{site.favicon_path}}
 favicon_path:     assets/gitbook/images/favicon.ico
+```
+### 2.1 博客Mermaid样式失效
+
+最新的mermaid地址可以从这里获取：https://www.jsdelivr.com/package/npm/mermaid 
+
+通常只需要修改`mermaid.html`文件中`mermaid_script.src`即可
+
+> 不需要预备的js代码，只需要单独地调用一个mermaid-js库即可,调用完成后，mermaid-js将会默认将HTML页面中class为mermaid的标签渲染为mermaid流程图<br>
+> [HTML - 在网页上显示mermaid流程图（使用纯js在网页上显示mermaid流程图）](https://blog.csdn.net/Tisfy/article/details/131464925#:~:text=%E6%9C%80%E6%96%B0%E7%89%88%E7%9A%84mermaidjs%E5%9C%B0%E5%9D%80%E5%8F%AF%E4%BB%A5%E5%9C%A8%20https%3A%2F%2Fwww.jsdelivr.com%2Fpackage%2Fnpm%2Fmermaid%20%E8%8E%B7%E5%8F%96%E3%80%82,%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C%EF%BC%9A%20%E7%94%B1%E4%BA%8E%E6%9F%90%E4%BA%9B%E6%BB%A5%E7%94%A8%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%8Cjsdelivr%E5%9C%A8%E5%A4%A7%E9%99%86%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E3%80%82%20%E5%9B%A0%E6%AD%A4%E5%BF%85%E9%A1%BB%E5%80%9F%E5%8A%A9%E5%85%B6%E4%BB%96js%E6%BA%90%EF%BC%8C%E6%88%96%E8%80%85%E5%B0%86mermaid%E6%89%80%E9%9C%80%E4%BB%A3%E7%A0%81%E7%AD%89%E4%B8%8B%E8%BD%BD%E8%87%B3%E6%9C%AC%E5%9C%B0%E3%80%82)
+
+``` yaml
+mermaid_script.src = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js';
 ```
 
 ## 三、参考资料
