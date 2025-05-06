@@ -33,12 +33,15 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
 
 ### 1.2 Modbus功能码
 
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Modbus 功能码对照表</title>
     <style>
+        td {
+            border: 1px solid #000;
+            padding: 8px;
+            white-space: nowrap; /* 所有文字不换行 */
+        }S
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -72,7 +75,6 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
     </style>
 </head>
 <body>
-    <h1>Modbus 功能码对照表</h1>
     <table>
         <thead>
             <tr>
@@ -154,7 +156,6 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
     <div class="note">
         <p><strong>说明：</strong></p>
         <ul>
-            <li>异常响应功能码 = 原功能码 + 0x80（如 0x01 异常为 0x81）。</li>
             <li>Modbus TCP 和 RTU 的功能码相同，仅传输格式不同。</li>
         </ul>
     </div>
@@ -166,15 +167,15 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
 
 ### 2.1 界面主要功能介绍
 
-基本界面功能和Modbus Poll差不多
-
 **菜单栏Setup -> Slave Definition** 包含从机参数设置
 
-## 三、Modbus主机/从机模拟通信
+其他的化界面基本功能和Modbus Poll差不多
 
-通过vpsd虚拟串口工具，建立两个模拟端口连接
+## 三、Modbus Poll/Slave模拟通信
 
-配置Modbus Poll与Modbus slave，就可以实现数据收发。(需要注意，这里两个工具的Slave ID需要保持一致)
+想要模拟通信的化，首先需要通过vpsd虚拟串口工具，建立两个模拟端口连接
+
+配置好Modbus Poll与Modbus slave，端口、波特率、数据位等基本信息就可以实现数据收发。(需要注意，这里两个工具的Slave ID需要保持一致)
 
 下面是我通过Modbus poll工具Communication Traffic捞回的日志，这里我将地址0的数据从原来的0x01修改位0x00。如果从从从机接收日志，收发关系会对调一下。
 

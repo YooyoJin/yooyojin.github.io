@@ -348,7 +348,7 @@ CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽
         white-space: nowrap; /* 所有文字不换行 */
     }
     </style>
-    <table border="1">
+    <table border="0">
     <thead>
         <tr>
         <th>/</th>
