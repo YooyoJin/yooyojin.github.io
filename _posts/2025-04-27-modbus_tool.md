@@ -33,134 +33,136 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
 
 ### 1.2 Modbus功能码
 
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <style>
-        td {
-            border: 1px solid #000;
-            padding: 8px;
-            white-space: nowrap; /* 所有文字不换行 */
-        }S
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .note {
-            font-style: italic;
-            color: #666;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th>功能码（十进制）</th>
-                <th>功能码（十六进制）</th>
-                <th>功能名称</th>
-                <th>功能概述</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>01</td>
-                <td>0x01</td>
-                <td>Read Coils</td>
-                <td>读取线圈（可读写布尔量，如继电器状态）</td>
-            </tr>
-            <tr>
-                <td>02</td>
-                <td>0x02</td>
-                <td>Read Discrete Inputs</td>
-                <td>读取离散输入（只读布尔量，如传感器信号）</td>
-            </tr>
-            <tr>
-                <td>03</td>
-                <td>0x03</td>
-                <td>Read Holding Registers</td>
-                <td>读取保持寄存器（可读写16位数据，如设备参数）</td>
-            </tr>
-            <tr>
-                <td>04</td>
-                <td>0x04</td>
-                <td>Read Input Registers</td>
-                <td>读取输入寄存器（只读16位数据，如传感器模拟量）</td>
-            </tr>
-            <tr>
-                <td>05</td>
-                <td>0x05</td>
-                <td>Write Single Coil</td>
-                <td>写入单个线圈（设置单个继电器开/关）</td>
-            </tr>
-            <tr>
-                <td>06</td>
-                <td>0x06</td>
-                <td>Write Single Register</td>
-                <td>写入单个保持寄存器</td>
-            </tr>
-            <tr>
-                <td>15</td>
-                <td>0x0F</td>
-                <td>Write Multiple Coils</td>
-                <td>写入多个线圈（批量设置继电器状态）</td>
-            </tr>
-            <tr>
-                <td>16</td>
-                <td>0x10</td>
-                <td>Write Multiple Registers</td>
-                <td>写入多个保持寄存器（批量写入）</td>
-            </tr>
-            <tr>
-                <td>22</td>
-                <td>0x16</td>
-                <td>Mask Write Register</td>
-                <td>对保持寄存器进行位掩码写入（按位与/或操作）</td>
-            </tr>
-            <tr>
-                <td>23</td>
-                <td>0x17</td>
-                <td>Read/Write Multiple Registers</td>
-                <td>同时执行读取和写入多个寄存器的复合操作</td>
-            </tr>
-            <tr>
-                <td>24</td>
-                <td>0x18</td>
-                <td>Read FIFO Queue</td>
-                <td>读取FIFO（先进先出）队列中的数据（特殊设备使用）</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="note">
-        <p><strong>说明：</strong></p>
-        <ul>
-            <li>Modbus TCP 和 RTU 的功能码相同，仅传输格式不同。</li>
-        </ul>
-    </div>
-</body>
-</html>
+<div style="overflow-x: auto;">
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            td {
+                border: 1px solid #000;
+                padding: 8px;
+                white-space: nowrap; /* 所有文字不换行 */
+            }S
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            h1 {
+                color: #2c3e50;
+                text-align: center;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            .note {
+                font-style: italic;
+                color: #666;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>功能码（十进制）</th>
+                    <th>功能码（十六进制）</th>
+                    <th>功能名称</th>
+                    <th>功能概述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>0x01</td>
+                    <td>Read Coils</td>
+                    <td>读取线圈（可读写布尔量，如继电器状态）</td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>0x02</td>
+                    <td>Read Discrete Inputs</td>
+                    <td>读取离散输入（只读布尔量，如传感器信号）</td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td>0x03</td>
+                    <td>Read Holding Registers</td>
+                    <td>读取保持寄存器（可读写16位数据，如设备参数）</td>
+                </tr>
+                <tr>
+                    <td>04</td>
+                    <td>0x04</td>
+                    <td>Read Input Registers</td>
+                    <td>读取输入寄存器（只读16位数据，如传感器模拟量）</td>
+                </tr>
+                <tr>
+                    <td>05</td>
+                    <td>0x05</td>
+                    <td>Write Single Coil</td>
+                    <td>写入单个线圈（设置单个继电器开/关）</td>
+                </tr>
+                <tr>
+                    <td>06</td>
+                    <td>0x06</td>
+                    <td>Write Single Register</td>
+                    <td>写入单个保持寄存器</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>0x0F</td>
+                    <td>Write Multiple Coils</td>
+                    <td>写入多个线圈（批量设置继电器状态）</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>0x10</td>
+                    <td>Write Multiple Registers</td>
+                    <td>写入多个保持寄存器（批量写入）</td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td>0x16</td>
+                    <td>Mask Write Register</td>
+                    <td>对保持寄存器进行位掩码写入（按位与/或操作）</td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>0x17</td>
+                    <td>Read/Write Multiple Registers</td>
+                    <td>同时执行读取和写入多个寄存器的复合操作</td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td>0x18</td>
+                    <td>Read FIFO Queue</td>
+                    <td>读取FIFO（先进先出）队列中的数据（特殊设备使用）</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="note">
+            <p><strong>说明：</strong></p>
+            <ul>
+                <li>Modbus TCP 和 RTU 的功能码相同，仅传输格式不同。</li>
+            </ul>
+        </div>
+    </body>
+    </html>
+</div>
 
 
 ## 二、Modbus Slave
