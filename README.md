@@ -1,6 +1,6 @@
 ---
 layout: home
-title: ForthyJin's bolg
+title: YooyoJin's bolg
 permalink: /
 ---
 
