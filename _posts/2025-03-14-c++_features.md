@@ -100,7 +100,7 @@ STL容器部分常用的就是`std::vector`、`std::list`、`std::map`、`std::s
         white-space: nowrap; /* 所有文字不换行 */
     }
     </style>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>容器</th>

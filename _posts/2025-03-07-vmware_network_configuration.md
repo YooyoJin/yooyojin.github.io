@@ -63,11 +63,103 @@ layout: post
 
 总结下来大致上如下？
 
-| 特性 | 仅主机模式 (Host-Only) | NAT 模式 | 桥接模式 (Bridged) |
-|-:|:-:|:-:|:-:|
-| **网络连接**          | 虚拟机与主机之间的私有网络         | 虚拟机通过主机访问外部网络           | 虚拟机直接连接到外部网络          |
-| **IP 地址**           | 虚拟机使用私有 IP 地址            | 虚拟机使用私有 IP 地址                | 虚拟机使用与主机相同的网络中的 IP 地址 |
-| **外部网络访问**       | 无法访问外部网络                   | 可以访问外部网络                      | 可以访问外部网络                  |
-| **外部设备访问虚拟机** | 外部设备无法访问虚拟机              | 外部设备无法直接访问虚拟机             | 外部设备可以直接访问虚拟机        |
-| **网络配置**          | 自动配置，无需手动干预              | 自动配置，无需手动干预                 | 需要手动配置网络参数              |
-| **适用场景**          | 虚拟机与主机之间的通信              | 虚拟机需要访问互联网但不需要被外部访问 | 虚拟机需要与外部设备直接通信      |
+<div style="overflow-x: auto;">
+   <html lang="zh-CN">
+   <head>
+      <meta charset="UTF-8">
+      <style>
+         body {
+               font-family: Arial, sans-serif;
+               margin: 20px;
+               line-height: 1.6;
+         }
+         h1 {
+               color: #2c3e50;
+               text-align: center;
+               margin-bottom: 20px;
+         }
+         table {
+               width: 100%;
+               border-collapse: collapse;
+               margin: 20px 0;
+               box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+         }
+         th, td {
+               border: 1px solid #ddd;
+               padding: 12px;
+               text-align: left;
+               white-space: nowrap; /* 所有文字不换行 */
+         }
+         th {
+               background-color: #f2f2f2;
+               font-weight: bold;
+               color: #333;
+         }
+         tr:nth-child(even) {
+               background-color: #f9f9f9;
+         }
+         tr:hover {
+               background-color: #f1f1f1;
+         }
+         .note {
+               font-style: italic;
+               color: #666;
+               margin-top: 20px;
+               padding: 10px;
+               background-color: #f8f8f8;
+               border-left: 4px solid #2c3e50;
+         }
+      </style>
+   </head>
+   <body>
+      <table>
+         <thead>
+               <tr>
+                  <th>特性</th>
+                  <th>仅主机模式 (Host-Only)</th>
+                  <th>NAT 模式</th>
+                  <th>桥接模式 (Bridged)</th>
+               </tr>
+         </thead>
+         <tbody>
+               <tr>
+                  <td><strong>网络连接</strong></td>
+                  <td>虚拟机与主机之间的私有网络</td>
+                  <td>虚拟机通过主机访问外部网络</td>
+                  <td>虚拟机直接连接到外部网络</td>
+               </tr>
+               <tr>
+                  <td><strong>IP 地址</strong></td>
+                  <td>虚拟机使用私有 IP 地址</td>
+                  <td>虚拟机使用私有 IP 地址</td>
+                  <td>虚拟机使用与主机相同的网络中的 IP 地址</td>
+               </tr>
+               <tr>
+                  <td><strong>外部网络访问</strong></td>
+                  <td>无法访问外部网络</td>
+                  <td>可以访问外部网络</td>
+                  <td>可以访问外部网络</td>
+               </tr>
+               <tr>
+                  <td><strong>外部设备访问虚拟机</strong></td>
+                  <td>外部设备无法访问虚拟机</td>
+                  <td>外部设备无法直接访问虚拟机</td>
+                  <td>外部设备可以直接访问虚拟机</td>
+               </tr>
+               <tr>
+                  <td><strong>网络配置</strong></td>
+                  <td>自动配置，无需手动干预</td>
+                  <td>自动配置，无需手动干预</td>
+                  <td>需要手动配置网络参数</td>
+               </tr>
+               <tr>
+                  <td><strong>适用场景</strong></td>
+                  <td>虚拟机与主机之间的通信</td>
+                  <td>虚拟机需要访问互联网但不需要被外部访问</td>
+                  <td>虚拟机需要与外部设备直接通信</td>
+               </tr>
+         </tbody>
+      </table>
+   </body>
+   </html>
+</div>

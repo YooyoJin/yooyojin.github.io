@@ -18,7 +18,7 @@ mermaid: true
         white-space: nowrap; /* 所有文字不换行 */
     }
     </style>
-    <table border="1">
+    <table>
     <tr>
         <th>特性</th>
         <th>UART</th>
@@ -348,34 +348,34 @@ CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽
         white-space: nowrap; /* 所有文字不换行 */
     }
     </style>
-    <table border="0">
-    <thead>
-        <tr>
-        <th>/</th>
-        <th>RS-485</th>
-        <th>CAN</th>
-        </tr>
-    </thead>
-        <tr>
-        <td>协议完整性</td>
-        <td>需外挂协议（如Modbus）</td>
-        <td>自带完整协议</td>
-        </tr>
-        <tr>
-        <td>多主机支持</td>
-        <td>需软件协调</td>
-        <td>硬件级多主机仲裁</td>
-        </tr>
-        <tr>
-        <td>错误恢复</td>
-        <td>无自动恢复机制</td>
-        <td>自动重发错误帧</td>
-        </tr>
-        <tr>
-        <td>成本</td>
-        <td>低（简单驱动芯片）</td>
-        <td>较高（专用CAN控制器）</td>
-        </tr>
+    <table>
+        <thead>
+            <tr>
+            <th>/</th>
+            <th>RS-485</th>
+            <th>CAN</th>
+            </tr>
+        </thead>
+            <tr>
+            <td>协议完整性</td>
+            <td>需外挂协议（如Modbus）</td>
+            <td>自带完整协议</td>
+            </tr>
+            <tr>
+            <td>多主机支持</td>
+            <td>需软件协调</td>
+            <td>硬件级多主机仲裁</td>
+            </tr>
+            <tr>
+            <td>错误恢复</td>
+            <td>无自动恢复机制</td>
+            <td>自动重发错误帧</td>
+            </tr>
+            <tr>
+            <td>成本</td>
+            <td>低（简单驱动芯片）</td>
+            <td>较高（专用CAN控制器）</td>
+            </tr>
     </table>
 </div>
 
