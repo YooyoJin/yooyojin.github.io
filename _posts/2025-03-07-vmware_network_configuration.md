@@ -1,6 +1,6 @@
 ---
 title: VMware虚拟机网络配置
-author: FrothyJin
+author: YooyoJin
 date: 2025-03-07
 category: Jekyll
 layout: post

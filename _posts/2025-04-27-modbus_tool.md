@@ -1,6 +1,6 @@
 ---
 title: Modbus工具之Modbus Poll与Modbus Slave
-author: FrothyJin
+author: YooyoJin
 date: 2025-04-27
 category: Jekyll
 layout: post

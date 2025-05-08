@@ -1,6 +1,6 @@
 ---
 title: 草稿页
-author: FrothyJin
+author: YooyoJin
 date: 2022-02-06
 category: Jekyll
 layout: post

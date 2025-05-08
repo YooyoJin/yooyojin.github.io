@@ -1,6 +1,6 @@
 ---
 title: 无线线通信协议基础
-author: FrothyJin
+author: YooyoJin
 date: 2025-03-31
 category: Jekyll
 layout: post

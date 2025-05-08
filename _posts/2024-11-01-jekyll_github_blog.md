@@ -1,6 +1,6 @@
 ---
 title: Github博客搭建
-author: FrothyJin
+author: YooyoJin
 date: 2024-11-01
 category: Jekyll
 layout: post
@@ -104,14 +104,14 @@ favicon_path:     /assets/gitbook/images/favicon.ico
 
 经过排查发现，我与作者目录层级存在差异，原作者在https://sighingnow.github.io/jekyll-gitbook层级下为博客主页
 
-而我在创立博客时，直接以第一层级目录为主页https://frothyjin.github.io，故我删除了baseurl路径，网页样式恢复正常
+而我在创立博客时，直接以第一层级目录为主页https://yooyojin.github.io，故我删除了baseurl路径，网页样式恢复正常
 
 删除时，仍发现我没有图标，通过F12查看网页代码，发现favicon.ico没有正确识别，删除favicon_path 第一级"/"后恢复(我也没搞清楚为啥)
 
 修改后，我的_config.yml 文件如下
 
 ``` yaml
-url:              'https://frothyjin.github.io'
+url:              'https://yooyojin.github.io'
 baseurl:          ''
 rss:              RSS
 

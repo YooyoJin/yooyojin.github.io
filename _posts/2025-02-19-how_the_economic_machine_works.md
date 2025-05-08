@@ -1,6 +1,6 @@
 ---
 title: 经济机器是怎样运行的
-author: FrothyJin
+author: YooyoJin
 date: 2025-02-19
 category: Jekyll
 layout: post

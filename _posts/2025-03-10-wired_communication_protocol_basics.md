@@ -1,6 +1,6 @@
 ---
 title: 有线通信协议基础
-author: FrothyJin
+author: YooyoJin
 date: 2025-03-10
 category: Jekyll
 layout: post

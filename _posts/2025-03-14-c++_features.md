@@ -1,6 +1,6 @@
 ---
 title: C++特性
-author: FrothyJin
+author: YooyoJin
 date: 2025-03-14
 category: Jekyll
 layout: post

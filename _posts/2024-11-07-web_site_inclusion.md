@@ -1,6 +1,6 @@
 ---
 title: 网站收录
-author: FrothyJin
+author: YooyoJin
 date: 2024-11-07
 category: Jekyll
 layout: post
@@ -11,7 +11,7 @@ layout: post
 ## 一、如何查看网址是否被收录？
 ``` cmd
 # 使用site命令查询你的网址
-site:https://frothyjin.github.io/              
+site:https://yooyojin.github.io/              
 ```
 
 ## 二、网站的收录
@@ -24,8 +24,8 @@ site:https://frothyjin.github.io/
 
 1. 实际上他会给你发来一个通知，我们需要按照提示操作
 
-    >  改善frothyjin.github.io的搜索状态    
-    >  欢迎来到Bing网站管理员工具。我们注意到，你最近验证了 https://frothyjin.github.io/    
+    >  改善yooyojin.github.io的搜索状态    
+    >  欢迎来到Bing网站管理员工具。我们注意到，你最近验证了 https://yooyojin.github.io/    
     >  以下是利用我们的工具并提高你的网站在Bing上搜索性能的一些步骤和提示:  
     >  首先使用Sitemaps工具提交你的网站地图。提交网站地图是向我们的爬虫告知网站上所有页面的绝佳方式。   
     >  如果需要索引网站的特定页面，请使用URL提交工具提交它们。为了实现自动化，我们建议将URL提交API集成到你的网站，以便立即告诉必应你的网站上有哪些页面已经更新。     

@@ -1,6 +1,6 @@
 ---
 title: C++设计模式
-author: FrothyJin
+author: YooyoJin
 date: 2025-03-18
 category: Jekyll
 layout: post

@@ -1,6 +1,6 @@
 ---
 title: 联系我
-author: FrothyJin
+author: YooyoJin
 date: 2022-02-05
 category: Jekyll
 layout: post

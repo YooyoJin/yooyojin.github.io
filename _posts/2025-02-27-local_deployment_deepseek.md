@@ -1,6 +1,6 @@
 ---
 title: 本地部署DeepSeek
-author: FrothyJin
+author: YooyoJin
 date: 2025-03-01
 category: Jekyll
 layout: post

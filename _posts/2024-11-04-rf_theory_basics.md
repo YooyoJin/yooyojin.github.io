@@ -1,6 +1,6 @@
 ---
 title: 射频理论基础
-author: FrothyJin
+author: YooyoJin
 date: 2024-11-04
 category: Jekyll
 layout: post

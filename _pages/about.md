@@ -1,6 +1,6 @@
 ---
 title: 关于
-author: FrothyJin
+author: YooyoJin
 date: 2022-02-04
 category: Jekyll
 layout: post

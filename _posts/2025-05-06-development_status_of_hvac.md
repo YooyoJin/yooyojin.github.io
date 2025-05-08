@@ -1,6 +1,6 @@
 ---
 title: 冷暖空调、热泵行业分析
-author: FrothyJin
+author: YooyoJin
 date: 2025-05-06
 category: Jekyll
 layout: post

@@ -1,6 +1,6 @@
 ---
 title: 射频测试方法
-author: FrothyJin
+author: YooyoJin
 date: 2024-11-04
 category: Jekyll
 layout: post

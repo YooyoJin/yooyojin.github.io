@@ -1,6 +1,6 @@
 ---
 title: C/C++代码规范
-author: FrothyJin
+author: YooyoJin
 date: 2024-11-06
 category: Jekyll
 layout: post

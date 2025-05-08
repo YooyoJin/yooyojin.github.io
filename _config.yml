@@ -1,7 +1,7 @@
 # Configurations
 title:            主页
 longtitle:        主页
-author:           FrothyJin
+author:           YooyoJin
 email:            yooyojin@foxmail.com
 description: >
   Build Jekyll site with the GitBook style.
@@ -9,7 +9,7 @@ description: >
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'https://frothyjin.github.io'
+url:              'https://yooyojin.github.io'
 baseurl:          ''
 rss:              RSS
 

@@ -1,6 +1,6 @@
 ---
 title: 单片机基础
-author: FrothyJin
+author: YooyoJin
 date: 2025-04-01
 category: Jekyll
 layout: post
