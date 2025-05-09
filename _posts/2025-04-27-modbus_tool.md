@@ -11,9 +11,9 @@ Modbus Poll与Modbus Slave是两款我们在调试modbus时常用的两款第三
 
 Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Modbus Poll与Modbus Slave支持三种协议，更好的帮助开发者测试Modbus主从设备
 
-## 一、Modbus Poll
+## 1. Modbus Poll
 
-### 1.1 界面主要功能介绍
+### 1.1. 界面主要功能介绍
 
 **菜单栏Connection -> Connection Setup** 包含基础连接参数配置
 - 连接方式(串口、TCP/IP)
@@ -31,7 +31,7 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
 **主窗口** 展示状态和寄存器回读结果
 - Tx = 0: Err = 0: ID = 9: F = 03: SR = 1000ms（查询次数、错误次数、从机设备ID、功能码、扫描周期）
 
-### 1.2 Modbus功能码
+### 1.2. Modbus功能码
 
 <div style="overflow-x: auto;">
     <html lang="zh-CN">
@@ -165,15 +165,15 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
 </div>
 
 
-## 二、Modbus Slave
+## 2. Modbus Slave
 
-### 2.1 界面主要功能介绍
+### 2.1. 界面主要功能介绍
 
 **菜单栏Setup -> Slave Definition** 包含从机参数设置
 
 其他的化界面基本功能和Modbus Poll差不多
 
-## 三、Modbus Poll/Slave模拟通信
+## 3. Modbus Poll/Slave模拟通信
 
 想要模拟通信的化，首先需要通过vpsd虚拟串口工具，建立两个模拟端口连接
 

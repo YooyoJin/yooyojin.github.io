@@ -8,15 +8,15 @@ layout: post
 
 今天在bing上尝试搜索自己的网站，发现bing并未收录，很伤心，尝试寻找解决办法
 
-## 一、如何查看网址是否被收录？
+## 1. 如何查看网址是否被收录？
 ``` cmd
 # 使用site命令查询你的网址
 site:https://yooyojin.github.io/              
 ```
 
-## 二、网站的收录
+## 2. 网站的收录
 
-### 2.1 bing
+### 2.1. bing
 
 [bing网站收录提交入口](https://www.bing.com/webmasters/)
 
@@ -51,17 +51,17 @@ site:https://yooyojin.github.io/
 
 1. 等待收录
 
-### 2.2 google
+### 2.2. google
 
 [google网站收录提交入口](https://search.google.com/)
 
-## 三、常见问题&解决办法
+## 常见问题&解决办法
 
-### 3.1 页面具有多个<h1>标记，管理页面SEO提示报错
+### 页面具有多个<h1>标记，管理页面SEO提示报错
 
 找到问题确实页面中存在多个<h1>标题的现象，找到后屏蔽重复标题解决
 
-### 3.2 bing显示已发现未收录
+### bing显示已发现未收录
 
 很难受，仍未收录，google已经收录了
 
