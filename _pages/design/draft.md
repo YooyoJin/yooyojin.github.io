@@ -23,3 +23,4 @@ layout: post
 1. c++进程
 1. Linux基础
 1. 空调热泵能源解决方案行业调研
+1. Modbus Holding Register定义与应用解析补充
