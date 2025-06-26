@@ -105,6 +105,24 @@ C --> D : 弹性顶针
 @enduml
 ```
 
+``` plantuml
+@startmindmap
++ <&flag>OS
+++ Unix
+++ Linux
+++ MacOS
+** Windows
+*** Windows 95
+*** Windows 98
+*** Windows 7
+*** Windows 8
+*** Windows 10
+++ FreeBSD
+++ Other
+@endmindmap
+```
+
+
 ## 2. 时钟系统
 
 ## 3. 复位电路

@@ -6,7 +6,6 @@ function render_plantuml() {
         var encoded = plantumlEncoder.encode(umlCode);
         var img = document.createElement('img');
         img.src = 'https://www.plantuml.com/plantuml/svg/' + encoded;
-        // img.src = '//www.plantuml.com/plantuml/png/SoWkIImgAStDuSf9JIjHACbNACfCpoXHICaiIaqkoSpFu-9AJ2x9Br9uFcN5iuxj2ed52evSoVcv1VbvgNab2WfApxPslrW_zUdsfIyMjpxVjVzPt_AdCrSeWTGvSO6CICnBpqb5LVPixdwm0cTa1K_tjGBLFDcn6oRhmiNbgA2hQmSqnqd11iHmLb2mKZ2nC7tPCEl9_eLSpc1P5w3OqpqxdpKiVxbmsyj97LmEgNafGFy00000'
         img.alt = 'PlantUML diagram';
         block.parentNode.replaceChild(img, block);
     });
