@@ -39,5 +39,10 @@
     {% include mermaid.html %}
 {% endif %}
 
+<!-- introduce per-page plantuml support -->
+{% if page.plantuml %}
+    {% include plantuml.html %}
+{% endif %}
+
 <!-- introduce mathjax support -->
 {% include fixes-chrome-anchors.html %}
