@@ -43,10 +43,6 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
                 padding: 8px;
                 white-space: nowrap; /* 所有文字不换行 */
             }
-            body {
-                font-family: Arial, sans-serif;
-                margin: 20px;
-            }
             table {
                 width: 100%;
                 border-collapse: collapse;
@@ -63,11 +59,6 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
             }
             tr:nth-child(even) {
                 background-color: #f9f9f9;
-            }
-            .note {
-                font-style: italic;
-                color: #666;
-                margin-top: 20px;
             }
         </style>
     </head>
@@ -150,15 +141,12 @@ Modbus通信包含串口（RTU，ASCLL）和网络（TCP/IP）三种协议。Mod
                 </tr>
             </tbody>
         </table>
-        <div class="note">
-            <p><strong>说明：</strong></p>
-            <ul>
-                <li>Modbus TCP 和 RTU 的功能码相同，仅传输格式不同。</li>
-            </ul>
-        </div>
     </body>
     </html>
 </div>
+
+_**说明**_
+- Modbus TCP 和 RTU 的功能码相同，仅传输格式不同。
 
 
 ## 2. Modbus Slave
