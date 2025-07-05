@@ -5,10 +5,12 @@ date: 2025-03-10
 category: Jekyll
 layout: post
 mermaid: true
+plantuml: true
 ---
 
-说到通信协议，HTPP、TCP/IP张口就来，这是如今网络通信的基石；
-但是如今嵌入式系统中也通信协议也数不胜数，UART、I2C、SPI、USB、CAN、PCIe这类是常用的有线通信协议，当然也有无线通信协议Bluetooth、WiFi、ZigBee等；
+提到通信协议，除了常见的HTTP、TCP/IP等网络协议和Modbus等应用层协议外，嵌入式系统中，还广泛使用UART、I2C、SPI等芯片间通信协议，CAN等工业总线，USB、PCIe等高速接口，以及Bluetooth、WiFi、ZigBee等无线协议。
+
+需要注意的是像RS-485、RS-232、TTL等主要定义的是电气特性或物理层规范，而不是完整的通信协议。
 
 <div style="overflow-x: auto;">
     <style>
@@ -135,7 +137,7 @@ UART使用异步方式进行数据传输，这意味着它不需要共享时钟�
 
 ### 1.2. UART的基本通信过程
 
-```mermaid
+``` mermaid
 sequenceDiagram
     participant 发送端
     participant 接收端
@@ -211,7 +213,7 @@ sequenceDiagram
 **最大距离**|通常较短（几米到几十米）|最长 15 米|最长 1200 米
 **应用场景**|常见于计算机串口|计算机串口、POS、打印机|工业自动化、仪表控制
 
-TTL、RS232和RS485电平标准不同，通常需要通过电平转换器来实现它们之间的互通。常用的MAX232（RS232 转 TTL 转换器）或 RS485转TTL转换器来进行电平转换和实现不同设备之间的通信。
+TTL、RS232和RS485电平标准不同，通常需要通过电平转换器来实现它们之间的互通。常用的MAX232（RS232转TTL）或 MAX485（RS485转TTL）来进行电平转换和实现不同设备之间的通信。
 
 ## 2. I2C
 
@@ -245,7 +247,7 @@ I2C由时钟线和数据线共同作用，来实现信号的发送接收:
 
 ### 2.3. I2C的基本通信过程
 
-```mermaid
+``` mermaid
 sequenceDiagram
     participant 主机
     participant 从机
@@ -259,9 +261,9 @@ sequenceDiagram
 
 像STM32部分GPIO有配置I2C硬件资源，硬件模块会自动处理大部分时序，大大简化了I2C通信的实现，开发者只需要配置相应的参数（如时钟速度、I2C模式等），然后就可以使用简单的API进行数据传输。
 
-当然也可以在STM32上模拟I2C通信（即使用软件模拟I2C）这种方法并不依赖于硬件I2C模块，而是通过GPIO引脚手动控制时钟（SCL）和数据（SDA）线的电平变化来模拟I2C的时序。
-
 ### 2.4. 硬件I2C与软件I2C（模拟I2C）的区别
+
+当然也可以在单片机上模拟I2C通信（即使用软件模拟I2C）这种方法并不依赖于硬件I2C模块，而是通过GPIO引脚手动控制时钟（SCL）和数据（SDA）线的电平变化来模拟I2C的时序。
 
 硬件I2C通常指硬件模块实现的，直接通过寄存器配置控制时序。
 - 优点：
@@ -322,7 +324,7 @@ SPI有四种常见模式，分别由CPOL和CPHA的不同组合产生：
 
 ### 3.2. SPI的基本通信过程
 
-```mermaid
+``` mermaid
 sequenceDiagram
     participant 主机
     participant 从机
@@ -356,11 +358,13 @@ USB相较于传统的通信方式要复杂的多，主要基于D+、D-两根差�
 CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽车电子领域的现场总线技术。
 
 特点：
-- 差分信号传输，最大距离可达10km；
+- 差分信号传输，最大距离可达1km；
 - 支持多主架构，通信速率可配置，最高可达1Mbps；
 - 节点可热插拔；
 - 异步，半双工通信；
 - 可实现广播式、请求式两种通信方式；
+- 根据标识符（Identifier 以下称为 ID）决定优先级（ID 并不是表示发送的目的地址，而是表示访问总线的消息的优先级）。
+- 同一网络中，所有单元必须设定成统一的通信速度
 
 仅需要两跟信号线（CAN_H、CAN_L），无需共地；
 
@@ -407,48 +411,52 @@ CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽
 
 ### 5.1 CAN工作原理
 
-硬件电路包含CAN总线上的设备，需要包含CAN控制器、CAN收发器
+### 5.1.1 物理层特性
 
-```mermaid
-graph
-    subgraph Node1[设备1]
-        CANController1[CAN控制器]
-        CANTransceiver1[CAN收发器]
-        CANController1 -->|TX| CANTransceiver1
-        CANController1 -->|RX| CANTransceiver1
+硬件电路包含CAN总线上的设备，需要包含CAN控制器、CAN收发器。
+
+``` mermaid
+flowchart LR
+
+    %% 节点1
+    subgraph Node1[CAN节点]
+        direction TB
+        subgraph MCU1[MCU]
+            CAN_Controller1[CAN 控制器]
+        end
+        CAN_Transceiver1@{ shape: hex, label: "CAN 收发器" }
+        CAN_Controller1 ---|CAN_TX/CAN_RX| CAN_Transceiver1
     end
 
-    subgraph Node2[设备2]
-        CANController2[CAN控制器]
-        CANTransceiver2[CAN收发器]
-        CANController2 -->|TX| CANTransceiver2
-        CANController2 -->|RX| CANTransceiver2
+    %% CAN总线
+    subgraph Node2[CAN BUS]
+        CAN_High/CAN_Low
     end
 
-    subgraph Node3[设备3]
-        CANController3[CAN控制器]
-        CANTransceiver3[CAN收发器]
-        CANController3 -->|TX| CANTransceiver3
-        CANController3 -->|RX| CANTransceiver3
-    end
 
-    subgraph Node4[CAN总线]
-    CANTransceiver1 -->|CAN_H| CANBus_H[CAN_H]
-    CANTransceiver1 -->|CAN_L| CANBus_L[CAN_L]
-    CANTransceiver2 -->|CAN_H| CANBus_H
-    CANTransceiver2 -->|CAN_L| CANBus_L
-    CANTransceiver3 -->|CAN_H| CANBus_H
-    CANTransceiver3 -->|CAN_L| CANBus_L
-    end
+    %% CAN总线连接
+    CAN_Transceiver1 --- CAN_High/CAN_Low
+
+
 ```
 
-CAN总线采用差分信号传输，电平状态由CAN_H和CAN_L的电压差决定。显性电平（Dominant）表示逻辑0，CAN_H约为3.5V，CAN_L约为1.5V，电压差约为2V。隐性电平（Recessive）表示逻辑1，CAN_H和CAN_L均为2.5V，电压差为0V。
+CAN总线采用差分信号传输，电平状态由CAN_H和CAN_L的电压差决定。
+- 显性电平（Dominant）表示逻辑0，CAN_H约为3.5V，CAN_L约为1.5V，电压差约为2V。
+- 隐性电平（Recessive）表示逻辑1，CAN_H和CAN_L均为2.5V，电压差为0V。
 
 这里隐性是指默认状态，两线没有压差；反之亦然。
 
+当多节点冲突时，采用的“线与”逻辑：显性（0）优先于隐性（1）；只有所有节点均发送隐性（1），总线才表现为隐性。
+
+### 5.1.2 数据链路层特性
+
+帧化、错误检测、仲裁、应答等，这些都属于数据链路层的范畴。
+
+帧格式：有数据帧、遥控帧、错误帧、过载帧4种帧类型。
+
 标准数据帧格式：
 
-```mermaid
+``` mermaid
 packet-beta
     0:"SOF"
     1-11:"ID"
@@ -481,7 +489,7 @@ packet-beta
 
 ## 6. MODBUS
 
-MODBUS工业领域常用的通信协议之一，是一种串行通信协议，协议规范公开，无需授权费用，支持广泛厂商设备兼容。
+MODBUS工业领域常用的通信协议之一，属于应用层协议。是一种串行通信协议，协议规范公开，无需授权费用，支持广泛厂商设备兼容。
 
 特点：
 - 帧格式清晰（地址+功能码+数据+校验）；
@@ -489,7 +497,7 @@ MODBUS工业领域常用的通信协议之一，是一种串行通信协议，�
 - 也可以基于以太网，通过TCP端口502传输
 
 基于串口的标准数据帧格式：
-```mermaid
+``` mermaid
 packet-beta
     0-7:"Header"
     8-15:"Function Code"
@@ -503,3 +511,7 @@ packet-beta
 - 16-31:写入寄存器地址
 - 32-47:寄存器值
 - 48-63:CRC校验
+
+## 参考资料
+
+[CAN入门书.PDF](http://wenku.uml.com.cn/document/qrskf/CAN%E5%85%A5%E9%97%A8%E4%B9%A6.pdf)，[Renesas]
