@@ -1,5 +1,5 @@
 ---
-title: Modbus工具之Modbus Poll与Modbus Slave
+title: Modbus调试工具
 author: YooyoJin
 date: 2025-04-27
 category: Jekyll
@@ -185,3 +185,29 @@ Tx:000038-08 03 00 00 00 0A C5 54
 Rx:000039-08 03 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 09 5D
 ```
 
+## 4. 常见的功能码与响应帧格式
+
+详细请参考Modbus协议“圣经”[^1]
+
+``` cmd
+# 03功能码(读取保持寄存器) 相应帧结构
+从机地址(1byte)+功能码(1byte)+起始地址(2byte)+要读取的存器数量(2byte)+校验(2byte)
+# 03功能码响应帧结构
+从机地址(1byte)+功能码(1byte)+字节数(1byte)+寄存器数据(n*2byte)+校验(2byte)
+
+# 06功能码(写入单个保持寄存器) 相应帧结构
+从机地址(1byte)+功能码(1byte)+起始地址(2byte)+写入的寄存器值(2byte)+校验(2byte)
+# 06功能码响应帧结构
+从机地址(1byte)+功能码(1byte)+起始地址(2byte)+写入的寄存器值(2byte)+校验(2byte)
+
+# 16功能码(多寄存器预设) 请求帧结构
+从机地址(1byte)+功能码(1byte)+起始地址(2byte)+写入寄存器数量(2byte)+字节数(1byte)+写入值(n*2byte)+校验(2byte)
+# 16功能码 响应帧结构
+从机地址(1byte)+功能码(1byte)+起始地址(2byte)+成功写入寄存器数量(2byte)+校验(2byte)
+```
+_**注意**_
+- Modbus所有多字节端使用大端序，CRC也同样（高位在前）
+- 为什么字节数一字节？而寄存器数量两字节？既然规定了Modbus整个数据帧的最大长度不能超过256字节，为什么寄存器数量不也用1字节表示？
+
+## 参考资料
+[^1]: [《Modbus Protocol PI-MBUS-300》](https://modbus.org/docs/PI_MBUS_300.pdf)，【MODICON, Inc】

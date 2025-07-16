@@ -65,6 +65,6 @@ mermaid: true
 
 ## 参考资料
 
-[^1]: [《VMware Ubuntu虚拟机使用主机VPN配置》](https://blog.csdn.net/nomoremorphine/article/details/138738065)，[nomoremorphine]
+[^1]: [《VMware Ubuntu虚拟机使用主机VPN配置》](https://blog.csdn.net/nomoremorphine/article/details/138738065)，【nomoremorphine】
 
-[^2]: [《VMware虚拟机三种网络模式：桥接模式，NAT模式，仅主机模式》](https://blog.csdn.net/qq_39192827/article/details/85872025)，[瞧德]
+[^2]: [《VMware虚拟机三种网络模式：桥接模式，NAT模式，仅主机模式》](https://blog.csdn.net/qq_39192827/article/details/85872025)，【瞧德】
