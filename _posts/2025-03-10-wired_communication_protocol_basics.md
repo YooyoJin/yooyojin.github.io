@@ -5,10 +5,12 @@ date: 2025-03-10
 category: Jekyll
 layout: post
 mermaid: true
+plantuml: true
 ---
 
-说到通信协议，HTPP、TCP/IP张口就来，这是如今网络通信的基石；
-但是如今嵌入式系统中也通信协议也数不胜数，UART、I2C、SPI、USB、CAN、PCIe这类是常用的有线通信协议，当然也有无线通信协议Bluetooth、WiFi、ZigBee等；
+提到通信协议，除了常见的HTTP、TCP/IP等网络协议和Modbus等应用层协议外，嵌入式系统中，还广泛使用UART、I2C、SPI等芯片间通信协议，CAN等工业总线，USB、PCIe等高速接口，以及Bluetooth、WiFi、ZigBee等无线协议。
+
+需要注意的是像RS-485、RS-232、TTL等主要定义的是电气特性或物理层规范，而不是完整的通信协议。
 
 <div style="overflow-x: auto;">
     <style>
@@ -135,7 +137,7 @@ UART使用异步方式进行数据传输，这意味着它不需要共享时钟�
 
 ### 1.2. UART的基本通信过程
 
-```mermaid
+``` mermaid
 sequenceDiagram
     participant 发送端
     participant 接收端
@@ -211,7 +213,7 @@ sequenceDiagram
 **最大距离**|通常较短（几米到几十米）|最长 15 米|最长 1200 米
 **应用场景**|常见于计算机串口|计算机串口、POS、打印机|工业自动化、仪表控制
 
-TTL、RS232和RS485电平标准不同，通常需要通过电平转换器来实现它们之间的互通。常用的MAX232（RS232 转 TTL 转换器）或 RS485转TTL转换器来进行电平转换和实现不同设备之间的通信。
+TTL、RS232和RS485电平标准不同，通常需要通过电平转换器来实现它们之间的互通。常用的MAX232（RS232转TTL）或 MAX485（RS485转TTL）来进行电平转换和实现不同设备之间的通信。
 
 ## 2. I2C
 
@@ -245,7 +247,7 @@ I2C由时钟线和数据线共同作用，来实现信号的发送接收:
 
 ### 2.3. I2C的基本通信过程
 
-```mermaid
+``` mermaid
 sequenceDiagram
     participant 主机
     participant 从机
@@ -259,9 +261,9 @@ sequenceDiagram
 
 像STM32部分GPIO有配置I2C硬件资源，硬件模块会自动处理大部分时序，大大简化了I2C通信的实现，开发者只需要配置相应的参数（如时钟速度、I2C模式等），然后就可以使用简单的API进行数据传输。
 
-当然也可以在STM32上模拟I2C通信（即使用软件模拟I2C）这种方法并不依赖于硬件I2C模块，而是通过GPIO引脚手动控制时钟（SCL）和数据（SDA）线的电平变化来模拟I2C的时序。
-
 ### 2.4. 硬件I2C与软件I2C（模拟I2C）的区别
+
+当然也可以在单片机上模拟I2C通信（即使用软件模拟I2C）这种方法并不依赖于硬件I2C模块，而是通过GPIO引脚手动控制时钟（SCL）和数据（SDA）线的电平变化来模拟I2C的时序。
 
 硬件I2C通常指硬件模块实现的，直接通过寄存器配置控制时序。
 - 优点：
@@ -322,7 +324,7 @@ SPI有四种常见模式，分别由CPOL和CPHA的不同组合产生：
 
 ### 3.2. SPI的基本通信过程
 
-```mermaid
+``` mermaid
 sequenceDiagram
     participant 主机
     participant 从机
@@ -356,11 +358,13 @@ USB相较于传统的通信方式要复杂的多，主要基于D+、D-两根差�
 CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽车电子领域的现场总线技术。
 
 特点：
-- 差分信号传输，最大距离可达10km；
+- 差分信号传输，最大距离可达1km；
 - 支持多主架构，通信速率可配置，最高可达1Mbps；
 - 节点可热插拔；
 - 异步，半双工通信；
 - 可实现广播式、请求式两种通信方式；
+- 根据标识符（Identifier 以下称为 ID）决定优先级（ID 并不是表示发送的目的地址，而是表示访问总线的消息的优先级）。
+- 同一网络中，所有单元必须设定成统一的通信速度
 
 仅需要两跟信号线（CAN_H、CAN_L），无需共地；
 
@@ -405,50 +409,58 @@ CAN（Controller Area Network）总线是一种广泛应用于工业控制和汽
     </table>
 </div>
 
-### 5.1 CAN工作原理
+### 5.1. CAN工作原理
 
-硬件电路包含CAN总线上的设备，需要包含CAN控制器、CAN收发器
+#### 5.1.1. 物理层特性
 
-```mermaid
-graph
-    subgraph Node1[设备1]
-        CANController1[CAN控制器]
-        CANTransceiver1[CAN收发器]
-        CANController1 -->|TX| CANTransceiver1
-        CANController1 -->|RX| CANTransceiver1
+硬件电路包含CAN总线上的设备，需要包含CAN控制器、CAN收发器。
+
+``` mermaid
+flowchart LR
+
+    %% 节点1
+    subgraph Node1[CAN节点]
+        direction TB
+        subgraph MCU1[MCU]
+            CAN_Controller1[CAN 控制器]
+        end
+        CAN_Transceiver1@{ shape: hex, label: "CAN 收发器" }
+        CAN_Controller1 ---|CAN_TX/CAN_RX| CAN_Transceiver1
     end
 
-    subgraph Node2[设备2]
-        CANController2[CAN控制器]
-        CANTransceiver2[CAN收发器]
-        CANController2 -->|TX| CANTransceiver2
-        CANController2 -->|RX| CANTransceiver2
+    %% CAN总线
+    subgraph Node2[CAN BUS]
+        CAN_High/CAN_Low
     end
 
-    subgraph Node3[设备3]
-        CANController3[CAN控制器]
-        CANTransceiver3[CAN收发器]
-        CANController3 -->|TX| CANTransceiver3
-        CANController3 -->|RX| CANTransceiver3
-    end
-
-    subgraph Node4[CAN总线]
-    CANTransceiver1 -->|CAN_H| CANBus_H[CAN_H]
-    CANTransceiver1 -->|CAN_L| CANBus_L[CAN_L]
-    CANTransceiver2 -->|CAN_H| CANBus_H
-    CANTransceiver2 -->|CAN_L| CANBus_L
-    CANTransceiver3 -->|CAN_H| CANBus_H
-    CANTransceiver3 -->|CAN_L| CANBus_L
-    end
+    %% CAN总线连接
+    CAN_Transceiver1 --- CAN_High/CAN_Low
 ```
 
-CAN总线采用差分信号传输，电平状态由CAN_H和CAN_L的电压差决定。显性电平（Dominant）表示逻辑0，CAN_H约为3.5V，CAN_L约为1.5V，电压差约为2V。隐性电平（Recessive）表示逻辑1，CAN_H和CAN_L均为2.5V，电压差为0V。
+CAN总线采用差分信号传输，电平状态由CAN_H和CAN_L的电压差决定。
+- 显性电平（Dominant）表示逻辑0，CAN_H约为3.5V，CAN_L约为1.5V，电压差约为2V。
+- 隐性电平（Recessive）表示逻辑1，CAN_H和CAN_L均为2.5V，电压差为0V。
 
 这里隐性是指默认状态，两线没有压差；反之亦然。
 
+当多节点冲突时，采用的“线与”逻辑：显性（0）优先于隐性（1）；只有所有节点均发送隐性（1），总线才表现为隐性。
+
+#### 5.1.2. 数据链路层特性
+
+帧化、错误检测、仲裁、应答等，这些都属于数据链路层的范畴。
+
+CAN通信帧格式：有数据帧、遥控帧、错误帧、过载帧、帧间隔5种帧类型。
+- 数据帧：用于发送单元向接收单元传送数据的帧；
+- 遥控帧：用于接收单元向具有相同ID的发送单元请求数据的帧；
+- 错误帧：用于当检测出错误时，向其他单元通知错误的帧；
+- 过载帧：用于接收单元通知其尚未做好接收准备的帧；
+- 帧间隔：用于将数据帧及遥控帧与前面的帧分离开来的帧；
+
+
+
 标准数据帧格式：
 
-```mermaid
+``` mermaid
 packet-beta
     0:"SOF"
     1-11:"ID"
@@ -471,7 +483,7 @@ packet-beta
 - 13: IDE（Identifier Extension Bit）：1 位显性电平（逻辑 0），表示标准帧；隐性电平（逻辑 1）表示扩展帧。
 - 14: r0（Reserved Bit）：1 位显性电平（逻辑 0），保留位。
 - 15-18: DLC（Data Length Code）：4 位，表示数据场的字节数（0-8 字节）。
-- 19-XX: 数据场（Data Field）：从第 19 位开始，长度为 0-8 字节，实际传输的数据。
+- 19-XX: 数据帧（Data Field）：从第 19 位开始，长度为 0-8 字节，实际传输的数据。
 - XX+1-XX+15: CRC（Cyclic Redundancy Check）：15 位 CRC 校验码，用于错误检测。
 - XX+16: CRC界定符（CRC Delimiter）：1 位隐性电平（逻辑 1），标志 CRC 字段结束。
 - XX+17: ACK槽（ACK Slot）：1 位隐性电平（逻辑 1），发送节点发送，等待接收节点确认。
@@ -479,9 +491,99 @@ packet-beta
 - XX+18: ACK界定符（ACK Delimiter）：1 位隐性电平（逻辑 1），标志 ACK 字段结束。
 - XX+19-XX+25: EOF（End of Frame）：7 位隐性电平（逻辑 1），标志帧的结束。
 
+### 5.2. CAN的波特率计算
+
+这里主要观点参考了【Fitz&】的文章《CAN总线-----位同步、仲裁和错误处理》[^1]，写的很好理解。
+
+在了解CAN的波特率计算之前，我们需要对CAN的位时序要有一定概念。
+
+由于CAN总线上没有时钟线，总线上的所有设备通过约定波特率的方式确定每一个数据位的时长。因此发送方每个固定时间输出一个位数据，接收方以约定的间隔采集总线电平。一个CAN网络需要规定一个通信的波特率，各节点都以相同的波特率才能进行数据交换。
+
+因此会出现常见问题：
+- 接收方采样点没有跟数据中心对齐；
+- 产期累基时钟误差，使采样点偏离；
+
+为了调整采样点位置，CAN总线对每个数据位的进行精细划分、分为同步段（SS）、传播时间段（PTS）、相位缓冲段（PBS1）、相位缓冲段（PBS2）、每个段又由若干个最小单位时间（TQ）构成。
+
+``` mermaid
+timeline
+    title CAN 位时间定义图(Nominal Bit Time)
+    section 时间段定义
+        Synchronization Segment（SS） : 1 TQ (Time Quantum)
+        Propagation Time Segment(PTS) : 可变长度
+    section 采样点标记
+        Phase Buffer Segment 1（PBS1） : 可变长度 : PBS1前端，Sample Point 2
+        Phase Buffer Segment 2（PBS2） : 可变长度 : PBS1末端，Sample Point 1
+```
+_**说明**_
+- 同步端（SS）：用于同步总线上的各个节点，边沿跳变预期发生在此段内。
+- 传播时间段（PTS）：补偿信号在总线上的物理传播延迟，确保节点能正确读取电平。
+- 相位缓冲段（PBS1）：通过重同步机制（延长或缩短此段）补偿时钟偏差。
+- 相位缓冲段（PBS2）：与PBS1类似，但主要用于缩短相位误差，确保采样点位置正确。
+
+经过如此划分后，将一位数据分割为若干段，然后再段中找的合适的采集位置。数据的跳变沿是在同步段上执行，然后采样在PBS1和PBS2之间的位置去采样。这样就可以解决采样的问题。
+
+因此波特率的计算就比较简单：
+
+$$TQ\,(s) = \frac{Prescaler}{CANClock\,(Hz)}$$
+
+$$BitTime\,(s) = (SS + PTS + PBS1 + PBS2) \times {TQ\,(s)}$$
+
+$$Baudrate\,(kbps) = \frac{1}{BitTime\,(s)} = \frac{CANClock\,(Hz)}{Prescaler \times (SS + PTS + PBS1 + PBS2)}$$
+
+_**说明**_
+- Prescal，指分频系数
+- CANClock，指CAN的时钟周期
+- 周期与频率是倒数关系
+- 波特率是每比特时间的倒数
+
+同理采样点位置计算如下：
+
+$$SamplePoint = \frac{SS + PTS + PBS1}{SS +  PTS + PBS1 + PBS2}$$
+
+### 5.3. CAN的同步机制
+
+上一节中提到了位时序，每一位数据都基于TQ分为了四段。在实际收发的过程中具体是如何解决同步问题呢？这里涉及到CAN的同步机制。
+
+简单来说每接收到一个下降沿进行一次同步。发送单元以约定好的位时序进行数据发送，接收单元根据总线上收到的下降沿进行位时序同步。
+
+但是，发送节点和接收节点作为互相独立的硬件个体，时钟频率误差、传输路径上的（电缆、驱动器等）相位延迟等都会引起时序偏差。因此接收单元需通过**硬同步**或者**重同步**的方法进行位时序调整。
+
+硬同步：在单元总线空闲的时候，检测到第一个下降沿时（对应报文的SOF下降沿）进行同步调整。这里直接认为下降沿位SS端，强制对齐SS，然后按照位时序对信号进行采集，达到同步效果。
+
+重同步：在单元接收的过程中，检测到下降沿时，根据SJW（重同步补偿宽度，SJW为PBS1增加或PBS2减少的最大TQ数，由CAN控制器硬件自动调整，无需软件干预）调整同步。例如：在同收发过程中本该在SS段收到的下降沿延却延后2个TQ数，这里CAN收发器通过重同步机制自动调整PBS1增加2个TQ，从而调整电平采集点位置。
+
+硬同步与重同步的主要区别：
+- 硬同步只在空闲状态检测出第一个下降沿（帧起始下降沿）时进行，而重同步则在其余各段进行。
+- 硬同步是“全局复位”，重同步是“局部微调”。
+
+> 当位时序总Tq数越大，对误差的量化就会越精确，重同步的同步效果就越理想。因此，合理配置位时序的Tq数极为重要。
+
+### 5.4. CAN的仲裁机制
+
+总线的某一时刻，存在多个节点外发报文的可能，利用总线仲裁规则，可以合理分配各节点对总线的使用权。
+
+CAN的仲裁涉及到CAN ID，ID决定优先级（ID 并不是表示发送的目的地址，而是表示访问总线的消息的优先级），ID值小的优先级更高。当两个以上的单元同时开始发送消息时，对各消息 ID 的每个位进行逐个仲裁比较。仲裁获胜（被判定为优先级最高）的单元可继续发送消息，仲裁失利的单元则立刻停止发送而进行接收工作。
+
+原则很简单，利用“线与”规则进行仲裁。每个CAN节点监听总线是否空闲（规定连续11个位隐性电平即为空闲），空闲了，就可以去尝试发送CAN报文。
+
+怎么“线与”呢？显性（0）优先于隐性（1）；只有所有节点均发送隐性（1），总线才表现为隐性。
+
+举例，假设三个节点同时尝试发送消息：
+- 节点 A：ID = 0x0001（二进制 0000 0000 0000 0001）
+- 节点 B：ID = 0x0002（二进制 0000 0000 0000 0010）
+- 节点 C：ID = 0x0003（二进制 0000 0000 0000 0011）
+- ID在总线上时高位在先，左对齐的（MBS）
+
+所以在第15位时节点A为0，节点A获胜。节点B和C检测到总线是0，而自己发送的是1，因此立即退出发送。
+
+### 5.5. CAN的错误状态
+
+
+
 ## 6. MODBUS
 
-MODBUS工业领域常用的通信协议之一，是一种串行通信协议，协议规范公开，无需授权费用，支持广泛厂商设备兼容。
+MODBUS工业领域常用的通信协议之一，属于应用层协议。是一种串行通信协议，协议规范公开，无需授权费用，支持广泛厂商设备兼容。
 
 特点：
 - 帧格式清晰（地址+功能码+数据+校验）；
@@ -489,7 +591,7 @@ MODBUS工业领域常用的通信协议之一，是一种串行通信协议，�
 - 也可以基于以太网，通过TCP端口502传输
 
 基于串口的标准数据帧格式：
-```mermaid
+``` mermaid
 packet-beta
     0-7:"Header"
     8-15:"Function Code"
@@ -503,3 +605,12 @@ packet-beta
 - 16-31:写入寄存器地址
 - 32-47:寄存器值
 - 48-63:CRC校验
+
+## 参考资料
+
+[《CAN入门书》](http://wenku.uml.com.cn/document/qrskf/CAN%E5%85%A5%E9%97%A8%E4%B9%A6.pdf)，【Renesas】
+
+[^1]: [《CAN总线-----位同步、仲裁和错误处理》](https://blog.csdn.net/m0_73633088/article/details/141175701)，【Fitz&】
+
+
+
