@@ -1,5 +1,5 @@
 ---
-title: EEPROM驱动案例（M24C32）
+title: EEPROM驱动开发笔记（M24C32）
 author: YooyoJin
 date: 2025-06-19
 category: Jekyll
