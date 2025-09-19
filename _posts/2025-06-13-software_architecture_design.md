@@ -44,6 +44,15 @@ mermaid: true
 1. 业务逻辑层(Business Logic Layer)：核心业务规则处理
 1. 数据访问层(Data Access Layer)：与数据库交互
 
+``` cmd
+[ 应用层 / OS ]   <-- 调用 BSP 提供的板级 API
+[ BSP 层 ]        <-- 基于 HAL（或直接寄存器）写板上外设驱动
+[ HAL 层 ]        <-- 厂商提供的硬件抽象
+[ 硬件寄存器 ]
+[ MCU/外设 ]
+```
+
+
 
 ## 3. 软件架构图设计
 

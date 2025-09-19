@@ -5,7 +5,6 @@ date: 2025-03-10
 category: Jekyll
 layout: post
 mermaid: true
-plantuml: true
 ---
 
 提到通信协议，除了常见的HTTP、TCP/IP等网络协议和Modbus等应用层协议外，嵌入式系统中，还广泛使用UART、I2C、SPI等芯片间通信协议，CAN等工业总线，USB、PCIe等高速接口，以及Bluetooth、WiFi、ZigBee等无线协议。
@@ -451,15 +450,45 @@ CAN总线采用差分信号传输，电平状态由CAN_H和CAN_L的电压差决�
 
 CAN通信帧格式：有数据帧、遥控帧、错误帧、过载帧、帧间隔5种帧类型。
 - 数据帧：用于发送单元向接收单元传送数据的帧；
+    - 其中数据帧又分为标准帧和扩展帧，数据帧与扩展帧的核心差异体现在ID的位数和结构上，扩展帧通过更长的ID实现了更大的寻址空间。
 - 遥控帧：用于接收单元向具有相同ID的发送单元请求数据的帧；
 - 错误帧：用于当检测出错误时，向其他单元通知错误的帧；
 - 过载帧：用于接收单元通知其尚未做好接收准备的帧；
 - 帧间隔：用于将数据帧及遥控帧与前面的帧分离开来的帧；
 
+这里一帧数据通常分为7个段，帧起始、仲裁段、控制段、数据段、CRC段、ACK段、帧结束
+
+``` mermaid
+timeline
+    title CAN Frame Structure
+    section 帧起始
+        SOF : 1
+
+    section 仲裁段
+        ID : 11
+
+    section 控制段
+        RTR : 1
+        IDE : 1
+        r0 : 1
+        DLC : 4
+
+    section 数据段
+        Data : 0-64
+
+    section CRC段
+        CRC : 15
+
+    section ACK段
+        ACK Slot : 1
+        ACK Delimiter : 1
+
+    section 帧结束
+        EOF : 7
+```
 
 
 标准数据帧格式：
-
 ``` mermaid
 packet-beta
     0:"SOF"
@@ -487,7 +516,7 @@ packet-beta
 - XX+1-XX+15: CRC（Cyclic Redundancy Check）：15 位 CRC 校验码，用于错误检测。
 - XX+16: CRC界定符（CRC Delimiter）：1 位隐性电平（逻辑 1），标志 CRC 字段结束。
 - XX+17: ACK槽（ACK Slot）：1 位隐性电平（逻辑 1），发送节点发送，等待接收节点确认。
-- XX+17: ACK（Acknowledge）：1 位显性电平（逻辑 0），接收节点发送，确认接收成功。
+- ACK（Acknowledge）：1 位显性电平（逻辑 0），接收节点发送，确认接收成功。
 - XX+18: ACK界定符（ACK Delimiter）：1 位隐性电平（逻辑 1），标志 ACK 字段结束。
 - XX+19-XX+25: EOF（End of Frame）：7 位隐性电平（逻辑 1），标志帧的结束。
 
@@ -578,7 +607,6 @@ CAN的仲裁涉及到CAN ID，ID决定优先级（ID 并不是表示发送的目
 所以在第15位时节点A为0，节点A获胜。节点B和C检测到总线是0，而自己发送的是1，因此立即退出发送。
 
 ### 5.5. CAN的错误状态
-
 
 
 ## 6. MODBUS
