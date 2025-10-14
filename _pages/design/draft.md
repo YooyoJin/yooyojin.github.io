@@ -4,6 +4,7 @@ author: YooyoJin
 date: 2022-02-06
 category: Jekyll
 layout: post
+mermaid: true
 ---
 
 ## 博客BUG
@@ -30,3 +31,34 @@ layout: post
 1. 空调热泵能源解决方案行业调研
 1. Modbus Holding Register定义与应用解析补充
 1. 补充ARM架构
+
+## Test
+
+``` mermaid
+---
+config:
+    xyChart:
+        width: 485.4
+        height: 300
+        showDataLabel: true
+    themeVariables:
+        xyChart:
+            titleColor: "#ff0000"
+---
+xychart-beta
+    title "电压时间关系"
+    x-axis "时间 (ms)" [0, 30, 60, 90, 120, 150]
+    y-axis "电压  (V)" 0 --> 4
+    bar [3.3, 2.44, 1.81, 1.34, 1.0, 0.74]
+    line [3.3, 2.44, 1.81, 1.34, 1.0, 0.74]
+```
+
+《book》[^1]
+
+> 此处参考[赤诚Xie]《MCU的启动到bootloader原理详解》[^1]
+
+> 正如[作者B]所述：
+>   > "这里是引用的原文内容……"
+>   > ——《文章标题》[^1]
+
+[^1]: [《book》](https://xxxxxxxxxx)，【xxxxxxxxxxxxx】

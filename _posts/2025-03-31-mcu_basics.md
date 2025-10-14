@@ -309,6 +309,6 @@ PS:上拉电阻就是将不确定的信号通过一个电阻拉到高电平，�
 
 ## 参考资料
 
-[^1]: [《MCU的启动到bootloader原理详解》](https://www.cnblogs.com/chicheng/p/18267699)，[赤诚Xie]
+[^1]: 赤诚Xie. [MCU的启动到bootloader原理详解](https://www.cnblogs.com/chicheng/p/18267699)
 
-[^2]: 《RM_HC32F460_F45x_A460系列参考手册_Rev1.5.pdf》，[XHSC]
+[^2]: XHSC. RM_HC32F460_F45x_A460系列参考手册_Rev1.5.pdf

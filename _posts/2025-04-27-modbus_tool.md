@@ -223,4 +223,4 @@ Tx:001617-01 83 02 C0 F1
 解决办法：增加从机软件设置的寄存数量
 
 ## 参考资料
-[^1]: [《Modbus Protocol PI-MBUS-300》](https://modbus.org/docs/PI_MBUS_300.pdf)，【MODICON, Inc】
+[^1]: MODICON. [Modbus Protocol PI-MBUS-300.pdf](https://modbus.org/docs/PI_MBUS_300.pdf)
