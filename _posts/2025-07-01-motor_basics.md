@@ -169,4 +169,4 @@ _**说明**_
 
 ## 参考资料
 
-《制冷与空气调节技术（第五版）》，[William C. Whitman, William M. Johnson, John A. Tomczyk]
+William C. Whitman, William M. Johnson, John A. Tomczyk. 《制冷与空气调节技术（第五版）》

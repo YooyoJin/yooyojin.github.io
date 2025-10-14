@@ -636,9 +636,9 @@ packet-beta
 
 ## 参考资料
 
-[《CAN入门书》](http://wenku.uml.com.cn/document/qrskf/CAN%E5%85%A5%E9%97%A8%E4%B9%A6.pdf)，【Renesas】
+Renesas. [CAN入门书](http://wenku.uml.com.cn/document/qrskf/CAN%E5%85%A5%E9%97%A8%E4%B9%A6.pdf)
 
-[^1]: [《CAN总线-----位同步、仲裁和错误处理》](https://blog.csdn.net/m0_73633088/article/details/141175701)，【Fitz&】
+[^1]: Fitz. [CAN总线-----位同步、仲裁和错误处理](https://blog.csdn.net/m0_73633088/article/details/141175701)
 
 
 

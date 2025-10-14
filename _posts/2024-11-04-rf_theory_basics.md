@@ -11,11 +11,11 @@ mermaid: true
 -------------
 
 **Q: 什么是射频？**<br>
-**A:**  射频（Radio Frequency，简称RF）指的是电磁波谱中的一部分，通常指频率范围在1GHz到300GHz之间的电磁波，包括UHF（超高频）、SHF（超级高频）和EHF（极高频）频段，这些频段广泛应用于现代通信系统，如移动电话、卫星通信和雷达。    
-通信：微波频段支持移动电话网络、卫星通信和Wi-Fi等。     
-雷达：用于交通控制、导航和速度测量。    
-工业：微波炉和工业加热。     
-科学：通过射电天文学研究宇宙射线。  
+**A:**  射频（Radio Frequency，简称RF）指的是电磁波谱中的一部分，通常指频率范围在1GHz到300GHz之间的电磁波，包括UHF（超高频）、SHF（超级高频）和EHF（极高频）频段，这些频段广泛应用于现代通信系统，如移动电话、卫星通信和雷达。
+通信：微波频段支持移动电话网络、卫星通信和Wi-Fi等。
+雷达：用于交通控制、导航和速度测量。
+工业：微波炉和工业加热。
+科学：通过射电天文学研究宇宙射线。
 
 射频设备和电路的设计非常注重信号的稳定性和传输效率，通常需要特定的技术来减少信号的损耗和干扰。
 
@@ -23,13 +23,13 @@ mermaid: true
 
 ### 1.1. 微波
 
-微波：波长(波长简单来说就是波在介质种完成一个完整周期所需的长度) < 0.5m 
+微波：波长(波长简单来说就是波在介质种完成一个完整周期所需的长度) < 0.5m
 
 微波的波长（λ）、频率（f）和光速（c）之间的关系可以通过以下公式表示：
 
 波长公式：
 
-$$λ=\frac{c}{f}$$  
+$$λ=\frac{c}{f}$$
 
 _**其中：**_
 - λ 是波长，单位为米（m）
@@ -60,7 +60,7 @@ graph LR
 
 ### 2.1. 分贝（dB）：
 
-分贝（dB）是一个对数单位，用于表示功率或电压的比率。功率的分贝表示为： 
+分贝（dB）是一个对数单位，用于表示功率或电压的比率。功率的分贝表示为：
 
 $$dB=10\log_{10}\left(\frac{P_{2}}{P_{1}}\right)$$
 
@@ -162,7 +162,7 @@ RF Torque Wrench            |射频扭力扳手
 RF Mixer                    |射频混频器（下变频是将RF射频信号与LO本振信号混合后转换为IF中频信号）
 Smith Chart                 |史密斯圆图
 S-Parameter                 |散射参数
-   
+
 ## 3. 传输线理论
 
 **Q: 什么是传输线？**<br>
@@ -208,20 +208,20 @@ $$P=\frac{V^2}{R} $$
 
 ### 6.1. 调制技术类型
 
-Technology and Modulation Type  
-    Radio, mobile phones (1G): AM, FM   
-    Mobile GSM/DCS (2G): GMSK   
-    Mobile EDGE (2.5G): 8-PSK   
-    Mobile W-CDMA (3G): HPSK    
-    Mobile LTE Advanced (4G): QPSK, 16-QAM  
-    Mobile LTE Advanced (4G): QPSK, 16-QAM  
-    Cordless phones DECT: GFSK  
-    WLAN: OFDM  
-    Bluetooth: GFSK 
-    GPS: BPSK   
+Technology and Modulation Type
+    Radio, mobile phones (1G): AM, FM
+    Mobile GSM/DCS (2G): GMSK
+    Mobile EDGE (2.5G): 8-PSK
+    Mobile W-CDMA (3G): HPSK
+    Mobile LTE Advanced (4G): QPSK, 16-QAM
+    Mobile LTE Advanced (4G): QPSK, 16-QAM
+    Cordless phones DECT: GFSK
+    WLAN: OFDM
+    Bluetooth: GFSK
+    GPS: BPSK
 
 ## 总结
 
-射频过于空虚。
+对于我来说射频过于玄幻，拿捏不了。
 
 微波和射频技术是现代通信系统、雷达以及各类工业应用的基础。理解诸如分贝、传输线理论、S参数等关键概念对于设计和优化这些系统至关重要。使用工具如史密斯图，工程师可以分析和优化射频元件，确保功率传输的效率和最小的信号损失。
