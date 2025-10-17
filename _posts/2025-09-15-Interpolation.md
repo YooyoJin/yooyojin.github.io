@@ -43,15 +43,15 @@ _**其中**_
 ## 1.1. 单线性插值应用
 
 ``` c
-uint16 Lookup_Current(uint16 adValue)
+uint16_t Lookup_Current(uint16_t adValue)
 {
-    uint16 cTempTable_Ct[] ={
+    uint16_t cTempTable_Ct[] ={
         0,   21,   43,   64,   85,  124,  217,  309,  412,  543,    //0-9A
         674,  806,  937, 1068, 1199, 1330, 1461, 1592, 1723, 1854,  //10-19A
     };
-    uint16 currentValue;
-    const uint16 *pTablePtr;
-    const uint16 *pCurrentEntry; // 当前查表指针位置
+    uint16_t currentValue;
+    const uint16_t *pTablePtr;
+    const uint16_t *pCurrentEntry; // 当前查表指针位置
 
     // 指向电流-AD值转换表的起始位置
     pTablePtr = &cTempTable_Ct[0];
@@ -81,7 +81,7 @@ uint16 Lookup_Current(uint16 adValue)
 	// y = y0 + ((x - x0) * (y1 - y0)) / (x1 - x0)
 	// 其中 (y1 - y0) = 10 AD-电流表格涉及以10（1A）作为间隔
 	// 其中 (u16Delta >> 1) 四舍五入，因为整除会截断小数，在整除除前加50%
-    uint16 u16Delta = *pCurrentEntry - *(pCurrentEntry - 1); // (x1 - x0)
+    uint16_t u16Delta = *pCurrentEntry - *(pCurrentEntry - 1); // (x1 - x0)
 	currentValue -= ((*pCurrentEntry - adValue) * 10 + (u16Delta >> 1)) / u16Delta;
 
     return currentValue;
