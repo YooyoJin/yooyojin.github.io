@@ -39,7 +39,7 @@ Clang-Format针对C/C++代码格式化的利器。
 1. 安装C/C++（Microsoft）插件，下载的人很多的这个；
 1. 进入C/C++插件设置，搜索clang，进行以下配置：
     - C_Cpp: Clang_format_path：D:\Program Files\LLVM\bin\clang-format.exe；这个是clang-format的应用程序路径；
-    - C_Cpp: Clang_format_style：file:D:\Program Files\LLVM\format\file.clang-format；这个是设置的规则路径，可以先从网上抄一份，后续再做修改；
+    - C_Cpp: Clang_format_style：file:D:\Program Files\LLVM\format\my.clang-format；这个是设置的规则路径，可以先从网上抄一份，后续再做修改；
     - C_Cpp: Formatting: clangFormat；这个是配置格式化设置的默认引擎；
 
 这样准备工作就完成了，这里网上教程很多不再赘述。
@@ -148,8 +148,8 @@ SpacesInSquareBrackets: false
 
 ``` cmd
 格式化失败:
-"D:\Program Files\LLVM\bin\clang-format.exe" "--style=file:D:\Program Files\LLVM\formats\file.clang-format" --fallback-style=LLVM --Wno-error=unknown --offset=1350 --length=204 --assume-filename=E:\MyWorkspace\Project\20250703EvaporativeCooling\evaporative-cooling\EvaporativeCooling\source\app\Vars.h E:\MyWorkspace\Project\20250703EvaporativeCooling\evaporative-cooling\EvaporativeCooling\source\app\Vars.h
-Error reading D:\Program Files\LLVM\formats\file.clang-format: no such file or directory
+"D:\Program Files\LLVM\bin\clang-format.exe" "--style=file:D:\Program Files\LLVM\formats\my.clang-format" --fallback-style=LLVM --Wno-error=unknown --offset=1350 --length=204 --assume-filename=E:\MyWorkspace\Project\20250703EvaporativeCooling\evaporative-cooling\EvaporativeCooling\source\app\Vars.h E:\MyWorkspace\Project\20250703EvaporativeCooling\evaporative-cooling\EvaporativeCooling\source\app\Vars.h
+Error reading D:\Program Files\LLVM\formats\my.clang-format: no such file or directory
 ```
 这里很明确提示了它找不到我们写的.clang-format文件。检查我们的路径，确实跟实际的.clang-format路径并不匹配。
 
