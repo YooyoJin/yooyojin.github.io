@@ -62,3 +62,21 @@ xychart-beta
 >   > ——《文章标题》[^1]
 
 [^1]: [《book》](https://xxxxxxxxxx)，【xxxxxxxxxxxxx】
+
+
+``` cmd
++3.3V
+  │
+  │
+ [R1(10K/1%)]
+  │
+  │
+  ├─── [RT_INT(10K)] ───┬─> to MCU ADC Pin
+  │                     │
+  │                     │
+ [R1(10K/1%)]          [C1(104)]
+  │                     │
+  │                     │
+  ├─────────────────────┘
+ GND
+```
