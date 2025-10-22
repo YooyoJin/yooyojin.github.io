@@ -215,12 +215,12 @@ _**说明**_
  * @param   u16Len  写入数据长度
  * @retval  自动处理页边界，避免跨页写入导致数据覆盖
  */
-static void WriteMultiDataToI2C(uint16 u16Addr, const uint8 *u8Dat, uint16 u16Len)
+static void WriteMultiDataToI2C(uint16_t u16Addr, const uint8_t *u8Dat, uint16_t u16Len)
 {
-	const uint16 u16PageSize = 32; // 以M24C32为例，页大小为32字节
-	uint16 u16Remain = u16Len;     // 剩余待写字节数
-	uint16 u16CurAddr = u16Addr;   // 当前写入地址
-	const uint8 *pu8Cur = u8Dat;   // 当前写入数据指针
+	const uint16_t u16PageSize = 32; // 以M24C32为例，页大小为32字节
+	uint16_t u16Remain = u16Len;     // 剩余待写字节数
+	uint16_t u16CurAddr = u16Addr;   // 当前写入地址
+	const uint8_t *pu8Cur = u8Dat;   // 当前写入数据指针
 
 	while (u16Remain > 0)
 	{
@@ -231,8 +231,8 @@ static void WriteMultiDataToI2C(uint16 u16Addr, const uint8 *u8Dat, uint16 u16Le
 		}
 
 		// 计算本次写入不跨页的最大字节数
-		uint16 u16PageOffset = u16CurAddr % u16PageSize;
-		uint16 u16BytesThisPage = u16PageSize - u16PageOffset;
+		uint16_t u16PageOffset = u16CurAddr % u16PageSize;
+		uint16_t u16BytesThisPage = u16PageSize - u16PageOffset;
 		if (u16BytesThisPage > u16Remain)
 			u16BytesThisPage = u16Remain;
 
@@ -245,7 +245,7 @@ static void WriteMultiDataToI2C(uint16 u16Addr, const uint8 *u8Dat, uint16 u16Le
 		WaitAck();
 		I2CSendByte(u16CurAddr & 0xff); // 低8位地址
 		WaitAck();
-		for (uint16 i = 0; i < u16BytesThisPage; i++)
+		for (uint16_t i = 0; i < u16BytesThisPage; i++)
 		{
 			I2CSendByte(pu8Cur[i]); // 发送数据
 			WaitAck();
