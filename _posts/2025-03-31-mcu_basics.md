@@ -190,7 +190,9 @@ _**说明**_
 
 根据UART模式下波特率计算公式（无小数部分）：
 
-$$B = \frac{C}{8 \times (2 - \text{OVER8}) \times (\text{DIVInteger} + 1)}$$
+$$
+B = \frac{C}{8 \times (2 - \text{OVER8}) \times (\text{DIVInteger} + 1)}
+$$
 
 _**关键参数：**_
 - B：波特率
@@ -214,7 +216,9 @@ _**关键参数：**_
 
 如果是带小数分频寄存器，可以先计算理论分频系数后，得出整数部分，再去计算小数部分，最后验证误差是否合理。
 
-$$DIVInteger = \frac{C}{B \times 16}$$
+$$
+DIVInteger = \frac{C}{B \times 16}
+$$
 
 ### 3.2. 定时器
 
