@@ -32,6 +32,8 @@ mermaid: true
 1. Modbus Holding Register定义与应用解析补充
 1. 补充ARM架构
 
+验证网站地图： 访问 https://你的域名.com/sitemap.xml 查看生成的网站地图。
+
 ## Test
 
 ``` mermaid
