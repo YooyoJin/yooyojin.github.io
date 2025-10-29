@@ -166,6 +166,29 @@ D:/Ruby34-x64/lib/ruby/site_ruby/3.4.0/bundler/resolver.rb:358:in 'Bundler::Reso
 
 如果项目已经存在，需要在新的环境中运行，记得需要先`bundle install`，把依赖的文件先装载
 
+### 提示我用的版本非Gemfile中指定的版本，要用`bundle exec`命令
+``` cmd
+D:/Ruby34-x64/lib/ruby/site_ruby/3.4.0/bundler/runtime.rb:317:in 'Bundler::Runtime#check_for_activated_spec!': You have already activated rake 13.3.1, but your Gemfile requires rake 13.3.0. Prepending `bundle exec` to your command may solve this. (Gem::LoadError)
+```
+因为加了一个最后发布时间的插件，所以更新了一下。导致一些依赖升级了版本。再次运行的时候提示版本依赖不对。
+
+解决办法：只能使用`bundle exec`命令了，因为更新了很多，一个一个删除也很麻烦。
+
+```
+# 系统安装了多个版本
+gem list rake
+# => rake (13.3.1, 13.3.0, 12.3.3)
+
+# 项目 Gemfile 指定
+gem 'rake', '13.3.0'
+
+# 直接运行会使用最新版本
+rake --version  # => 13.3.1
+
+# 使用 bundle exec 使用正确版本
+bundle exec rake --version  # => 13.3.0
+```
+
 ## 参考资料
 
 [关于 GitHub Pages (这是Github官方一样的入门文档)](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages)

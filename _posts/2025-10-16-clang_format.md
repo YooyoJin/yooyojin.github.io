@@ -46,7 +46,7 @@ Clang-Format针对C/C++代码格式化的利器。
 
 ## 4. .clang-format文件规则
 
-在配置VScode的代码格式化工具时，参考了博主[Ruby1019]提供的clang format配置[^1]。这里根据自己的需要做了一些调整。
+在配置VScode的代码格式化工具时，参考了博主[Ruby1019]提供的clang format配置[^1]。这里根据自己的需要做了一些调整。这里也可以参考Clang-Format官方文档的详细说明[^2]
 
 ``` yaml
 ---
@@ -158,3 +158,5 @@ Error reading D:\Program Files\LLVM\formats\my.clang-format: no such file or dir
 ## 参考资料
 
 [^1]: Ruby1019. [VScode使用clang format文档自动代码格式化（C语言）](https://blog.csdn.net/weixin_42217191/article/details/129516325)
+
+[^2]:Clang Team. [ClangFormatStyleOptions](https://clang.llvm.org/docs/ClangFormatStyleOptions.html))

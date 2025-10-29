@@ -1,5 +1,5 @@
 ---
-title: 单片机基础
+title: MCU基础
 author: YooyoJin
 date: 2025-03-31
 category: Jekyll
@@ -12,6 +12,7 @@ MCU（Microcontroller Unit，微控制器），将CPU、内存（RAM/ROM）、�
 
 SoC（System on Chip，片上系统），在单芯片上集成完整的系统功能，包括CPU、GPU、内存控制器、高速接口（USB/PCIe）、甚至AI加速器等，类似一台微型电脑。例如：高通骁龙、苹果A系列、华为麒麟
 
+看似单片机系统复杂多样，但实际上现代单片机的代码如同计算机程序一样方便，厂商提供了丰富的底层驱动库，无须在底层上花费太多实践，可与专注于应用功能实现。
 
 ## 1. 芯片摘要
 
@@ -53,74 +54,330 @@ SoC（System on Chip，片上系统），在单芯片上集成完整的系统功
 
 通过这些关键信息，可以初步判断该芯片是否满足项目需求，并为后续详细选型和开发打下基础。
 
-## 2. AMR单片机启动流程分析
+## 2. AMR单片机启动流程分析与BootLoader
 
-启动单片机机是我们的第一步。我们常用的单片机内核基本上都采用ARM架构，对AMR架构有一定的理解，也许有助于我们后续开发过程中问题的定位与分析？
+启动单片机机是我们的第一步。我们常用的单片机内核基本上都采用ARM架构，对AMR架构有一定的理解，也许有助于我们后续开发过程中问题的定位与分析？不过咱也不过是拾人牙慧，浮于表面罢了。
 
-咱也不过是拾人牙慧，只能浮于表面罢。
+### 2.1. ARM架构
 
-### 2.1 ARM架构
+在理解ARM架构之前，我们首先需要明确ARM在芯片产业中的定位。ARM公司本身并不生产芯片，而是提供处理器架构与核心设计。芯片厂商则基于这些ARM内核，进行集成或定制化开发，形成最终的处理器产品。
 
-简单理解就是，ARM架构是芯片厂商基于ARM内核设计的CPU核。其中ARM内核负责执行指令，具体功能由芯片外设实现。芯片厂商在ARM内核外集成硬件模块（如GPIO、UART、ADC等），这些外设才是实际控制LED、串口通信、ADC采样的部分。我们需要通过寄存器编程或厂商提供的库函数（如STM32的HAL库）来操作这些外设，ARM内核只是帮我们运行这些代码。
+在这个过程中，ARM内核主要负责指令执行与程序运行，而芯片的实际功能则由围绕内核的各类外设实现。芯片厂商会在ARM内核之外集成多种硬件模块，例如GPIO、UART、ADC等，这些外设才是我们实现具体功能（如控制LED、串口通信、模数转换）的关键所在。
 
-[待办_此处应有跳转链接]()
+因此，在嵌入式开发中，我们通常通过寄存器直接编程或调用芯片厂商提供的软件库（如STM32的HAL库、HC32的LL库）来配置和控制这些外设。ARM内核的作用，则是确保我们编写的代码能够被正确、高效地执行。
 
-### 2.2 启动流程分析
+其中ARM架构它定义了最基础、最核心的规则，像指令集，数据格式、硬件逻辑。属于标准和规范。
 
-这里是从网上抄来的ARM单片机（如 Cortex-M 系列）的典型启动流程：
-> 上电复位：系统上电后，处理器复位，跳转到复位向量执行启动代码。<br>
-> 硬件初始化：初始化堆栈指针，设置程序计数器，禁用中断。<br>
-> 启动代码执行：启动代码完成基本的系统初始化，如内存初始化、堆栈指针设置、数据段和 BSS 段处理等。<br>
-> 系统时钟和外设初始化：设置系统时钟源，初始化关键外设，为主程序提供支持。<br>
-> 跳转到主程序：启动代码完成后，跳转到主程序（main()函数），开始执行用户代码。<br>
-> 中断处理与系统运行：系统在主程序中运行，处理器根据中断请求响应外部或内部事件。
+ARM内核，是ARM公司根据ARM架构设计好的“发动机”，芯片厂商可以直接把现成的“发动机”装进自己的“汽车”（芯片）里。大部分芯片厂商应该就是直接拿来用，但是有的认为它不够好，会自研，但仍遵从ARM架构。
 
-> 此处参考[赤诚Xie]《MCU的启动到bootloader原理详解》[^1]
+除了ARM架构外，RISC-V目前也是发展迅猛，凭借开源，无授权费的优势快速发展中。
 
-> 正如[作者B]所述：
->   > "这里是引用的原文内容……"
->   > ——《文章标题》[^1]
+// todo 关于架构内容颇多，个人理解有限。有机会的话另起一页再展开吧。
+
+### 2.3. ARM程序
+
+在了解启动流程之前，我们先熟悉一下我们的程序。
+
+我们知道，如果使用Keil编译完成后，可在生成的.map文件中中查看RO、RW、ZI的数据大小；同样，如果使用GCC编译可以在Cmake中使用`size`命令，查看text、data、bss的数据大小。它们的效果是一样的，这是我们的程序在程序**编译阶段**数据存储的分布情况！
+
+``` cmd
+[build]    text	   data	    bss	    dec	    hex     filename
+[build]  110252	     76	   4020	 114348	  1beac     E:/MyWorkspace/Project/EvaporativeCooling/gcc/build/output/EvaporativeCooling.elf
+
+text -> RO : 代码 + 只读数据（Flash）
+data -> RW : 已初始化的变量（Flash存储初始值，在上电启动好后拷贝到RAM，运行期间修改的是RAM副本）
+bss  -> ZI : 未初始化的变量（RAM）
+dec = text + data + bss : 总计
+
+Flash空间占用 = text + data
+RAM空间占用 = data + bss
+注意：这里再编译阶段只是确定全局变量需要占多少地址空间，栈大概需要多大。但它并不在RAM上创建这些变量。在运行阶段变量才会被创建，断电则丢失
+```
+
+从编译到运行的整个过程:
 
 ``` mermaid
-graph TD
-    A[开始] --> B{判断}
-    B --> C[是]
-    B --> D[否]
-    C --> E[结束]
-    D --> E
+flowchart TB
+    A[源代码<br>.c/.cpp 文件] --> B[编译与链接]
+    subgraph B [编译阶段-在PC上]
+        B1[编译器Compiler]
+        B2[链接器Linker]
+        B1 --> B2
+    end
+
+    B --> C[生成二进制文件<br>.bin/.hex]
+    C --> D[烧录/下载]
+    D --> E[拷贝到MCU Flash]
+    E --> F1[MCU上电执行]
+
+    subgraph F [运行阶段-在MCU上]
+
+        subgraph F2_sub [运行时动态存储]
+            subgraph F2_Flash[从Flash读取指令]
+                F2_Flash_1[机器码指令]
+                F2_Flash_2[只读常量数据]
+                F2_Flash_3[初始化数据的初始值]
+            end
+
+            subgraph F2_RAM[在RAM中创建/修改数据]
+                F2_RAM_1[全局/静态变量<br>当前值]
+                F2_RAM_2[堆Heap<br>动态分配的数据]
+                F2_RAM_3[栈Stack<br>局部变量、函数调用]
+            end
+
+        end
+
+        F1 --> F2_sub
+    end
+
+    B --> G[符号表<br>内存布局规划]
+    G -.->|为运行阶段提供蓝图| F2_sub
 ```
 
-``` plantuml
-@startuml
-left to right direction
+### 2.4. 存储映射表
 
-actor 用户 as A
-component  "测试工装线控器" as B
-rectangle "测试工装板" as C
-rectangle "待测主板" as D
+以华大HC32F460为例，参考RM_HC32F460_F45x_A460系列参考手册_Rev1.5[^2]，第一章 存储器映射（Memory mapping）内容。
 
-A --> B
-B <--> C  : 485通信
-C --> D : 弹性顶针
-@enduml
+HC32F460支持4GB的线性地址空间，地址从0x0000_0000到0xFFFF_FFFF。
+
+**Q: 为什么Flash只有512K，却有4G地址空间？**<br>
+**A:** 因为地址空间 != 物理内存。ARM Cortex-M使用内存映射I/O，所有外设都映射到地址空间。这样设计统一访问方式，用相同的访问方式访问不同的设备，代码也可以在不同的芯片间移植。编译器只需要生成固定地址的代码即可。
+
+> 4GB是CPU的"视角"，512KB是实际的"存储能力"。就像你有整个城市的地址地图（4GB地址空间），但只实际拥有几栋房子（512KB Flash + 128KB RAM）
+
+这里的类比这里非常形象了！
+
+**Q: 为什么要这么设计？**<br>
+**A:** 首先要知道这个规则是由芯片内核架构（ARM）规定的。这样设计它能够统一编址与预留空间，给各个芯片厂商预留空间，增加内核的兼容性、扩展性和可移植性，实现了“天下大一统”。比如芯片厂商想推出更大的Flash型号的芯片，只要在同一个代码区地址范围内，换一个更大的物理Flash即可，不需要改变内核架构。而且预留了一些像外部RAM区域，如果你需要更大的容量内存，可以外接SDRAM，将物理地址映射到预留的片外RAM区域即可，当然如果你不用也是没有关系的。
+
+``` cmd
+HC32F460 4GB地址空间布局 (Cortex-M):
+0x0000 0000 ┌─────────────────────────┐
+            |0x0000_0000|Flash(512K)  |
+            │      Code |─────────────│ ← 启动位置可选，指向Flash或RAM，通常调试时需要从RAM启动
+            |0x1FFF_8000|SRAM(32K)    |
+0x1FFF FFFF ├─────────────────────────┤
+            │  Empty                  │ ← 无物理内存，访问会 fault
+0x2000 0000 ├─────────────────────────┤
+            │  SRAM                   │ ← 64K+64K+28K+4K==160K RAM在这里
+0x2002_6FFF ├─────────────────────────┤
+            │                         │
+            │  Empty                  │
+            │                         │
+0x4000 0000 ├─────────────────────────┤
+            │  Peripheral             │ ← GPIO, USART, SPI等
+0x400F FFFF ├─────────────────────────┤
+            │                         │
+            │  External RAM           │ ← 外接SDRAM, NOR Flash等
+0xDFFF FFFF ├─────────────────────────┤
+            │  System                 │ ← 内核私有外设NVIC, SysTick, MPU等
+0xFFFF FFFF └─────────────────────────┘
 ```
 
-``` plantuml
-@startmindmap
-+ <&flag>OS
-++ Unix
-++ Linux
-++ MacOS
-** Windows
-*** Windows 95
-*** Windows 98
-*** Windows 7
-*** Windows 8
-*** Windows 10
-++ FreeBSD
-++ Other
-@endmindmap
+**Q: 启动位置可选？**<br>
+**A:**
+> 在芯片启动时，决定0x0000_0000这个地址是连接到Flash还是SRAMH。正常程序运行模式从Flash启动，调试或特殊启动模式从RAM启动，有些MCU可以通过Boot引脚设置为从RAM启动，CPU从SRAMH取指。此时，要执行的程序必须已经被预先加载到SRAMH中。常规调试过程中确实需要擦写Flash，而“从RAM启动”的调试模式正是为了规避这个问题而设计的高级功能。它通过牺牲对程序大小的包容性（程序必须能放进RAM），换来了极致的调试体验和速度，特别适合在开发关键算法或驱动时进行密集的、反复的调试。
+
+可以看到，HC32F4xx系列单片机的Flash的地址是写在0x0000_0000，所以当选择从Flash启动后，可以直接正常进入程序。但是像码农爱学习在其文章单片机程序烧录的3种方式(ISP、ICP、IAP)是什么？[^3]中提到的STM32F4xx系列单片机，他的Flash(Main Memory)物理地址实际是从0x0800_0000开始，然而，ARM Cortex-M内核规定其必须从地址0x0000_0000开始读取栈指针和复位向量。为了解决这个矛盾，STM32芯片内部设计了一个地址重映射机制。
+
+利用BOOT引脚（如BOOT0, BOOT1）的选择将哪一块物理存储器映射到内核要求的这个0x0000_0000起始的地址空间。
+- 当选择从主Flash启动时，0x0000_0000的访问被重定向到0x0800_0000开始的主Flash。
+- 当选择从系统存储器启动时，0x0000_0000的访问被重定向到内部Bootloader的ROM地址。
+- 当选择从内置SRAM启动时，0x0000_0000的访问被重定向到SRAM的起始地址（如0x2000_0000）。
+
+因此，对于绝大多数从主Flash启动的应用程序，开发者只需要将程序链接到0x0800_0000即可，芯片硬件会自动处理好从0x0000_0000的访问。
+
+然而华大的芯片就没有这种烦恼，因为目前Flash物理起始地址就是0x0000_0000，当然也可以自己设计Bootloader进行重定向。
+
+### 2.5. 启动流程分析
+
+此处关于MCU启动流程的分析，主要参考了赤诚Xie与林接接等博主的相关论述[^1][^4]。
+
+网上启动流程版本有很多，我按照个人的理解做了一些整理，咱就是丑陋的缝合怪，哈哈。因为我也不知道如何去验证这个启动流程的正确性，官方文档里也没有找到这块内容的详细介绍，所以这里只能膜拜各位大佬的理解了。
+
+- 复位
+    - CPU从0x0000_0000（实际是Flash硬件的0x0000_0000）读取MSP（主栈指针）初始值，
+    - 从0x0000_0004（实际是Flash的0x0000_0004）读取复位向量（硬件自动加载到PC指针）
+- 启动代码执行
+    - 通过复位向量跳转到复位处理函数（Reset_Handler），执行Reset_Handler代码，此处开始执行启动文件
+        - 初始化 .data 段（从Flash到RAM）
+        - 清空 .bss 段
+        - 其他咱就看不懂了
+    - 执行SystemInit函数, 初始化系统时钟
+    - 跳转到main
+- main函数
+    - 初始化外设
+    - 使能中断
+    - 主循环
+- 中断处理
+    - 系统相应中断
+    - 中断执行完成回归main函数
+
+HC32F460 GCC版本启动代码（Reset handler部分）：
 ```
+/*
+;<h> Reset handler start.
+*/
+                .section    .text.Reset_Handler
+                .align      2
+                .weak       Reset_Handler
+                .type       Reset_Handler, %function
+                .globl      Reset_Handler
+Reset_Handler:
+/* Single section scheme.
+ *
+ * The ranges of copy from/to are specified by following symbols
+ *   __etext: LMA of start of the section to copy from. Usually end of text
+ *   __data_start__: VMA of start of the section to copy to
+ *   __data_end__: VMA of end of the section to copy to
+ *
+ * All addresses must be aligned to 4 bytes boundary.
+ */
+ClrSramSR:
+                ldr         r0, =0x40050810
+                ldr         r1, =0x1F
+                str         r1, [r0]
+
+                /* Copy data from read only memory to RAM. */
+CopyData:
+                ldr         r1, =__etext
+                ldr         r2, =__data_start__
+                ldr         r3, =__data_end__
+CopyLoop:
+                cmp         r2, r3
+                ittt        lt
+                ldrlt       r0, [r1], #4
+                strlt       r0, [r2], #4
+                blt         CopyLoop
+
+CopyData1:
+                ldr         r1, =__etext_ret_ram
+                ldr         r2, =__data_start_ret_ram__
+                ldr         r3, =__data_end_ret_ram__
+CopyLoop1:
+                cmp         r2, r3
+                ittt        lt
+                ldrlt       r0, [r1], #4
+                strlt       r0, [r2], #4
+                blt         CopyLoop1
+
+/* This part of work usually is done in C library startup code.
+ * Otherwise, define this macro to enable it in this startup.
+ *
+ * There are two schemes too.
+ * One can clear multiple BSS sections. Another can only clear one section.
+ * The former is more size expensive than the latter.
+ *
+ * Define macro __STARTUP_CLEAR_BSS_MULTIPLE to choose the former.
+ * Otherwise define macro __STARTUP_CLEAR_BSS to choose the later.
+ */
+/* Single BSS section scheme.
+ *
+ * The BSS section is specified by following symbols
+ *   __bss_start__: start of the BSS section.
+ *   __bss_end__: end of the BSS section.
+ *
+ * Both addresses must be aligned to 4 bytes boundary.
+ */
+                /* Clear BSS section. */
+ClearBss:
+                ldr         r1, =__bss_start__
+                ldr         r2, =__bss_end__
+
+                movs        r0, 0
+ClearLoop:
+                cmp         r1, r2
+                itt         lt
+                strlt       r0, [r1], #4
+                blt         ClearLoop
+
+ClearBss1:
+                ldr         r1, =__bss_start_ret_ram__
+                ldr         r2, =__bss_end_ret_ram__
+
+                movs        r0, 0
+ClearLoop1:
+                cmp         r1, r2
+                itt         lt
+                strlt       r0, [r1], #4
+                blt         ClearLoop1
+
+SetSRAM3Wait:
+                ldr         r0, =0x40050804
+                mov         r1, #0x77
+                str         r1, [r0]
+
+                ldr         r0, =0x4005080C
+                mov         r1, #0x77
+                str         r1, [r0]
+
+                ldr         r0, =0x40050800
+                mov         r1, #0x1100
+                str         r1, [r0]
+
+                ldr         r0, =0x40050804
+                mov         r1, #0x76
+                str         r1, [r0]
+
+                ldr         r0, =0x4005080C
+                mov         r1, #0x76
+                str         r1, [r0]
+
+                /* Call static constructors */
+                bl          __libc_init_array
+                /* Call the clock system initialization function. */
+                bl          SystemInit
+                /* Call the application's entry point. */
+                bl          main
+                bx          lr
+                .size       Reset_Handler, . - Reset_Handler
+/*
+;<h> Reset handler end.
+*/
+```
+
+### 2.6. BootLoader
+
+此处内容大部分参考了无际单片机编程相关论述[^5]，他写的简单易懂，膜拜🙇‍♂️。
+
+**Q: 单片机Bootloader能解决什么问题？** <br>
+**A:** Bootloader就像是给单片机安装了一个“智能操作系统”，解决了传统单片机开发中的几个痛点：
+- 更新程序太麻烦。Bootloader使得单片机可以通过各种通信接口（4G模块、串口等方式）来接收新的程序文件（固件），并自己将自己“重新编程”。这个过程被称为IAP(In-Application Programming)。
+- 升级失败，“变砖”问题。支持程序备份和回滚。它会先把旧程序好好保存起来，等确认新程序完全没问题之后，再正式启用。
+- 自定义启动逻辑，增加开发效率。
+
+**Q: Bootloader, IAP, OTA？** <br>
+**A:** 这三个词经常一起出现，关系紧密但含义不同:
+- Bootloader：指那段程序本身，它提供了加载应用程序和执行固件更新的基础能力；
+- IAP: 自己将自己“重新编程”，这个过程被称为IAP。算是一种方法或技术手段；
+- OTA：(Over-The-Air) 是一种固件交付方式，特指通过无线通信（Wi-Fi, Bluetooth, 蜂窝网络等）将新的固件包发送到设备。设备接收到OTA包后，通常会利用其IAP能力来完成实际的烧录更新。
+
+> 所以，可以说：OTA是实现远程固件更新的一种高级方式，它依赖于设备的IAP能力，而IAP能力的实现往往离不开一个健壮的Bootloader。
+
+#### 2.6.1. BootLoader工作原理
+
+BootLoader（引导加载程序），顾名思义就是引导程序从正确的地方开始。就是在原本流程中启动主程序运行之前，增加了一段引导加载程序的处理。引导加载程序需要做的就是最低限度的硬件初始化（时钟、GPIO、通信），然后决定是否启动主程序，或者是进入特殊模式（接收新固件、启动新程序）。其通常烧录在单片机Flash的起始地址。
+
+**1. Bootloader启动**：启动和正常的单片机启动一样，只不过这里需要先经过引导加载程序，再进行后续的流程。
+
+`CPU上电执行 --> 从向量表中取出Flash起始地址 --> 执行复位处理程序 --> 跳转Bootloader代码`。
+
+**2. 硬件初始化**：Bootloader不需要像主应用程序那样初始化所有的外设。它只需要初始化最基本的硬件，满足它的核心功能需求即可。
+- 时钟系统：让CPU和外设跑起来。
+- GPIO：可能需要用来检测某个引脚状态，判断是否进入升级模式，或者控制LED指示状态。
+- 通信接口：用于接收新固件的接口，比如UART, SPI, I2C, CAN, USB等。
+
+**3. BootLoader处理逻辑**：硬件初始化完成后，需要决定接下来要做什么？
+- 升级？
+- 跳转主应用程序？
+
+这里通常通过检测GPIO引脚、检查Flash标志位、监听通信、检测应用程序有效性等方式来进行模式选择。
+
+#### 2.6.2. BootLoader程序设计
+
+//todo 手动去实现一下啊
+
+
 
 ## 3. 时钟系统
 
@@ -176,7 +433,7 @@ graph LR
     end
 ```
 _**说明**_
-- 我们通常不使用芯片内部时钟源，因为高速内部时钟信号根据温度和环境的情况频率会飘逸不稳定；
+- 我们通常不使用芯片内部时钟源，因为高速内部时钟信号根据温度和环境的情况频率会飘移，不稳定；
 - 时钟的配置原则应该是从后向前配置，即从外设向晶振方向配置；
 - 各时钟之间需遵守频率倍数规则；
 
@@ -313,6 +570,14 @@ PS:上拉电阻就是将不确定的信号通过一个电阻拉到高电平，�
 
 ## 参考资料
 
-[^1]: 赤诚Xie. [MCU的启动到bootloader原理详解](https://www.cnblogs.com/chicheng/p/18267699)
+Joseph Yiu. (2014). _《ARM Cortex-M3与Cortex-M4权威指南（第3版，中译）》_
 
-[^2]: XHSC. RM_HC32F460_F45x_A460系列参考手册_Rev1.5.pdf
+[^1]: 赤诚Xie. (2024). _MCU的启动到bootloader原理详解_. [https://www.cnblogs.com/chicheng/p/18267699](https://www.cnblogs.com/chicheng/p/18267699)
+
+[^2]: XHSC. (2024). _RM_HC32F460_F45x_A460系列参考手册_Rev1.5_.
+
+[^3]: 码农爱学习. (2021). _单片机程序烧录的3种方式(ISP、ICP、IAP)是什么？_. [https://zhuanlan.zhihu.com/p/367821312](https://zhuanlan.zhihu.com/p/367821312)
+
+[^4]:林接接. (2025). _典型arm32位单片机启动流程（从上电到main.c）_. [https://www.cnblogs.com/jiejielin-blogs/p/19008377](https://www.cnblogs.com/jiejielin-blogs/p/19008377)
+
+[^5]:无际单片机编程. (2025) _一文读懂Bootloader：从原理到OTA应用_. [https://www.eet-china.com/mp/a397421.html](https://www.eet-china.com/mp/a397421.html)
