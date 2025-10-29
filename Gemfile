@@ -8,10 +8,9 @@ gem 'jekyll-feed'
 gem 'jekyll-readme-index'
 gem 'jemoji'
 gem 'webrick'
-
-# 自动获取文件的Git最后修改时间插件"
-gem 'jekyll-last-modified-at'
-gem 'jekyll-gist'
+# 通过网站地图seo插件来获取修改时间
+gem 'jekyll-sitemap'
+gem 'jekyll-seo-tag'
 
 
 # gem "rails"

@@ -69,14 +69,17 @@ incremental:      false
 regenerate:       true
 
 plugins:
-  - jekyll-feed
-  - jekyll-readme-index
-  - jemoji
-  - jekyll-last-modified-at # 修改时间插件
-  - jekyll-feed             # 修改时间插件
-  - jekyll-readme-index     # 修改时间插件
-  - jemoji                  # 修改时间插件
-
+  - jekyll-feed          # 为网站生成 RSS/Atom 订阅源
+  - jekyll-readme-index  # 使用 README.md 作为网站首页
+  - jemoji               # 在文章中支持 GitHub 风格的 Emoji
+  - jekyll-sitemap       # 自动生成网站地图 (sitemap.xml)
+  - jekyll-seo-tag       # 自动生成 SEO 优化标签
 # 本页未使用远程主题，通过fork下来自定义主题，若使用远程主题需要增加插件
 # plugins:
 #   - jekyll-remote-theme
+
+sitemap:
+  # 强制生成 lastmod
+  lastmod: true
+  changefreq: weekly
+  priority: 0.7
