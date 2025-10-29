@@ -40,6 +40,18 @@
                 <div class="body-inner">
                     {%- include body.html -%}
 
+                    <!-- 添加最后修改时间显示 - 确保文字显示 -->
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <span>发布时间: {{ page.date | date: "%Y年%m月%d日" }}</span>
+                        {% if page.last_modified_at %}
+                        &nbsp;•&nbsp;
+                        <span>最后更新: {{ page.last_modified_at | date: "%Y年%m月%d日" }}</span>
+                        {% else %}
+                        &nbsp;•&nbsp;
+                        <span>最后更新: {{ page.date | date: "%Y年%m月%d日" }}</span>
+                        {% endif %}
+                    </div>
+
                     {% if page.previous %}
                         <a href="{{site.baseurl}}{{page.previous.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">
                             <i class="fa fa-angle-left"></i>

@@ -72,6 +72,10 @@ plugins:
   - jekyll-feed
   - jekyll-readme-index
   - jemoji
+  - jekyll-last-modified-at # 修改时间插件
+  - jekyll-feed             # 修改时间插件
+  - jekyll-readme-index     # 修改时间插件
+  - jemoji                  # 修改时间插件
 
 # 本页未使用远程主题，通过fork下来自定义主题，若使用远程主题需要增加插件
 # plugins:

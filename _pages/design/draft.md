@@ -55,14 +55,23 @@ xychart-beta
 
 《book》[^1]
 
-> 此处参考[赤诚Xie]《MCU的启动到bootloader原理详解》[^1]
+> 此处参考赤诚Xie《MCU的启动到bootloader原理详解》[^1]
 
-> 正如[作者B]所述：
+> 正如作者B所述：
 >   > "这里是引用的原文内容……"
 >   > ——《文章标题》[^1]
 
 [^1]: [《book》](https://xxxxxxxxxx)，【xxxxxxxxxxxxx】
 
+Joseph Yiu. (2014). _《ARM Cortex-M3与Cortex-M4权威指南（第3版，中译）》_
+
+[^1]: 赤诚Xie. (2024). _MCU的启动到bootloader原理详解_. [https://www.cnblogs.com/chicheng/p/18267699](https://www.cnblogs.com/chicheng/p/18267699)
+
+[^2]: XHSC. (2024). _RM_HC32F460_F45x_A460系列参考手册_Rev1.5_.
+
+[^3]: 码农爱学习. (2021). _单片机程序烧录的3种方式(ISP、ICP、IAP)是什么？_. [https://zhuanlan.zhihu.com/p/367821312](https://zhuanlan.zhihu.com/p/367821312)
+
+[^4]:林接接. (2025). _典型arm32位单片机启动流程（从上电到main.c）_. [https://www.cnblogs.com/jiejielin-blogs/p/19008377](https://www.cnblogs.com/jiejielin-blogs/p/19008377)
 
 ``` cmd
 +3.3V
