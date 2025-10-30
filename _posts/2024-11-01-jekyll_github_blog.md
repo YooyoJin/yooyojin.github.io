@@ -2,6 +2,7 @@
 title: Github博客搭建
 author: YooyoJin
 date: 2024-11-01
+last_modified_at: 2025-10-30
 category: Jekyll
 layout: post
 ---
@@ -191,6 +192,6 @@ bundle exec rake --version  # => 13.3.0
 
 ## 参考资料
 
-[关于 GitHub Pages (这是Github官方一样的入门文档)](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages)
+GitHub, Inc. (2025). _关于 GitHub Pages (这是Github官方一样的入门文档)_. [https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages)
 
-[Jekyll + Github Pages 搭建个人免费博客](https://zhuanlan.zhihu.com/p/87225594)
+不安分的猿人. (2020). _Jekyll + Github Pages 搭建个人免费博客_. [https://zhuanlan.zhihu.com/p/87225594](https://zhuanlan.zhihu.com/p/87225594)

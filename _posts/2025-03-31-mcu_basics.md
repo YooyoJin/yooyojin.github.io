@@ -2,6 +2,7 @@
 title: MCU基础
 author: YooyoJin
 date: 2025-03-31
+last_modified_at: 2025-10-30
 category: Jekyll
 layout: post
 mermaid: true

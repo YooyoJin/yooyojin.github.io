@@ -2,6 +2,7 @@
 title: ATE测试机行业发展现状分析（2023）
 author: YooyoJin
 date: 2025-01-17
+last_modified_at: 2025-01-17
 category: Jekyll
 layout: post
 ---

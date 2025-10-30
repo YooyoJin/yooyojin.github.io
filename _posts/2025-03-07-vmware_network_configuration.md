@@ -2,6 +2,7 @@
 title: VMware虚拟机网络配置
 author: YooyoJin
 date: 2025-03-07
+last_modified_at: 2025-03-07
 category: Jekyll
 layout: post
 mermaid: true

@@ -40,20 +40,13 @@
                 <div class="body-inner">
                     {%- include body.html -%}
 
-                    <div style="margin-top: 2rem; text-align: center;">
-                        <span>发布时间: {{ page.date | date: "%Y年%m月%d日" }}</span>
+                    <div style="margin-top: 2rem; text-align: center; font-size: 1em; margin-bottom: 1rem;">
+                        <span> 发布时间：{{ page.date | date: "%Y-%m-%d" }}</span>
                         &nbsp;•&nbsp;
-                        <span>
-                        最后更新:
-                        {% if page.last_modified_at %}
-                            {{ page.last_modified_at | date: "%Y年%m月%d日" }}
-                        {% elsif page.sitemap.lastmod %}
-                            {{ page.sitemap.lastmod | date: "%Y年%m月%d日" }}
-                        {% else %}
-                            {{ page.date | date: "%Y年%m月%d日" }}
-                        {% endif %}
-                        </span>
+                        <!-- <br> -->
+                        <span> 最后更新：{{ page.last_modified_at | date: "%Y-%m-%d" }} </span>
                     </div>
+
 
                     {% if page.previous %}
                         <a href="{{site.baseurl}}{{page.previous.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">

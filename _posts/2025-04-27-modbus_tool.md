@@ -2,6 +2,7 @@
 title: Modbus调试工具
 author: YooyoJin
 date: 2025-04-27
+last_modified_at: 2025-04-27
 category: Jekyll
 layout: post
 mermaid: true
@@ -223,4 +224,4 @@ Tx:001617-01 83 02 C0 F1
 解决办法：增加从机软件设置的寄存数量
 
 ## 参考资料
-[^1]: MODICON. [Modbus Protocol PI-MBUS-300.pdf](https://modbus.org/docs/PI_MBUS_300.pdf)
+[^1]: MODICON, Inc. (1996). _Modbus Protocol PI-MBUS-300.pdf_. [https://modbus.org/docs/PI_MBUS_300.pdf](https://modbus.org/docs/PI_MBUS_300.pdf)
