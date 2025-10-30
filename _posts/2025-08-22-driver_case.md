@@ -2,6 +2,7 @@
 title: 电机驱动开发笔记
 author: YooyoJin
 date: 2025-08-22
+last_modified_at: 2025-08-22
 category: Jekyll
 layout: post
 mermaid: true

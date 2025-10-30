@@ -2,6 +2,7 @@
 title: 冷暖空调、热泵行业分析（2024）
 author: YooyoJin
 date: 2025-05-06
+last_modified_at: 2025-10-30
 category: Jekyll
 layout: post
 mermaid: true
@@ -41,4 +42,4 @@ mermaid: true
 
 ## 参考资料
 
-[^1]: 中国节能协会热泵专业委员会，产业在线. 2025年中国热泵产业报告.pdf
+[^1]: 中国节能协会热泵专业委员会，产业在线. (2025). _2025年中国热泵产业报告_

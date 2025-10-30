@@ -2,6 +2,7 @@
 title: 制冷理论基础
 author: YooyoJin
 date: 2025-07-01
+last_modified_at: 2025-07-01
 category: Jekyll
 layout: post
 mermaid: true
@@ -367,4 +368,4 @@ flowchart BT
 
 ## 参考资料
 
-William C. Whitman, William M. Johnson, John A. Tomczyk. 《制冷与空气调节技术（第五版）》
+William C. Whitman, William M. Johnson, John A. Tomczyk. (2016). _《制冷与空气调节技术（第五版）》_

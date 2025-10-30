@@ -2,6 +2,7 @@
 title: MCU常见输入输出设备
 author: YooyoJin
 date: 2025-09-12
+last_modified_at: 2025-09-12
 category: Jekyll
 layout: post
 mermaid: true

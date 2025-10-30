@@ -2,6 +2,7 @@
 title: 软件方案设计模板
 author: YooyoJin
 date: 2025-06-01
+last_modified_at: 2025-06-01
 category: Jekyll
 layout: post
 mermaid: true

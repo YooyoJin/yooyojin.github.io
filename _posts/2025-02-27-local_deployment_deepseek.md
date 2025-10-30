@@ -2,6 +2,7 @@
 title: 本地部署DeepSeek
 author: YooyoJin
 date: 2025-03-01
+last_modified_at: 2025-03-01
 category: Jekyll
 layout: post
 ---

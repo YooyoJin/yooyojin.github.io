@@ -2,6 +2,7 @@
 title: C++设计模式
 author: YooyoJin
 date: 2025-03-18
+last_modified_at: 2025-03-18
 category: Jekyll
 layout: post
 mermaid: true

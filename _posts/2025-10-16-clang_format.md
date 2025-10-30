@@ -2,6 +2,7 @@
 title: Clang-Format代码格式刷
 author: YooyoJin
 date: 2025-10-16
+last_modified_at: 2025-10-16
 category: Jekyll
 layout: post
 mermaid: true

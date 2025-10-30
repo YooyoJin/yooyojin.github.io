@@ -2,6 +2,7 @@
 title: 有线通信协议基础
 author: YooyoJin
 date: 2025-03-10
+last_modified_at: 2025-010-10
 category: Jekyll
 layout: post
 mermaid: true
@@ -636,9 +637,9 @@ packet-beta
 
 ## 参考资料
 
-Renesas. [CAN入门书](http://wenku.uml.com.cn/document/qrskf/CAN%E5%85%A5%E9%97%A8%E4%B9%A6.pdf)
+Renesas. (2006). _CAN入门书_. [http://wenku.uml.com.cn/document/qrskf/CAN%E5%85%A5%E9%97%A8%E4%B9%A6.pdf](http://wenku.uml.com.cn/document/qrskf/CAN%E5%85%A5%E9%97%A8%E4%B9%A6.pdf)
 
-[^1]: Fitz. [CAN总线-----位同步、仲裁和错误处理](https://blog.csdn.net/m0_73633088/article/details/141175701)
+[^1]: Fitz. (2024). _CAN总线-----位同步、仲裁和错误处理_. [https://blog.csdn.net/m0_73633088/article/details/141175701](https://blog.csdn.net/m0_73633088/article/details/141175701)
 
 
 

@@ -2,6 +2,7 @@
 title: 插值方法
 author: YooyoJin
 date: 2025-09-15
+last_modified_at: 2025-09-15
 category: Jekyll
 layout: post
 mermaid: true

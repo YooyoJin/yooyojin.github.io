@@ -77,9 +77,3 @@ plugins:
 # 本页未使用远程主题，通过fork下来自定义主题，若使用远程主题需要增加插件
 # plugins:
 #   - jekyll-remote-theme
-
-sitemap:
-  # 强制生成 lastmod
-  lastmod: true
-  changefreq: weekly
-  priority: 0.7
