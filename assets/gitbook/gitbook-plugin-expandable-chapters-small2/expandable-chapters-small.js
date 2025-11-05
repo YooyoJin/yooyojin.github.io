@@ -54,9 +54,9 @@ require(['gitbook', 'jQuery'], function (gitbook, $) {
 
         // 等待所有展开动画完成后再滚动
         setTimeout(function() {
-            // console.log('所有展开完成，开始滚动');
+            console.log('所有展开完成，开始滚动');
             scrollToActiveChapter(activeChapter);
-        }, 200); // 根据你的展开动画时间调整
+        }, 500); // 根据你的展开动画时间调整
     }
 
     var scrollToActiveChapter = function ($activeChapter) {
@@ -66,7 +66,7 @@ require(['gitbook', 'jQuery'], function (gitbook, $) {
         if (!$summary.length) return;
 
         var targetScrollTop = $activeChapter[0].offsetTop - 20;
-        // console.log('最终滚动到:', targetScrollTop);
+        console.log('最终滚动到:', targetScrollTop);
 
         $summary.scrollTop(targetScrollTop);
     }
