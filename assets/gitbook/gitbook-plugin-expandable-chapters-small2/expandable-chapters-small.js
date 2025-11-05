@@ -2,7 +2,6 @@ require(['gitbook', 'jQuery'], function (gitbook, $) {
     var PLUGIN = 'expandable-chapter-small2',
         TOGGLE_CLASSNAME = 'expanded',
         CHAPTER = '.chapter',
-        // ARTICLES = '.articles',
         ARTICLES = '.chapter ul',
         FOLDABLE = '.chapter, .chapter li',
         ARTICLE_CHILDREN = 'ul',
@@ -49,10 +48,27 @@ require(['gitbook', 'jQuery'], function (gitbook, $) {
         expand(activeChapter);
 
         // expand current selected chapter's children
-        // expand(activeChapter.parents(CHAPTER));
         activeChapter.find(ARTICLE_CHILDREN).closest(FOLDABLE).each(function () {
             expand($(this));
         });
+
+        // 等待所有展开动画完成后再滚动
+        setTimeout(function() {
+            // console.log('所有展开完成，开始滚动');
+            scrollToActiveChapter(activeChapter);
+        }, 200); // 根据你的展开动画时间调整
+    }
+
+    var scrollToActiveChapter = function ($activeChapter) {
+        if (!$activeChapter.length) return;
+
+        var $summary = $('.book-summary');
+        if (!$summary.length) return;
+
+        var targetScrollTop = $activeChapter[0].offsetTop - 20;
+        // console.log('最终滚动到:', targetScrollTop);
+
+        $summary.scrollTop(targetScrollTop);
     }
 
     var toggle = function ($chapter) {
