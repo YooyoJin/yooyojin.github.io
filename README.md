@@ -14,21 +14,21 @@ permalink: /
 
 ## 导航
 
-### 血与泪
-常见MCU及外围芯片应用：
+### 血泪史
+**常见MCU及外围芯片应用：**
 - [_HC32开发笔记_](./jekyll/2025-04-28-hc32.html)
 - [_EEPROM驱动开发笔记（M24C32）_](./jekyll/2025-06-19-eeprom_case.html)
 - [_CAN驱动开发笔记（UCA82C251C）_](./jekyll/2025-07-22-can_case.html)
 - [_电机驱动开发笔记_](./jekyll/2025-07-01-motor_basics.html)
 - [_MCU常见输入输出设备_](./jekyll/2025-09-12-common_device_of_mcu.html)
 
-C++开发：
+**C++开发：**
 - [_C++特性_](./jekyll/2025-03-14-c++_features.html)
 - [_C++网络编程_](./jekyll/2025-03-14-c++_net_programming.html)
 - [_C++设计模式_](./jekyll/2025-03-18-c++_design_patterns.html)
 - [_C/C++代码规范_](./jekyll/2024-11-06-coding_standards.html)
 
-通信基础：
+**通信基础：**
 - [_有线通信协议基础_](./jekyll/2025-03-10-wired_communication_protocol_basics.html)
 - [_无线通信协议基础_](./jekyll/2025-03-31-wireless_communication_protocol_basics.html)
 
