@@ -15,12 +15,14 @@ permalink: /
 ## 导航
 
 ### 血泪史
+
 **常见MCU及外围芯片应用：**
 - [_HC32开发笔记_](./jekyll/2025-04-28-hc32.html)
 - [_EEPROM驱动开发笔记（M24C32）_](./jekyll/2025-06-19-eeprom_case.html)
 - [_CAN驱动开发笔记（UCA82C251C）_](./jekyll/2025-07-22-can_case.html)
 - [_电机驱动开发笔记_](./jekyll/2025-07-01-motor_basics.html)
 - [_MCU常见输入输出设备_](./jekyll/2025-09-12-common_device_of_mcu.html)
+- [_LED驱动控制芯片开发笔记（TM1637）_](./jekyll/2025-11-06-led_driver_chip_case.html)
 
 **C++开发：**
 - [_C++特性_](./jekyll/2025-03-14-c++_features.html)
@@ -33,6 +35,7 @@ permalink: /
 - [_无线通信协议基础_](./jekyll/2025-03-31-wireless_communication_protocol_basics.html)
 
 ### 舞铲阶级必胜
+
 - [_Git基础操作_](./jekyll/2024-11-07-git.html)
 - [_GDB使用基础_](./jekyll/2024-11-04-gdb.html)
 - [_Cmake应用_](./jekyll/2024-12-08-cmake.html)
@@ -49,11 +52,13 @@ permalink: /
 - [_Markdown基础_](./jekyll/2024-11-05-markdown.html)
 
 ### 算法
+
 - [_PID控制器_](./jekyll/2025-05-09-pid.html)
 - [_滤波方法_](./jekyll/2025-09-18-wave_filtering.html)
 - [_插值方法_](./jekyll/2025-09-15-Interpolation.html)
 
 ### 理论支持
+
 - [_MCU基础_](./jekyll/2025-03-31-mcu_basics.html)
 - [_RAM、ROM存储基础_](./jekyll/2025-03-01-ram_rom.html)
 - [_电路基础_](./jekyll/2025-09-12-circuit_basics.html)
@@ -64,6 +69,7 @@ permalink: /
 - [_射频测试方法_](./jekyll/2024-11-04-rf_test_methods.html)
 
 ### 生存指南
+
 - [_Github博客搭建_](./jekyll/2024-11-01-jekyll_github_blog.html)
 - [_网站收录_](./jekyll/2024-11-07-web_site_inclusion.html)
 - [_软件方案设计模板_](./jekyll/2025-06-01-software_solution_design.html)
@@ -78,5 +84,4 @@ permalink: /
 - [_联系我_](./pages/contact/)
 - [_其他_](./others/about/)
 - [_草稿页_](./pages/design/draft/)
-
 
