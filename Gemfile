@@ -8,7 +8,7 @@ gem 'jekyll-feed'
 gem 'jekyll-readme-index'
 gem 'jemoji'
 gem 'webrick'
-# Í¨¹ıÍøÕ¾µØÍ¼seo²å¼şÀ´»ñÈ¡ĞŞ¸ÄÊ±¼ä
+# é€šè¿‡ç½‘ç«™åœ°å›¾seoæ’ä»¶æ¥è·å–ä¿®æ”¹æ—¶é—´
 gem 'jekyll-sitemap'
 gem 'jekyll-seo-tag'
 
