@@ -12,76 +12,113 @@ permalink: /
 
 最后，如果博客内容对你也有帮助，那就太酷了！
 
-## 导航
+## 快速导航（点击展开⏷）
 
-### 血泪史
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">💔 血泪史⏷</summary>
 
-**常见MCU及外围芯片应用：**
-- [_HC32开发笔记_](./jekyll/2025-04-28-hc32.html)
-- [_EEPROM驱动开发笔记（M24C32）_](./jekyll/2025-06-19-eeprom_case.html)
-- [_CAN驱动开发笔记（UCA82C251C）_](./jekyll/2025-07-22-can_case.html)
-- [_电机驱动开发笔记_](./jekyll/2025-07-01-motor_basics.html)
-- [_MCU常见输入输出设备_](./jekyll/2025-09-12-common_device_of_mcu.html)
-- [_LED驱动控制芯片开发笔记（TM1637）_](./jekyll/2025-11-06-led_driver_chip_case.html)
+<p style="margin-bottom: 0em;"><strong>常见MCU及外围芯片应用：</strong></p>
+<ul>
+<li><em>HC32开发笔记</em> <a href="./jekyll/2025-04-28-hc32.html">(2025-04-28-hc32.html)</a></li>
+<li><em>EEPROM驱动开发笔记（M24C32）</em> <a href="./jekyll/2025-06-19-eeprom_case.html">(2025-06-19-eeprom_case.html)</a></li>
+<li><em>CAN驱动开发笔记（UCA82C251C）</em> <a href="./jekyll/2025-07-22-can_case.html">(2025-07-22-can_case.html)</a></li>
+<li><em>电机驱动开发笔记</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
+<li><em>MCU常见输入输出设备</em> <a href="./jekyll/2025-09-12-common_device_of_mcu.html">(2025-09-12-common_device_of_mcu.html)</a></li>
+<li><em>LED驱动控制芯片开发笔记（TM1637）</em> <a href="./jekyll/2025-11-06-led_driver_chip_case.html">(2025-11-06-led_driver_chip_case.html)</a></li>
+</ul>
 
-**C++开发：**
-- [_C++特性_](./jekyll/2025-03-14-c++_features.html)
-- [_C++网络编程_](./jekyll/2025-03-14-c++_net_programming.html)
-- [_C++设计模式_](./jekyll/2025-03-18-c++_design_patterns.html)
-- [_C/C++代码规范_](./jekyll/2024-11-06-coding_standards.html)
+<p style="margin-bottom: 0em;"><strong>C++开发：</strong></p>
+<ul>
+<li><em>C++特性</em> <a href="./jekyll/2025-03-14-c++_features.html">(2025-03-14-c++_features.html)</a></li>
+<li><em>C++网络编程</em> <a href="./jekyll/2025-03-14-c++_net_programming.html">(2025-03-14-c++_net_programming.html)</a></li>
+<li><em>C++设计模式</em> <a href="./jekyll/2025-03-18-c++_design_patterns.html">(2025-03-18-c++_design_patterns.html)</a></li>
+<li><em>C/C++代码规范</em> <a href="./jekyll/2024-11-06-coding_standards.html">(2024-11-06-coding_standards.html)</a></li>
+</ul>
 
-**通信基础：**
-- [_有线通信协议基础_](./jekyll/2025-03-10-wired_communication_protocol_basics.html)
-- [_无线通信协议基础_](./jekyll/2025-03-31-wireless_communication_protocol_basics.html)
+<p style="margin-bottom: 0em;"><strong>通信基础：</strong></p>
+<ul>
+<li><em>有线通信协议基础</em> <a href="./jekyll/2025-03-10-wired_communication_protocol_basics.html">(2025-03-10-wired_communication_protocol_basics.html)</a></li>
+<li><em>无线通信协议基础</em> <a href="./jekyll/2025-03-31-wireless_communication_protocol_basics.html">(2025-03-31-wireless_communication_protocol_basics.html)</a></li>
+</ul>
 
-### 舞铲阶级必胜
+</details>
 
-- [_Git基础操作_](./jekyll/2024-11-07-git.html)
-- [_GDB使用基础_](./jekyll/2024-11-04-gdb.html)
-- [_Cmake应用_](./jekyll/2024-12-08-cmake.html)
-- [_Keil开发环境_](./jekyll/2025-04-28-keil.html)
-- [_Modbus调试工具_](./jekyll/2025-04-27-modbus_tool.html)
-- [_Qt开发总结_](./jekyll/2024-11-02-qt.html)
-- [_Clang-Format代码格式刷_](./jekyll/2025-10-16-clang_format.html)
-- [_Github博客搭建_](./jekyll/2024-11-01-jekyll_github_blog.html)
-- [_VMware虚拟机网络配置_](./jekyll/2025-03-07-vmware_network_configuration.html)
-- [_本地部署DeepSeek_](./jekyll/2025-03-01-local_deployment_deepseek.html)
-- [_UT单元测试_](./jekyll/2024-11-04-ut.html)
-- [_SQLite数据库应用_](./jekyll/2024-12-01-sql.html)
-- [_关于Dump_](./jekyll/2024-11-04-dump.html)
-- [_Markdown基础_](./jekyll/2024-11-05-markdown.html)
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🛠️ 舞铲阶级必胜⏷</summary>
 
-### 算法
+<ul>
+<li><em>Git基础操作</em> <a href="./jekyll/2024-11-07-git.html">(2024-11-07-git.html)</a></li>
+<li><em>GDB使用基础</em> <a href="./jekyll/2024-11-04-gdb.html">(2024-11-04-gdb.html)</a></li>
+<li><em>Cmake应用</em> <a href="./jekyll/2024-12-08-cmake.html">(2024-12-08-cmake.html)</a></li>
+<li><em>Keil开发环境</em> <a href="./jekyll/2025-04-28-keil.html">(2025-04-28-keil.html)</a></li>
+<li><em>Modbus调试工具</em> <a href="./jekyll/2025-04-27-modbus_tool.html">(2025-04-27-modbus_tool.html)</a></li>
+<li><em>Qt开发总结</em> <a href="./jekyll/2024-11-02-qt.html">(2024-11-02-qt.html)</a></li>
+<li><em>Clang-Format代码格式刷</em> <a href="./jekyll/2025-10-16-clang_format.html">(2025-10-16-clang_format.html)</a></li>
+<li><em>Github博客搭建</em> <a href="./jekyll/2024-11-01-jekyll_github_blog.html">(2024-11-01-jekyll_github_blog.html)</a></li>
+<li><em>VMware虚拟机网络配置</em> <a href="./jekyll/2025-03-07-vmware_network_configuration.html">(2025-03-07-vmware_network_configuration.html)</a></li>
+<li><em>本地部署DeepSeek</em> <a href="./jekyll/2025-03-01-local_deployment_deepseek.html">(2025-03-01-local_deployment_deepseek.html)</a></li>
+<li><em>UT单元测试</em> <a href="./jekyll/2024-11-04-ut.html">(2024-11-04-ut.html)</a></li>
+<li><em>SQLite数据库应用</em> <a href="./jekyll/2024-12-01-sql.html">(2024-12-01-sql.html)</a></li>
+<li><em>关于Dump</em> <a href="./jekyll/2024-11-04-dump.html">(2024-11-04-dump.html)</a></li>
+<li><em>Markdown基础</em> <a href="./jekyll/2024-11-05-markdown.html">(2024-11-05-markdown.html)</a></li>
+</ul>
 
-- [_PID控制器_](./jekyll/2025-05-09-pid.html)
-- [_滤波方法_](./jekyll/2025-09-18-wave_filtering.html)
-- [_插值方法_](./jekyll/2025-09-15-Interpolation.html)
+</details>
 
-### 理论支持
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🧙 一点点魔法⏷</summary>
 
-- [_MCU基础_](./jekyll/2025-03-31-mcu_basics.html)
-- [_RAM、ROM存储基础_](./jekyll/2025-03-01-ram_rom.html)
-- [_电路基础_](./jekyll/2025-09-12-circuit_basics.html)
-- [_电机理论基础_](./jekyll/2025-07-01-motor_basics.html)
-- [_制冷理论基础_](./jekyll/2025-07-01-refrigeration_basics.html)
-- [_RT-Thread基础_](./jekyll/2025-03-14-rtthread.html)
-- [_射频理论基础_](./jekyll/2024-11-04-rf_theory_basics.html)
-- [_射频测试方法_](./jekyll/2024-11-04-rf_test_methods.html)
+<ul>
+<li><em>PID控制器</em> <a href="./jekyll/2025-05-09-pid.html">(2025-05-09-pid.html)</a></li>
+<li><em>滤波方法</em> <a href="./jekyll/2025-09-18-wave_filtering.html">(2025-09-18-wave_filtering.html)</a></li>
+<li><em>插值方法</em> <a href="./jekyll/2025-09-15-Interpolation.html">(2025-09-15-Interpolation.html)</a></li>
+</ul>
 
-### 生存指南
+</details>
 
-- [_Github博客搭建_](./jekyll/2024-11-01-jekyll_github_blog.html)
-- [_网站收录_](./jekyll/2024-11-07-web_site_inclusion.html)
-- [_软件方案设计模板_](./jekyll/2025-06-01-software_solution_design.html)
-- [_软件架构设计_](./jekyll/2025-06-13-software_architecture_design.html)
-- [_如何接手屎山_](./jekyll/2025-05-17-eat_shit.html)
-- [_“完美”陷阱_](./jekyll/2025-10-15-perfect_trap.html)
-- [_老板看了沉默，人事看了流泪_](./jekyll/2024-11-04-labor_law.html)
-- [_经济机器是怎样运行的_](./jekyll/2025-02-19-how_the_economic_machine_works.html)
-- [_ATE测试行业发展现状分析（2023）_](./jekyll/2025-01-17-development_status_of_ate.html)
-- [_冷暖空调、热泵行业分析（2024）_](./jekyll/2025-05-06-development_status_of_hvac.html)
-- [_关于_](./pages/about/)
-- [_联系我_](./pages/contact/)
-- [_其他_](./others/about/)
-- [_草稿页_](./pages/design/draft/)
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
 
+<ul>
+<li><em>MCU基础</em> <a href="./jekyll/2025-03-31-mcu_basics.html">(2025-03-31-mcu_basics.html)</a></li>
+<li><em>RAM、ROM存储基础</em> <a href="./jekyll/2025-03-01-ram_rom.html">(2025-03-01-ram_rom.html)</a></li>
+<li><em>电路基础</em> <a href="./jekyll/2025-09-12-circuit_basics.html">(2025-09-12-circuit_basics.html)</a></li>
+<li><em>电机理论基础</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
+<li><em>制冷理论基础</em> <a href="./jekyll/2025-07-01-refrigeration_basics.html">(2025-07-01-refrigeration_basics.html)</a></li>
+<li><em>RT-Thread基础</em> <a href="./jekyll/2025-03-14-rtthread.html">(2025-03-14-rtthread.html)</a></li>
+<li><em>射频理论基础</em> <a href="./jekyll/2024-11-04-rf_theory_basics.html">(2024-11-04-rf_theory_basics.html)</a></li>
+<li><em>射频测试方法</em> <a href="./jekyll/2024-11-04-rf_test_methods.html">(2024-11-04-rf_test_methods.html)</a></li>
+<li><em>MPPT理论基础</em> <a href="./jekyll/2025-11-19-mppt_basics.html">(2025-11-19-mppt_basics.html)</a></li>
+</ul>
+
+</details>
+
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🧭 生存指南⏷</summary>
+
+<ul>
+<li><em>Github博客搭建</em> <a href="./jekyll/2024-11-01-jekyll_github_blog.html">(2024-11-01-jekyll_github_blog.html)</a></li>
+<li><em>网站收录</em> <a href="./jekyll/2024-11-07-web_site_inclusion.html">(2024-11-07-web_site_inclusion.html)</a></li>
+<li><em>软件方案设计模板</em> <a href="./jekyll/2025-06-01-software_solution_design.html">(2025-06-01-software_solution_design.html)</a></li>
+<li><em>软件架构设计</em> <a href="./jekyll/2025-06-13-software_architecture_design.html">(2025-06-13-software_architecture_design.html)</a></li>
+<li><em>如何接手屎山</em> <a href="./jekyll/2025-05-17-eat_shit.html">(2025-05-17-eat_shit.html)</a></li>
+<li><em>"完美"陷阱</em> <a href="./jekyll/2025-10-15-perfect_trap.html">(2025-10-15-perfect_trap.html)</a></li>
+<li><em>老板看了沉默，人事看了流泪</em> <a href="./jekyll/2024-11-04-labor_law.html">(2024-11-04-labor_law.html)</a></li>
+<li><em>经济机器是怎样运行的</em> <a href="./jekyll/2025-02-19-how_the_economic_machine_works.html">(2025-02-19-how_the_economic_machine_works.html)</a></li>
+<li><em>ATE测试行业发展现状分析（2023）</em> <a href="./jekyll/2025-01-17-development_status_of_ate.html">(2025-01-17-development_status_of_ate.html)</a></li>
+<li><em>冷暖空调、热泵行业分析（2024）</em> <a href="./jekyll/2025-05-06-development_status_of_hvac.html">(2025-05-06-development_status_of_hvac.html)</a></li>
+</ul>
+
+</details>
+
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🔗 其他链接⏷</summary>
+
+<ul>
+<li><em>关于</em> <a href="./pages/about/">(about.html)</a></li>
+<li><em>联系我</em> <a href="./pages/contact/">(contact.html)</a></li>
+<li><em>其他</em> <a href="./others/about/">(other.html)</a></li>
+<li><em>草稿页</em> <a href="./pages/design/draft/">(draft.html)</a></li>
+</ul>
+
+</details>
