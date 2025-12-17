@@ -1,3 +1,15 @@
+# robots.txt for yooyojin.github.io
 User-agent: *
 Allow: /
+
+# Sitemap location
 Sitemap: https://yooyojin.github.io/sitemap.xml
+Sitemap: https://yooyojin.github.io/sitemap.xml.gz
+
+# Google-specific directives
+User-agent: Googlebot
+Allow: /
+
+# Bing-specific directives
+User-agent: Bingbot
+Allow: /
