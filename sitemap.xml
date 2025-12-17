@@ -1,0 +1,14 @@
+---
+layout: null
+sitemap: false
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>{{ '/' | absolute_url | xml_escape }}</loc></url>
+<url><loc>{{ '/assets/search.html' | absolute_url | xml_escape }}</loc></url>
+<url><loc>{{ '/google6e11f3fc26caf3f5.html' | absolute_url | xml_escape }}</loc></url>{% for page in site.pages %}{% unless page.sitemap == false or page.url == '/' or page.url == '/assets/search.html' or page.url == '/google6e11f3fc26caf3f5.html' %}
+<url><loc>{{ page.url | absolute_url | xml_escape }}</loc></url>{% endunless %}{% endfor %}{% for post in site.posts %}{% unless post.sitemap == false %}
+<url><loc>{{ post.url | absolute_url | xml_escape }}</loc></url>{% endunless %}{% endfor %}{% for collection in site.collections %}{% unless collection.label == "posts" or collection.label == "pages" %}{% for doc in collection.docs %}{% if doc.url and doc.sitemap != false %}
+<url><loc>{{ doc.url | absolute_url | xml_escape }}</loc></url>{% endif %}{% endfor %}{% endunless %}{% endfor %}
+</urlset>

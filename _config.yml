@@ -72,7 +72,7 @@ plugins:
   - jekyll-feed          # 为网站生成 RSS/Atom 订阅源
   - jekyll-readme-index  # 使用 README.md 作为网站首页
   - jemoji               # 在文章中支持 GitHub 风格的 Emoji
-  - jekyll-sitemap       # 自动生成网站地图 (sitemap.xml)
+  # - jekyll-sitemap       # 自动生成网站地图 (sitemap.xml) - 已禁用，使用自定义sitemap.xml
   - jekyll-seo-tag       # 自动生成 SEO 优化标签
 # 本页未使用远程主题，通过fork下来自定义主题，若使用远程主题需要增加插件
 # plugins:
