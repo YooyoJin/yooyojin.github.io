@@ -2,7 +2,7 @@
 title: Modbus调试工具
 author: YooyoJin
 date: 2025-04-27
-last_modified_at: 2025-04-27
+last_modified_at: 2025-11-27
 category: Jekyll
 layout: post
 mermaid: true
@@ -191,12 +191,12 @@ Rx:000039-08 03 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0
 详细请参考Modbus协议“圣经”[^1]
 
 ``` cmd
-# 03功能码(读取保持寄存器) 相应帧结构
+# 03功能码(读取保持寄存器) 请求帧结构
 从机地址(1byte)+功能码(1byte)+起始地址(2byte)+要读取的存器数量(2byte)+校验(2byte)
 # 03功能码响应帧结构
 从机地址(1byte)+功能码(1byte)+字节数(1byte)+寄存器数据(n*2byte)+校验(2byte)
 
-# 06功能码(写入单个保持寄存器) 相应帧结构
+# 06功能码(写入单个保持寄存器) 请求帧结构
 从机地址(1byte)+功能码(1byte)+起始地址(2byte)+写入的寄存器值(2byte)+校验(2byte)
 # 06功能码响应帧结构
 从机地址(1byte)+功能码(1byte)+起始地址(2byte)+写入的寄存器值(2byte)+校验(2byte)
@@ -248,6 +248,17 @@ CRC校验码：A7 E0
 根因是由于从八位机移植到三十二位机时而没有注意类型导致的。
 
 解决办法：标准整数类型重新定义，使用C标准库中的int16_t类型，确保在不同平台上都有正确的16位有符号整数表示。
+
+### 主机发送数据，Modbus slave接收，slave不报错不响应
+
+主机发送数据，Slave接收但不响应。通过监控看到RX数据与发送匹配。数据帧格式正确符合03功能码结构。
+
+怀疑CRC校验错误，检查RCR功能代码，未发现异常
+
+尝试更换CRC高低位顺序，解决。
+
+根因：Modbus协议中CRC大端序（高字节在前，低字节在后），而我的CRC校验值未明确规定字节序，导致不匹配。
+
 
 ## 参考资料
 [^1]: MODICON, Inc. (1996). _Modbus Protocol PI-MBUS-300.pdf_. [https://modbus.org/docs/PI_MBUS_300.pdf](https://modbus.org/docs/PI_MBUS_300.pdf)
