@@ -25,6 +25,7 @@ permalink: /
 <li><em>电机驱动开发笔记</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
 <li><em>MCU常见输入输出设备</em> <a href="./jekyll/2025-09-12-common_device_of_mcu.html">(2025-09-12-common_device_of_mcu.html)</a></li>
 <li><em>LED驱动控制芯片开发笔记（TM1637）</em> <a href="./jekyll/2025-11-06-led_driver_chip_case.html">(2025-11-06-led_driver_chip_case.html)</a></li>
+<li><em>蜂鸣器开发笔记</em> <a href="./jekyll/2026-01-12-beep_case.html">(2025-11-06-led_driver_chip_case.html)</a></li>
 </ul>
 
 <p style="margin-bottom: 0em;"><strong>C++开发：</strong></p>
