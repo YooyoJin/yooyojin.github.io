@@ -2,7 +2,7 @@
 title: EEPROM驱动开发笔记（M24C32）
 author: YooyoJin
 date: 2025-06-19
-last_modified_at: 2025-12-23
+last_modified_at: 2025-02-04
 category: Jekyll
 layout: post
 mermaid: true
@@ -308,20 +308,19 @@ _**说明**_
 
 ## 常见问题
 
-### I2C应答信号与起始信号差异，不能先进入第9时钟再拉低SDA
+### 软件I2C应答信号与起始信号差异，不能先进入第9时钟再拉低SDA
 
-在我写I2C功能的时候发现，I2C应答信号和起始信号有所差异，它们不能混为一谈
+在我写软件I2C功能的时候发现，I2C应答信号和起始信号有所差异，它们不能混为一谈
 
 首先我们来看下起始信号和应答信号的逻辑。
 - 起始信号：数据线检测下降沿，时钟线为高；
 - 应答信号：在第9个时钟周期（应答位），从机必须在时钟线高电平期间拉低数据线；
 
-仅从上面的描述来看，是不是两个是一模一样的？时钟线为高时，拉低数据线？
+仅从上面的描述来看，是不是两个是一模一样的？在时钟线为高时，拉低数据线？
 
 但是实际写代码的时候我发现了一些差异
 
 ``` c
-
 static void BspM24c32I2cStart(void)
 {
     BSP_I2C_SCL_HIGH;
@@ -358,7 +357,7 @@ static void BspM24c32I2cSendAck(void)
 
 ```
 
-可以发现，起始信号，确实是符合描述，在SCL在高电平时，拉低了SDA。但是发送应答信号时，是先拉低SDA，再完成第9个时钟周期。
+可以发现，起始信号，确实是符合描述，在SCL在高电平时，拉低了SDA。但是发送应答信号时，是要先拉低SDA，再完成第9个时钟周期。
 
 **Q: 为什么会出现这样的差异？能不能先进入低9个时钟周期再拉低SDA？**<br>
 **A:** 很简单，假设在第9个时钟高电平时拉低SDA，这样的话就会产生一个起始信号，这里从机看到新的起始信号，会认为通信要重新开始，破坏了当前的数据传输。再者当你在第9个时钟周期内先拉高SDA然后再变低，可能认为是先产生了一个NACK信号，再产生了一个起始信号，这样从机会进入混乱。
@@ -366,11 +365,10 @@ static void BspM24c32I2cSendAck(void)
 **Q: 为什么起始/停止条件不同？**<br>
 **A:** 起始/停止条件是协议级别的控制信号，不是数据传输的一部分，它们用于通信框架控制。而数据/ACK，属于常规时序，用于数据传输。
 
-`起始信号： "大家好，我要开始说话了！"（需要引人注意）`
+> 起始信号："大家好，我要开始说话了！"（需要引人注意）<br>
+> ACK信号："收到，请继续"（正常对话中的回应）
 
-`ACK信号：  "收到，请继续"（正常对话中的回应）`
-
-所以，对于起始条件：必须先SCL高，然后SDA下降沿。对于ACK信号：在SCL低时设置SDA，然后SCL高展示。
+所以，对于起始条件：必须先SCL高，然后SDA下降沿。对于ACK信号：在SCL低时设置SDA，然后当SCL高时展示。
 
 I2C协议规则：
 1. 除起始(START)和停止(STOP)条件外，**SDA只能在SCL为低电平时改变**
@@ -393,9 +391,9 @@ I2C协议规则：
 
 问题背景：项目使用软件I2C来读写E2数据，在配置好I2C和E2后尝试读写数据，发现问题，回读数据成功，但是数据好像没有写进去。仔细核对时序后，发现I2C停止时序错误（先拉高SCL再拉低SDA保持，再拉高SDA，这可能导致从机认为这是重复起始条件，进而写入失败）。但是修复停止时序后，经过测试发现数据确实写进去了，但是无法正常读取。写入数据后，主机立即读取，从机没有应答。此时陷入无休止的对停止时序排查，怀疑停止时序问题，笑死。
 
-尝试用示波器抓I2C波形，但是我示波器只有一个探头，抓到的波形很难看。再无数次检查停止时序后，确定时序没有任何问题，开始怀疑是否是写保护导致，但是写保护应该不会影响我读取E2吧？还是尝试取消写保护，经过测试跟写保护没关系。
+尝试用示波器抓I2C波形，但是我手头上示波器只有一个探头，抓到的波形很难看。再无数次检查停止时序后，确定时序没有任何问题，开始怀疑是否是写保护导致，但是写保护应该不会影响我读取E2吧？还是尝试取消写保护，经过测试跟写保护没关系。
 
-在不断的比对参考代码和检查时序之后，查阅手册发现写E2需要等待。在写入之后加上固定延时，问题解决。还是经验不足啊，该采的坑一个不少😅
+在不断的比对参考代码和检查时序之后，查阅手册发现写E2需要等待。在写入之后加上固定延时，问题解决。还是经验不足😅
 
 E2有一个tw(Write time)，是E2的写入时间。这里主机通过I2C将数据给到E2后，芯片会将数据先锁存到缓冲页或缓冲区，此时I2C传输已经结束，但是真正的写入才开始，通过“隧穿”改变储存单元电压，从而实现数据固化。
 
@@ -408,7 +406,9 @@ the bus master goes back to Step 1.
 
 所以，这就是导致我写入之后，立即回读取导致失败的根因。总而言之，不是什么技术难题，就是一些细节问题导致时间浪费，所以在写代码的时候还是要注意细节，好在不是硬件问题，不然更头痛。
 
-### M24C16特殊性
+### M24C16与M24C32差异
+
+最近换了一款容量稍小的E2，但是不能直接完全照抄M24C32的底层驱动。
 
 M24C16容量位16Kbit（2048字节），需要11位来寻址。
 - 设备地址：1010 + 内存地址高三位 + 读写操作位
@@ -416,7 +416,234 @@ M24C16容量位16Kbit（2048字节），需要11位来寻址。
 
 假设要访问地址0x123（二进制：0001 0010 0011）：高3位：001 → 放到设备地址的A2 A1 A0，低8位：0x23 → 作为数据地址发送
 
-这里没有注意，导致使用的时候沿用C32的地址位放在设备地址后面，导致数据异常，花了些时间来定位问题。
+这里没有注意，习惯性的沿用了M24C32的的方式，将内存地址位分成了两个字节放在设备地址后面，导致数据异常，这里花了些时间来定位问题。
+
+### 硬件I2C
+
+之前多用软件I2C，因为时间充足，就尝试使用硬件I2C去读写E2，顺便熟悉新的芯片。
+
+但是经过实际的开发体验下来，这款芯片的硬件I2C没有软件I2C灵活，虽然硬件I2C不占用CPU资源是一大优势，但是初次配置底层确实有些麻烦。得完全按照芯片的I2C例程去编写，不然很容易产生一些空的字段，有的时候还会莫名奇妙多一包数据，就很头疼。硬件I2C必须要在正确的时机检查正确的状态位，然后执行正确的操作，需要通过反复判断状态码来判断I2C状态，一单发错就收不到应答，又得定位检查。
+
+不过相比软件I2C，用示波器去看波形，硬件I2C波形加规整，时序也更加清晰，时钟间隔也很准确。不像软件I2C用延时来翻转电平，导致时钟间隔各异。
+
+这里主要参考了芯片的例程，做了一定修改，经过实测目前比较稳定。
+
+``` c
+#define BSP_WP_ENABLE                    Gpio_SetIO(BSP_AT24C16C_EEPROM_WP_PORT, BSP_AT24C16C_EEPROM_WP_PIN)  // 写保护使能，WP高电平
+#define BSP_WP_DISABLE                   Gpio_ClrIO(BSP_AT24C16C_EEPROM_WP_PORT, BSP_AT24C16C_EEPROM_WP_PIN)  // 取消写保护，WP低电平
+
+/**
+ * @brief 发送EEPROM地址
+ * @param u16Addr 要访问的地址
+ * @return 发送结果
+ */
+static int32_t EepromSendAddress(uint16_t u16Addr)
+{
+    int32_t s32Ret;
+
+    // 检查地址范围
+    if (u16Addr >= AT24C16C_EEPROM_TOTAL_SIZE) {
+        return CMN_ERROR_EEPROM_ADDR_ERR;
+    }
+
+    // AT24C16C地址格式：11位地址，高3位作为页选择
+    uint8_t u8AddrHigh = (u16Addr >> 8) & 0x07;  // 高3位
+    uint8_t u8AddrLow = u16Addr & 0xFF;          // 低8位
+
+    // 设备地址（写模式）包含页选择位
+    uint8_t u8DevAddr = AT24C16C_EEPROM_DEVICE_ADDR | (u8AddrHigh << 1);
+
+    // 发送起始信号
+    I2C_SetFunc(BSP_EEPROM_I2C, I2cStart_En);
+
+    s32Ret = EepromCheckWriteAck();  // 检查起始条件状态
+    if (s32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        return s32Ret;
+    }
+
+    // 发送设备地址
+    s32Ret = I2C_WriteByte(BSP_EEPROM_I2C, u8DevAddr);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+    if (s32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        return CMN_ERROR_EEPROM_WRITE_ERR;
+    }
+
+    s32Ret = EepromCheckWriteAck();  // 检查设备地址ACK状态
+    if (s32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        return s32Ret;
+    }
+
+    // 发送地址低字节
+    s32Ret = I2C_WriteByte(BSP_EEPROM_I2C, u8AddrLow);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+    if (s32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        return CMN_ERROR_EEPROM_WRITE_ERR;
+    }
+
+    s32Ret = EepromCheckWriteAck();  // 检查地址低字节ACK状态
+    if (s32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        return s32Ret;
+    }
+
+    return CMN_SUCCESS;
+}
+
+/**
+ * @brief 写入单个字节
+ * @param u16Addr 写入地址
+ * @param u8Data 写入数据
+ * @return 写入结果
+ */
+int32_t BspAt24c16cEepromWriteByte(uint16_t u16Addr, uint8_t u8Data)
+{
+    int32_t i32Ret;
+
+    if (!s_bEepromInitialized) {
+        return CMN_ERROR_EEPROM_INIT_ERR;
+    }
+
+    // 检查地址范围
+    if (u16Addr >= AT24C16C_EEPROM_TOTAL_SIZE) {
+        return CMN_ERROR_EEPROM_ADDR_ERR;
+    }
+
+    BSP_WP_DISABLE;
+
+    // 发送地址
+    i32Ret = EepromSendAddress(u16Addr);
+    if (i32Ret != CMN_SUCCESS) {
+        BSP_WP_ENABLE;
+        return i32Ret;
+    }
+
+    // 写入数据
+    i32Ret = I2C_WriteByte(BSP_EEPROM_I2C, u8Data);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+    if (i32Ret != Ok) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        BSP_WP_ENABLE;
+        return CMN_ERROR_EEPROM_WRITE_ERR;
+    }
+
+    i32Ret = EepromCheckWriteAck();
+    if (i32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        BSP_WP_ENABLE;
+        return i32Ret;
+    }
+
+    // 发送停止信号
+    I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+
+    BSP_WP_ENABLE;
+
+    return CMN_SUCCESS;
+}
+
+/**
+ * @brief 读取单个字节
+ * @param u16Addr 读取地址
+ * @param pu8Data 读取数据指针
+ * @return 读取结果
+ */
+int32_t BspAt24c16cEepromReadByte(uint16_t u16Addr, uint8_t *pu8Data)
+{
+    int32_t i32Ret;
+
+    if (!s_bEepromInitialized) {
+        return CMN_ERROR_EEPROM_INIT_ERR;
+    }
+
+    if (pu8Data == NULL) {
+        return CMN_ERROR_EEPROM_READ_ERR;
+    }
+
+    // 检查地址范围
+    if (u16Addr >= AT24C16C_EEPROM_TOTAL_SIZE) {
+        return CMN_ERROR_EEPROM_ADDR_ERR;
+    }
+
+    BSP_WP_DISABLE;
+
+    // 发送地址（写模式）
+    i32Ret = EepromSendAddress(u16Addr);
+    if (i32Ret != CMN_SUCCESS) {
+        BSP_WP_ENABLE;
+        return i32Ret;
+    }
+
+    // 重新开始信号，切换到读模式
+    I2C_SetFunc(BSP_EEPROM_I2C, I2cStart_En);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+
+    i32Ret = EepromCheckReadAck();  // 检查重新开始的起始条件状态
+    if (i32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        BSP_WP_ENABLE;
+        return i32Ret;
+    }
+
+    // 发送地址（读模式）
+    i32Ret = I2C_WriteByte(BSP_EEPROM_I2C, AT24C16C_EEPROM_DEVICE_ADDR | 0x01);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+    if (i32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        BSP_WP_ENABLE;
+        return CMN_ERROR_EEPROM_READ_ERR;
+    }
+
+    i32Ret = EepromCheckReadAck();  // 检查设备地址ACK状态
+    if (i32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        BSP_WP_ENABLE;
+        return i32Ret;
+    }
+
+    I2C_ClearFunc(BSP_EEPROM_I2C, I2cAck_En);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+
+    i32Ret = EepromCheckReadAck();  // 0x58 已接收到最后一个数据，NACK已返回
+    if (i32Ret != CMN_SUCCESS) {
+        I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+        I2C_ClearIrq(BSP_EEPROM_I2C);
+        BSP_WP_ENABLE;
+        return i32Ret;
+    }
+
+    // 准备读取最后一个字节（发送NACK）
+    *pu8Data = I2C_ReadByte(BSP_EEPROM_I2C);
+    LOG_DEBUG("pu8Data %d", *pu8Data);
+
+    // 发送停止信号
+    I2C_SetFunc(BSP_EEPROM_I2C, I2cStop_En);
+    I2C_ClearIrq(BSP_EEPROM_I2C);
+
+    // 恢复ACK使能
+    I2C_SetFunc(BSP_EEPROM_I2C, I2cAck_En);
+
+    BSP_WP_ENABLE;
+
+    return CMN_SUCCESS;
+}
+
+```
+
 
 ## 参考资料
 
