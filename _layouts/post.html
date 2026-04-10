@@ -4,14 +4,14 @@
 
         {%- include head.html -%}
 
-        {% if page.previous %}
-            <link rel="prev" href="{{site.baseurl}}{{page.previous.url}}" />
+        {% if page.next %}
+            <link rel="prev" href="{{site.baseurl}}{{page.next.url}}" />
         {% else %}
             <link rel="prev" href="{{site.baseurl}}/" />
         {% endif %}
 
-        {% if page.next %}
-            <link rel="next" href="{{site.baseurl}}{{page.next.url}}" />
+        {% if page.previous %}
+            <link rel="next" href="{{site.baseurl}}{{page.previous.url}}" />
         {% endif %}
     </head>
     <body>
@@ -48,8 +48,8 @@
                     </div>
 
 
-                    {% if page.previous %}
-                        <a href="{{site.baseurl}}{{page.previous.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">
+                    {% if page.next %}
+                        <a href="{{site.baseurl}}{{page.next.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.next.title}}">
                             <i class="fa fa-angle-left"></i>
                         </a>
                     {% else %}
@@ -58,8 +58,8 @@
                         </a>
                     {% endif %}
 
-                    {% if page.next %}
-                        <a href="{{site.baseurl}}{{page.next.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{page.next.title}}">
+                    {% if page.previous %}
+                        <a href="{{site.baseurl}}{{page.previous.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{page.previous.title}}">
                             <i class="fa fa-angle-right"></i>
                         </a>
                     {% endif %}
