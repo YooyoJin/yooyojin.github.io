@@ -3,15 +3,14 @@
         "title": "Introduction",
         "level": "1.1",
         "depth": 1,
-        {% assign reversed_posts = site.posts | reverse %}
 
-        {% if reversed_posts %}
+        {% if site.posts.last %}
         "next": {
-            "title": "{{reversed_posts.first.title}}",
+            "title": "{{site.posts.last.title}}",
             "level": "1.2",
             "depth": 1,
-            "path": "{{reversed_posts.first.path}}",
-            "ref": "{{reversed_posts.first.path}}",
+            "path": "{{site.posts.last.path}}",
+            "ref": "{{site.posts.last.path}}",
             "articles": []
         },
         {% endif %}
