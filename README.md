@@ -110,6 +110,7 @@ permalink: /
 <details>
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🔗 其他链接⏷</summary>
 <ul>
+<li><em>修订历史（详见git提交记录）</em> <a href="https://github.com/YooyoJin/yooyojin.github.io">(https://github.com/YooyoJin/yooyojin.github.io)</a></li>
 <li><em>草稿页</em> <a href="./pages/design/draft/">(draft.html)</a></li>
 <li><em>其他</em> <a href="./others/about/">(other.html)</a></li>
 <li><em>联系我</em> <a href="./pages/contact/">(contact.html)</a></li>
