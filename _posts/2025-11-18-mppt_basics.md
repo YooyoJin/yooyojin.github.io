@@ -364,66 +364,7 @@ function initPlots() {
 document.addEventListener('DOMContentLoaded', initPlots);
 </script>
 
-## 3. MPPT硬件拓扑
-
-前级boost MPPT拓扑：
-
-``` mermaid
-graph LR
-    subgraph PV["☀️ 光伏输入"]
-        A[光伏阵列<br/>Vpv: 150V~350V]
-    end
-
-    subgraph Boost["⚡ Boost 升压电路"]
-        direction LR
-        B[输入电容<br/>Cin]
-        C[功率电感<br/>L]
-        D{开关节点}
-        E[开关管<br/>MOSFET或IGBT]
-        F[整流二极管<br/>SiC（肖特基）]
-        G[母线电容<br/>Cout]
-        GND[GND]
-    end
-
-    subgraph Out["🔋 高压母线"]
-        H[负载 / 后级电路]
-    end
-
-    subgraph Ctrl["🧠 MPPT 控制"]
-        I[MCU / DSP]
-        J[电压采样]
-        K[电流采样]
-        L[驱动电路]
-    end
-
-    A --> B --> C --> D
-    D --> F --> G --> H
-    D --> E --> GND
-    B --> GND
-    G --> GND
-
-    A -.-> J -.-> I
-    A -.-> K -.-> I
-    I --> L --> E
-
-    style A fill:#fff3e0,stroke:#f39c12,stroke-width:2px
-    style H fill:#e8f8f5,stroke:#1abc9c,stroke-width:2px
-    style I fill:#f4ecf7,stroke:#8e44ad,stroke-width:2px
-    style C fill:#d6eaf8,stroke:#2980b9,stroke-width:2px
-    style G fill:#fadbd8,stroke:#c0392b,stroke-width:2px
-```
-_**注意**_：
-- 电感注意选型，当心磁饱和或炸管，当电流超过电感饱和电流，电感量瞬间跌落至接近空心线圈，电流斜率急剧增大。软件ADC电流采样时会出现尖峰。
-- 母线电容，多用电解电容。需要设计软起动，占空比从0%缓慢爬升，给电解电容充电时间。
-- 输入电容，多用薄膜电容，吸收纹波，减少输入端的毛刺噪声。
-
-除了Boost型MPPT，常见的Buck、Boost以及Buck-Boost电路都有合适的应用场合
-- 用Boost：光伏阵列电压低于后端母线或电池电压。例如在并网逆变器中，单路光伏电压可能只有几十伏，需要升压到360V-500V左右的高压直流母线，才能让后级逆变电路正常工作。
-- 用Buck：光伏阵列电压高于电池电压。例如给12V/24V/48V的低压蓄电池充电，且光伏板是高压串联时。
-
-> 中大功率的MPPT一般都是Boost电路及其衍生电路，除了Boost电路本身拓扑简单以外，逆变侧对高压直流母线的需求也使得升压电路更受欢迎[^1]。
-
-## 4. MPPT性能指标
+## 3. MPPT性能指标
 
 - 追踪速度: 任意初态下系统开始运行时，或系统发生扰动时，光伏输入首次超过99.0%静态追踪效率的时间应不超过25秒。
 - 跟踪精度：设备实际工作点与理论最大功率点之间的偏差
@@ -433,6 +374,3 @@ _**注意**_：
 ## 常见问题
 
 ## 参考资料
-
-[^1]: 英飞凌工业半导体. (2024). _MPPT常用拓扑原理与英飞凌实现方法_. [https://www.eet-china.com/mp/a301989.html](https://www.eet-china.com/mp/a301989.html)
-
