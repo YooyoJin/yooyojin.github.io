@@ -37,11 +37,22 @@ permalink: /
 <li><em>C++特性</em> <a href="./jekyll/2025-03-14-c++_features.html">(2025-03-14-c++_features.html)</a></li>
 <li><em>C/C++代码规范</em> <a href="./jekyll/2024-11-06-coding_standards.html">(2024-11-06-coding_standards.html)</a></li>
 </ul>
+</details>
 
-<p style="margin-bottom: 0em;"><strong>通信基础：</strong></p>
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
 <ul>
+<li><em>储能系统的热管理</em> <a href="./jekyll/2026-04-27-energy_storage_thermal_management.html">(2026-04-27-energy_storage_thermal_management.html)</a></li>
+<li><em>电路基础</em> <a href="./jekyll/2025-09-12-circuit_basics.html">(2025-09-12-circuit_basics.html)</a></li>
+<li><em>制冷理论基础</em> <a href="./jekyll/2025-07-01-refrigeration_basics.html">(2025-07-01-refrigeration_basics.html)</a></li>
+<li><em>电机理论基础</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
 <li><em>无线通信协议基础</em> <a href="./jekyll/2025-03-31-wireless_communication_protocol_basics.html">(2025-03-31-wireless_communication_protocol_basics.html)</a></li>
 <li><em>有线通信协议基础</em> <a href="./jekyll/2025-03-10-wired_communication_protocol_basics.html">(2025-03-10-wired_communication_protocol_basics.html)</a></li>
+<li><em>MCU基础</em> <a href="./jekyll/2025-03-31-mcu_basics.html">(2025-03-31-mcu_basics.html)</a></li>
+<li><em>RT-Thread基础</em> <a href="./jekyll/2025-03-14-rtthread.html">(2025-03-14-rtthread.html)</a></li>
+<li><em>RAM、ROM存储基础</em> <a href="./jekyll/2025-03-01-ram_rom.html">(2025-03-01-ram_rom.html)</a></li>
+<li><em>射频测试方法</em> <a href="./jekyll/2024-11-04-rf_test_methods.html">(2024-11-04-rf_test_methods.html)</a></li>
+<li><em>射频理论基础</em> <a href="./jekyll/2024-11-04-rf_theory_basics.html">(2024-11-04-rf_theory_basics.html)</a></li>
 </ul>
 </details>
 
@@ -72,21 +83,6 @@ permalink: /
 <li><em>滤波方法</em> <a href="./jekyll/2025-09-18-wave_filtering.html">(2025-09-18-wave_filtering.html)</a></li>
 <li><em>插值方法</em> <a href="./jekyll/2025-09-15-Interpolation.html">(2025-09-15-Interpolation.html)</a></li>
 <li><em>PID控制器</em> <a href="./jekyll/2025-05-09-pid.html">(2025-05-09-pid.html)</a></li>
-</ul>
-</details>
-
-<details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
-<ul>
-<li><em>MPPT理论基础</em> <a href="./jekyll/2025-11-19-mppt_basics.html">(2025-11-19-mppt_basics.html)</a></li>
-<li><em>电路基础</em> <a href="./jekyll/2025-09-12-circuit_basics.html">(2025-09-12-circuit_basics.html)</a></li>
-<li><em>制冷理论基础</em> <a href="./jekyll/2025-07-01-refrigeration_basics.html">(2025-07-01-refrigeration_basics.html)</a></li>
-<li><em>电机理论基础</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
-<li><em>MCU基础</em> <a href="./jekyll/2025-03-31-mcu_basics.html">(2025-03-31-mcu_basics.html)</a></li>
-<li><em>RT-Thread基础</em> <a href="./jekyll/2025-03-14-rtthread.html">(2025-03-14-rtthread.html)</a></li>
-<li><em>RAM、ROM存储基础</em> <a href="./jekyll/2025-03-01-ram_rom.html">(2025-03-01-ram_rom.html)</a></li>
-<li><em>射频测试方法</em> <a href="./jekyll/2024-11-04-rf_test_methods.html">(2024-11-04-rf_test_methods.html)</a></li>
-<li><em>射频理论基础</em> <a href="./jekyll/2024-11-04-rf_theory_basics.html">(2024-11-04-rf_theory_basics.html)</a></li>
 </ul>
 </details>
 
