@@ -43,6 +43,7 @@ permalink: /
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
 <ul>
 <li><em>储能系统的热管理</em> <a href="./jekyll/2026-04-27-energy_storage_thermal_management.html">(2026-04-27-energy_storage_thermal_management.html)</a></li>
+<li><em>制冷系统构件</em> <a href="./jekyll/2025-09-12-refrigeration_system_components.html">(2025-09-12-refrigeration_system_components.html)</a></li>
 <li><em>电路基础</em> <a href="./jekyll/2025-09-12-circuit_basics.html">(2025-09-12-circuit_basics.html)</a></li>
 <li><em>制冷理论基础</em> <a href="./jekyll/2025-07-01-refrigeration_basics.html">(2025-07-01-refrigeration_basics.html)</a></li>
 <li><em>电机理论基础</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
