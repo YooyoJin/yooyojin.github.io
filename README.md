@@ -16,6 +16,7 @@ permalink: /
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">💔 血泪史⏷</summary>
 <p style="margin-bottom: 0em;"><strong>嵌入式开发应用笔记：</strong></p>
 <ul>
+<li><em>MPPT开发笔记（总索引）</em> <a href="./jekyll/2026-04-13-mppt_case.html">(2026-04-13-mppt_case.html)</a></li>
 <li><em>简易三项保护器开发笔记</em> <a href="./jekyll/2026-04-10-phase_protector.html">(2026-04-10-phase_protector.html)</a></li>
 <li><em>RL78开发笔记</em> <a href="./jekyll/2026-02-26-rl78.html">(2026-02-26-rl78.html)</a></li>
 <li><em>蜂鸣器开发笔记</em> <a href="./jekyll/2026-01-12-beep_case.html">(2026-01-12-beep_case.html)</a></li>
@@ -41,14 +42,25 @@ permalink: /
 <details>
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
 <ul>
+<li><em>储能系统的热管理</em> <a href="./jekyll/2026-04-27-energy_storage_thermal_management.html">(2026-04-27-energy_storage_thermal_management.html)</a></li>
+<li><em>制冷系统构件</em> <a href="./jekyll/2025-09-12-refrigeration_system_components.html">(2025-09-12-refrigeration_system_components.html)</a></li>
+<li><em>电路基础</em> <a href="./jekyll/2025-09-12-circuit_basics.html">(2025-09-12-circuit_basics.html)</a></li>
+<li><em>制冷理论基础</em> <a href="./jekyll/2025-07-01-refrigeration_basics.html">(2025-07-01-refrigeration_basics.html)</a></li>
+<li><em>电机理论基础</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
 <li><em>无线通信协议基础</em> <a href="./jekyll/2025-03-31-wireless_communication_protocol_basics.html">(2025-03-31-wireless_communication_protocol_basics.html)</a></li>
 <li><em>有线通信协议基础</em> <a href="./jekyll/2025-03-10-wired_communication_protocol_basics.html">(2025-03-10-wired_communication_protocol_basics.html)</a></li>
+<li><em>MCU基础</em> <a href="./jekyll/2025-03-31-mcu_basics.html">(2025-03-31-mcu_basics.html)</a></li>
+<li><em>RT-Thread基础</em> <a href="./jekyll/2025-03-14-rtthread.html">(2025-03-14-rtthread.html)</a></li>
+<li><em>RAM、ROM存储基础</em> <a href="./jekyll/2025-03-01-ram_rom.html">(2025-03-01-ram_rom.html)</a></li>
+<li><em>射频测试方法</em> <a href="./jekyll/2024-11-04-rf_test_methods.html">(2024-11-04-rf_test_methods.html)</a></li>
+<li><em>射频理论基础</em> <a href="./jekyll/2024-11-04-rf_theory_basics.html">(2024-11-04-rf_theory_basics.html)</a></li>
 </ul>
 </details>
 
 <details>
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🛠️ 舞铲阶级必胜⏷</summary>
 <ul>
+<li><em>智谱AI简易热点抓取脚本</em> <a href="./jekyll/2026-05-28-zhipu_hotnews.html">(2026-05-28-zhipu_hotnews.html)</a></li>
 <li><em>J-LINK RTT应用</em> <a href="./jekyll/2025-11-24-rtt.html">(2025-11-24-rtt.html)</a></li>
 <li><em>Clang-Format代码格式刷</em> <a href="./jekyll/2025-10-16-clang_format.html">(2025-10-16-clang_format.html)</a></li>
 <li><em>Modbus调试工具</em> <a href="./jekyll/2025-04-27-modbus_tool.html">(2025-04-27-modbus_tool.html)</a></li>
@@ -77,21 +89,6 @@ permalink: /
 </details>
 
 <details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
-<ul>
-<li><em>MPPT理论基础</em> <a href="./jekyll/2025-11-19-mppt_basics.html">(2025-11-19-mppt_basics.html)</a></li>
-<li><em>电路基础</em> <a href="./jekyll/2025-09-12-circuit_basics.html">(2025-09-12-circuit_basics.html)</a></li>
-<li><em>制冷理论基础</em> <a href="./jekyll/2025-07-01-refrigeration_basics.html">(2025-07-01-refrigeration_basics.html)</a></li>
-<li><em>电机理论基础</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
-<li><em>MCU基础</em> <a href="./jekyll/2025-03-31-mcu_basics.html">(2025-03-31-mcu_basics.html)</a></li>
-<li><em>RT-Thread基础</em> <a href="./jekyll/2025-03-14-rtthread.html">(2025-03-14-rtthread.html)</a></li>
-<li><em>RAM、ROM存储基础</em> <a href="./jekyll/2025-03-01-ram_rom.html">(2025-03-01-ram_rom.html)</a></li>
-<li><em>射频测试方法</em> <a href="./jekyll/2024-11-04-rf_test_methods.html">(2024-11-04-rf_test_methods.html)</a></li>
-<li><em>射频理论基础</em> <a href="./jekyll/2024-11-04-rf_theory_basics.html">(2024-11-04-rf_theory_basics.html)</a></li>
-</ul>
-</details>
-
-<details>
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🧭 生存指南⏷</summary>
 <ul>
 <li><em>问题分析与心态</em> <a href="./jekyll/2026-01-12-problem_and_mindset.html">(2026-01-12-problem_and_mindset.html)</a></li>
@@ -111,6 +108,7 @@ permalink: /
 <details>
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🔗 其他链接⏷</summary>
 <ul>
+<li><em>修订历史（详见git提交记录）</em> <a href="https://github.com/YooyoJin/yooyojin.github.io">(https://github.com/YooyoJin/yooyojin.github.io)</a></li>
 <li><em>草稿页</em> <a href="./pages/design/draft/">(draft.html)</a></li>
 <li><em>其他</em> <a href="./others/about/">(other.html)</a></li>
 <li><em>联系我</em> <a href="./pages/contact/">(contact.html)</a></li>

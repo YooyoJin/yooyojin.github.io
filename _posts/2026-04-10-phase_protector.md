@@ -2,7 +2,7 @@
 title: 简易无中线三相保护器开发笔记
 author: YooyoJin
 date: 2026-04-10
-last_modified_at: 2026-04-10
+last_modified_at: 2026-04-13
 category: Jekyll
 layout: post
 mermaid: true
@@ -30,13 +30,51 @@ mermaid: true
 
 电路可以参考[^1]，电路部分不是我画的，不好窃取他人成果，就不贴图了。
 
+硬件拓扑如下：
+
+``` mermaid
+graph LR
+    subgraph 强电侧 [强电侧 无中线系统]
+        U(U相) --> R1[限流电阻] --> U1[光耦 U1]
+        V(V相) --> R2[限流电阻] --> U2[光耦 U2]
+        W(W相) --> R3[限流电阻] --> U3[光耦 U3]
+    end
+
+    U1 -. 回路 .-> V
+    U2 -. 回路 .-> W
+    U3 -. 回路 .-> U
+
+    subgraph 弱电侧 [弱电侧]
+        U1 --- P1[GPIO1] --- MCU((MCU))
+        U2 --- P2[GPIO2] --- MCU
+        U3 --- P3[GPIO3] --- MCU
+    end
+
+    style 强电侧 fill:#fce4d6,stroke:#ed7d31,stroke-width:2px
+    style 弱电侧 fill:#dae3f3,stroke:#4472c4,stroke-width:2px
+
+    style U fill:#f8cbad,stroke:#ed7d31,stroke-width:2px
+    style V fill:#f8cbad,stroke:#ed7d31,stroke-width:2px
+    style W fill:#f8cbad,stroke:#ed7d31,stroke-width:2px
+
+    style U1 fill:#ffe699,stroke:#bf8f00,stroke-width:2px
+    style U2 fill:#ffe699,stroke:#bf8f00,stroke-width:2px
+    style U3 fill:#ffe699,stroke:#bf8f00,stroke-width:2px
+
+    style P1 fill:#bdd7ee,stroke:#4472c4,stroke-width:2px
+    style P2 fill:#bdd7ee,stroke:#4472c4,stroke-width:2px
+    style P3 fill:#bdd7ee,stroke:#4472c4,stroke-width:2px
+
+    style MCU fill:#c5e0b4,stroke:#70ad47,stroke-width:3px
+```
+
 工作原理很简单，三相电通过限流电阻分别接入三个光耦的输入端。当某相电压处于正半周且超过光耦导通阈值（约1.2V）时，该相光耦导通；负半周时光耦截止。
 
 光耦输出端采用上拉电阻接VCC，并连接到MCU的GPIO引脚。光耦导通时，输出端被拉低至GND，GPIO检测到低电平；光耦截止时，输出端被上拉至VCC，GPIO检测到高电平。
 
 由于三相电相位互差120°，三个GPIO会输出相位差120°的方波信号。通过检测这些方波的边沿和时序关系，即可判断是否缺相或错相。
 
-在无中线电路中，缺相时，该相的输入会被其他相通过负载回路耦合，即会有两相的边沿始终同时出现。简单来说就是缺W相时，W相输入端没电，但因为电机绕组连着，V相的电压会"串"到W相上，导致W相的光耦被V相"带着"一起导通。
+在无中线电路中，缺相时，该相的输入会被其他相通过负载回路耦合，即会有两相的边沿始终同时出现。简单来说就是缺W相时，W相输入端悬空，但因为光耦输入端直接跨接于两相线之间，V相的电压会"串"到W相上，导致W相的光耦被V相"带着"一起导通。（开发时想当然认为三相电悬空会使光耦不导通，测试后才发现错误，只好改版）
 
 ``` cmd
 正常情况（每相互差120°）：
@@ -223,7 +261,23 @@ void PhaseScanProcess(void)
 
 ## 4. 实测
 
-本来以为，缺相是直接上拉高电平的。结果测了之后才发现，这个缺相会产生同步的情况，于是又修改了一版。最终结果跟预期相符。用的三相调压器，还测试了不同工频下的状态，没有发现明显问题。
+实测结果与预期完全一致。 使用三相调压器进行验证，并在不同工频下分别测试，各项功能正常，可以实时检测并反馈当前故障状态，无明显异常。
+
+## 5. 优化与改进
+
+后来客户给发了一款他们目前在用的三相保护器，除了相序和错项外，还集成了三相不平衡保护功能。
+
+原理是实时计算任意一相电压与其余两相电压的不平衡度，当该值达到设定阈值时，控制继电器动作。
+
+$$\frac{U_{\text{max}} - U_{\text{min}}}{U_s} \times 100\% \geq \varepsilon$$
+
+_**其中**_
+- $U_{\text{max}}$ 为三相中电压最大值；
+- $U_{\text{min}}$ 为三相中电压最小值；
+- $U_s$ 为额定控制电源电电压，比如380V或220V，取决于系统；
+- $\varepsilon$ 为设定动作阈值，可在 $8\%$ 至 $13\%$ 范围内整定。
+
+当前硬件缺少电压检测电路，暂无法实现，可能列入下版改进计划。
 
 ## 参考资料
 
