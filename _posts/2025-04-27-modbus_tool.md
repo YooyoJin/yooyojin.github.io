@@ -207,7 +207,7 @@ Rx:000039-08 03 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0
 从机地址(1byte)+功能码(1byte)+起始地址(2byte)+成功写入寄存器数量(2byte)+校验(2byte)
 ```
 _**注意**_
-- Modbus所有多字节端使用大端序，CRC也同样（高位在前）
+- Modbus所有多字节端使用大端序，而CRC是小端序（低位在前）
 - 为什么字节数一字节？而寄存器数量两字节？既然规定了Modbus整个数据帧的最大长度不能超过256字节，为什么寄存器数量不也用1字节表示？
 
 ## 常见问题&解决办法
@@ -255,10 +255,121 @@ CRC校验码：A7 E0
 
 怀疑CRC校验错误，检查RCR功能代码，未发现异常
 
-尝试更换CRC高低位顺序，解决。
+尝试更换CRC高低位顺序，问题解决。
 
-根因：Modbus协议中CRC大端序（高字节在前，低字节在后），而我的CRC校验值未明确规定字节序，导致不匹配。
+根因：Modbus协议中CRC小端序（低字节在前，高字节在后），而我的CRC计算代码未明确处理字节序，直接按计算结果（大端序）填入报文，导致校验失败，Slave丢弃请求。。
 
+> The CRC field is appended to the message as the last field in the message.When this is done, the low–order byte of the field is appended first, followed by the high–order byte. The CRC high–order byte is the last byte to be sent in the message.[^1]
+
+不论根据modbus poll的报文计算的结果，还是手册中的描述，都是将CRC计算的结果进行调序，将低字节在前高字节在后。
+
+但是为什么不跟之前的数据位保持一样的字节序？没有找到合理的解释，约定俗成？
+
+03读命令：
+
+<div style="overflow-x: auto;">
+    <style>
+    td, th {
+        border: 1px solid #000;
+        padding: 8px;
+        white-space: nowrap;
+    }
+    .red-bold {
+        color: red;
+        font-weight: bold;
+    }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>0</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>字段定义</strong></td>
+                <td>ADDR</td>
+                <td>CMD</td>
+                <td>MSB</td>
+                <td>LSB</td>
+                <td>MSB</td>
+                <td>LSB</td>
+                <td><span class="red-bold">LSB</span></td>
+                <td><span class="red-bold">MSB</span></td>
+            </tr>
+            <tr>
+                <td><strong>解释</strong></td>
+                <td>控制器地址</td>
+                <td>命令类型</td>
+                <td colspan="2">寄存器起始地址</td>
+                <td colspan="2">寄存器个数</td>
+                <td colspan="2"><span class="red-bold">CRC校验</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>0</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>...</th>
+                <th>L+1</th>
+                <th>L+2</th>
+                <th>L+3</th>
+                <th>L+4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>字段定义</strong></td>
+                <td>ADDR</td>
+                <td>CMD</td>
+                <td>LENGTH</td>
+                <td>MSB</td>
+                <td>LSB</td>
+                <td>MSB</td>
+                <td>LSB</td>
+                <td>...</td>
+                <td>MSB</td>
+                <td>LSB</td>
+                <td><span class="red-bold">LSB</span></td>
+                <td><span class="red-bold">MSB</span></td>
+            </tr>
+            <tr>
+                <td><strong>解释</strong></td>
+                <td>控制器地址</td>
+                <td>命令类型</td>
+                <td>发送字节数</td>
+                <td colspan="2">第一个寄存器的值</td>
+                <td colspan="2">第二个寄存器的值</td>
+                <td>...</td>
+                <td colspan="2">最后一个寄存器的值</td>
+                <td colspan="2"><span class="red-bold">CRC校验</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+_**注意:**_
+- MSB 表示高字节；LSB 表示低字节;
+- 每个寄存器存放两个字节；对寄存器数据类型为一个字节的数据，存放在低字节（LSB）。
 
 ## 参考资料
 [^1]: MODICON, Inc. (1996). _Modbus Protocol PI-MBUS-300.pdf_. [https://modbus.org/docs/PI_MBUS_300.pdf](https://modbus.org/docs/PI_MBUS_300.pdf)

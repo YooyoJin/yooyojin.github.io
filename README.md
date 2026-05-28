@@ -36,8 +36,10 @@ permalink: /
 <li><em>C++特性</em> <a href="./jekyll/2025-03-14-c++_features.html">(2025-03-14-c++_features.html)</a></li>
 <li><em>C/C++代码规范</em> <a href="./jekyll/2024-11-06-coding_standards.html">(2024-11-06-coding_standards.html)</a></li>
 </ul>
+</details>
 
-<p style="margin-bottom: 0em;"><strong>通信基础：</strong></p>
+<details>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
 <ul>
 <li><em>无线通信协议基础</em> <a href="./jekyll/2025-03-31-wireless_communication_protocol_basics.html">(2025-03-31-wireless_communication_protocol_basics.html)</a></li>
 <li><em>有线通信协议基础</em> <a href="./jekyll/2025-03-10-wired_communication_protocol_basics.html">(2025-03-10-wired_communication_protocol_basics.html)</a></li>
