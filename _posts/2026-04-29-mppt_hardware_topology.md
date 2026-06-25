@@ -169,8 +169,6 @@ _**注意**_：
 
 本来是一个值得思考的难题，但是实际是驱动器的容错很高，跌落也不会影响后续逆变正常工作。
 
-## 相关文档
-
 ## 参考资料
 
 [^1]: 徐鹏威，段善旭，刘飞，刘邦银. (2007). _几种光伏系统MPPT方法的分析与比较_. [https://d.wanfangdata.com.cn/periodical/Ch9QZXJpb2RpY2FsQ0hJTmV3UzIwMjUwMTE2MTYzNjE0Eg9kbGR6anMyMDA3MDUwMDIaCDl1Njdjc2Z3](https://d.wanfangdata.com.cn/periodical/Ch9QZXJpb2RpY2FsQ0hJTmV3UzIwMjUwMTE2MTYzNjE0Eg9kbGR6anMyMDA3MDUwMDIaCDl1Njdjc2Z3)
