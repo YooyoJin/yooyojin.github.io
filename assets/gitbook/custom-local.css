@@ -3,3 +3,27 @@
  * Its purpose is for users of the theme to be able to add css rules from a blank file
  *   these get simply added to the ones already active in the layout.
  */
+
+/* === 图表随字号联动缩放 ===
+ * fontsettings 插件在 .book 上加 font-size-N class，
+ * 这里用 CSS 选择器让 PlantUML/Mermaid 图表跟着放大缩小。
+ * 用 zoom（而非 transform: scale），因为它会真实改变占位空间，
+ * 不会留白/重叠；纯 CSS 实现，不依赖 JS 时序，DOM 重建后仍生效。
+ * 矢量图缩放无失真。Firefox 124+（2024.3）起支持 zoom。
+ */
+/* 注：PlantUML 产物是 .plantuml-diagram (img)；
+ *     Mermaid 产物是 .language-mermaid svg（无需 JS 加 class，绕开异步时序） */
+
+/* --- PlantUML：档位 --- */
+.book.font-size-0 .plantuml-diagram { zoom: 0.85; }
+.book.font-size-1 .plantuml-diagram { zoom: 0.92; }
+.book.font-size-2 .plantuml-diagram { zoom: 1.00; }
+.book.font-size-3 .plantuml-diagram { zoom: 1.15; }
+.book.font-size-4 .plantuml-diagram { zoom: 1.30; }
+
+/* --- Mermaid：挡位 --- */
+.book.font-size-0 .language-mermaid svg { zoom: 0.65; }
+.book.font-size-1 .language-mermaid svg { zoom: 0.72; }
+.book.font-size-2 .language-mermaid svg { zoom: 0.85; }
+.book.font-size-3 .language-mermaid svg { zoom: 1.00; }
+.book.font-size-4 .language-mermaid svg { zoom: 1.30; }
