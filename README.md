@@ -4,26 +4,6 @@ title: YooyoJin's bolg
 permalink: /
 ---
 
-<style>
-/* README 目录折叠箭头：gitbook 主题隐藏了原生 marker，这里用 ::before 自绘，
- * 展开时旋转 90° 朝下。GitHub 不读取 README 的 <style>，故两边都不会重复。 */
-.markdown-section details > summary {
-    list-style: none;
-}
-.markdown-section details > summary::-webkit-details-marker {
-    display: none;
-}
-.markdown-section details > summary::before {
-    content: "▶";
-    display: inline-block;
-    margin-right: 0.4em;
-    transition: transform 0.2s ease;
-}
-.markdown-section details[open] > summary::before {
-    transform: rotate(90deg);
-}
-</style>
-
 欢迎！这里是本码农YooyoJin的博客主页。
 
 这里主要陈列着一些闪着智慧（或者头秃）光芒的代码片段、间歇性学习总结，以及一些偶尔脑袋抽风的产物。大多内容为本人学习过程中的初学者笔记，供遗忘时查阅，如有您发现哪里写得飘了，或者借鉴过度了，请立即敲打我，我立马端茶倒水修改加鞠躬鞠躬！欢迎致信：yooyojin@foxmail.com。

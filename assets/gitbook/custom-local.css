@@ -27,3 +27,24 @@
 .book.font-size-2 .language-mermaid svg { zoom: 0.85; }
 .book.font-size-3 .language-mermaid svg { zoom: 1.00; }
 .book.font-size-4 .language-mermaid svg { zoom: 1.30; }
+
+/* === 折叠箭头自绘（全站 details 通用）===
+ * gitbook 主题隐藏了原生 marker，这里用 ::before 自绘 ▶，
+ * 展开时旋转 90° 朝下。选择器限定 .markdown-section（文章内容区），
+ * home 页 README 目录及任何文章里手写的 <details> 都会自动生效。
+ */
+.markdown-section details > summary {
+    list-style: none;
+}
+.markdown-section details > summary::-webkit-details-marker {
+    display: none;
+}
+.markdown-section details > summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 0.4em;
+    transition: transform 0.2s ease;
+}
+.markdown-section details[open] > summary::before {
+    transform: rotate(90deg);
+}
