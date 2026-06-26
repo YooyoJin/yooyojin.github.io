@@ -7,6 +7,7 @@ function render_plantuml() {
         var img = document.createElement('img');
         img.src = 'https://www.plantuml.com/plantuml/svg/' + encoded;
         img.alt = 'PlantUML diagram';
+        img.className = 'plantuml-diagram';
         block.parentNode.replaceChild(img, block);
     });
 }
