@@ -1,0 +1,275 @@
+<style>
+/* === 代码块 / 图表可折叠 ===
+ * 结构：.collapsible-wrap[.collapsible-code|.collapsible-diagram]
+ *       > [.collapsible-btn > .collapsible-arrow(▶), .collapsible-content > 原元素]
+ * 箭头：展开态转 90° 朝下，收缩态朝右（单字形旋转，两态大小一致）；
+ * 按钮与 Copy 按钮（右）盒模型逐项一致 → 等高对齐；
+ * 折叠时保留一条与按钮等高的窄框，背景继承内容区（随主题自适应，Copy 不消失）。
+ */
+.collapsible-wrap { position: relative; }
+
+/* 折叠按钮：与 Copy 同配色/边框/圆角；代码块由 JS 动态设为正方形 + 紧贴 Copy；
+ * 图表无 Copy，保持右侧贴边。flex 居中箭头（适配正方形 padding:0 的情况）。 */
+.collapsible-btn {
+    position: absolute;
+    top: 5px;
+    padding: 3px;
+    background-color: #313E4E;
+    color: #fff;
+    border: 2px solid #CCCCCC;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.collapsible-btn:hover { background-color: #455A64; }
+.collapsible-code .collapsible-btn { right: 70px; }    /* 兜底，JS 对齐后会覆盖 */
+.collapsible-diagram .collapsible-btn { right: 5px; }
+
+/* 箭头：单字形 ▶，收缩态朝右；展开态（无 collapsed）旋转 90° 朝下。
+ * 同字形旋转保证两态大小完全一致；inline-block 让 transform 生效。 */
+.collapsible-arrow {
+    display: inline-block;
+    transition: transform 0.15s ease;
+}
+.collapsible-wrap:not(.collapsed) .collapsible-arrow { transform: rotate(90deg); }
+.collapsible-wrap.collapsed .collapsible-arrow { transform: rotate(0deg); }
+
+/* 丝滑折叠动画：纯 height 卷帘。
+ * overflow 横纵分离：overflow-x:auto 保留横向滚动条（大字体时），
+ * overflow-y:hidden 实现纵向卷帘裁剪（收起时内容被遮）。 */
+.collapsible-wrap.collapsible-code > .collapsible-content > pre {
+    min-height: 0;
+    overflow-x: auto;       /* 横向保留滚动（大字体长行可滚） */
+    overflow-y: hidden;     /* 纵向隐藏，配合 height 固定实现卷帘 */
+    background-color: inherit;
+    border: 2px solid #CCCCCC;
+    border-radius: 5px;
+    transition: height 0.3s ease;
+}
+.collapsible-wrap.collapsible-diagram > .collapsible-content {
+    min-height: 0;
+    background-color: inherit;
+    border: 2px solid #CCCCCC;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+/* 收起终态：高度由 CSS 变量 --collapse-h 控制（JS 动态写入，字体缩放后自动同步）。
+ * 保留原 padding，让剩余可见的一行保持原位置（距边框的空格），不跳变顶格。 */
+.collapsible-wrap.collapsed.collapsible-code > .collapsible-content > pre {
+    height: var(--collapse-h, 34px);
+}
+.collapsible-wrap.collapsed.collapsible-diagram > .collapsible-content {
+    height: var(--collapse-h, 34px);
+}
+</style>
+
+<script>
+(function () {
+    // 处理单个元素：包裹成可折叠结构
+    function wrapOne(el) {
+        // 已包裹则跳过（含祖先已被包裹的情况，避免 mermaid 的 svg 在 pre 被包后再被包一次）
+        if (el.closest && el.closest('.collapsible-wrap')) return;
+
+        var parent = el.parentElement;
+        if (!parent) return;
+
+        // 区分类型：代码块（pre，内含 Copy 按钮）vs 图表
+        var isCode = (el.tagName === 'PRE');
+        var typeClass = isCode ? 'collapsible-code' : 'collapsible-diagram';
+
+        // 创建包裹层
+        var wrap = document.createElement('div');
+        wrap.className = 'collapsible-wrap ' + typeClass;
+
+        // 创建内容容器（放原元素）
+        var content = document.createElement('div');
+        content.className = 'collapsible-content';
+
+        // 创建折叠按钮（箭头用 span 承载，靠 CSS 旋转切换方向，保证两态字形大小一致）
+        var btn = document.createElement('button');
+        btn.className = 'collapsible-btn';
+        btn.type = 'button';
+        var arrow = document.createElement('span');
+        arrow.className = 'collapsible-arrow';
+        arrow.textContent = '▶';
+        btn.appendChild(arrow);
+
+        // 代码块：尺寸对齐同 pre 内的 Copy 按钮（正方形 + 紧贴 Copy）。
+        // 因 Copy 由插件异步注入，须在 processAll 末尾统一读取对齐。
+        if (isCode) {
+            btn.dataset.alignCopy = '1';
+        }
+
+        // 替换结构：parent > wrap > [content > el]
+        // 代码块：btn 放进 pre 内部（与 Copy 按钮同参照系，top:5px 自然对齐）
+        // 图表：  btn 放在 wrap 上（图表无 Copy，无所谓对齐）
+        parent.insertBefore(wrap, el);
+        wrap.appendChild(content);
+        content.appendChild(el);
+        // 代码块：btn 放进 pre 内部（与 Copy 按钮同参照系，随横向滚动条移动，copy 正常）。
+        // 图表：  btn 放在 wrap 上（图表无 Copy，无横向滚动）。
+        if (isCode) {
+            el.appendChild(btn);
+        } else {
+            wrap.appendChild(btn);
+        }
+
+        // 点击切换：纯 height 卷帘（jQuery slideUp 式）。
+        // 关键：toggle 前先用 inline 固定当前实际高度作为过渡起点，
+        // 避免 class 切换时 CSS 高度规则瞬间变化、过渡无起点而"瞬间跳变"。
+        // 内容始终保持可见，收起后由 collapseH 的 overflow:hidden 自然遮盖。
+        // 用 setTimeout + token 防竞态。
+        var ANIM_DUR = 300;   // 须与 CSS transition: height 0.3s 一致
+        btn.addEventListener('click', function () {
+            // 动画目标：代码块对 pre，图表对 content
+            var target = isCode ? el : wrap.querySelector('.collapsible-content');
+            if (!target) return;
+
+            // 递增 token：新点击使旧回调失效，杜绝竞态
+            target._tk = (target._tk || 0) + 1;
+            var tk = target._tk;
+
+            // 实时算收起高度：按钮高 + 上下留白（栏比按钮略大，不遮按钮）。
+            // 留白随字号缩放（按钮高越大留白越大），保证字体放大后比例协调。
+            var btnH = 0;
+            if (isCode) {
+                var cp = el.querySelector('.copy-code-button');
+                if (cp && cp.offsetHeight) btnH = cp.offsetHeight;
+            } else {
+                if (btn.offsetHeight) btnH = btn.offsetHeight;
+            }
+            if (!btnH) btnH = 28;   // fallback
+            var PAD = 10;           // 上下各留白（含按钮 top:5px + 余量），按钮越大栏越大
+            var collapseH = btnH + PAD * 2;
+            wrap.style.setProperty('--collapse-h', collapseH + 'px');
+
+            // 关键：toggle 前先固定当前实际高度为 inline，作为过渡的明确起点。
+            // inline 优先级高于 class 规则，故 toggle 改 class 时高度被 inline 锁定，
+            // 不会瞬间跳到 CSS 终态值，浏览器有明确起点，过渡才能正常播放。
+            target.style.height = target.offsetHeight + 'px';
+            void target.offsetHeight;
+
+            var collapsed = wrap.classList.toggle('collapsed');  // 切箭头方向 + CSS 终态
+
+            if (collapsed) {
+                // 收起：从当前全高 → collapseH
+                requestAnimationFrame(function () {
+                    if (target._tk !== tk) return;
+                    target.style.height = collapseH + 'px';
+                });
+                setTimeout(function () {
+                    if (target._tk !== tk) return;   // 被新操作取代，放弃
+                    target.style.height = '';        // 交回 CSS var(--collapse-h) 终态
+                }, ANIM_DUR);
+            } else {
+                // 展开：临时清除限制测真实全高（JS 同步执行不 paint，中间态不可见），再回到起点过渡到全高
+                target.style.height = '';
+                void target.offsetHeight;
+                var h = target.scrollHeight;
+                target.style.height = collapseH + 'px';   // 回到当前可见高度（起点）
+                void target.offsetHeight;
+                requestAnimationFrame(function () {
+                    if (target._tk !== tk) return;
+                    target.style.height = h + 'px';
+                });
+                setTimeout(function () {
+                    if (target._tk !== tk) return;
+                    target.style.height = '';        // 恢复 auto
+                }, ANIM_DUR);
+            }
+        });
+    }
+
+    // 对齐代码块折叠按钮到同 pre 内的 Copy 按钮：正方形、等高、紧贴 Copy。
+    // 两按钮都在 pre（横向滚动容器）内，随横向滚动条移动，但 copy 功能保持正常。
+    // Copy 点击后文字 Copy→Copied 变宽，用 MutationObserver 实时重算 right 让位。
+    function alignToCopy(btn) {
+        var pre = btn.parentElement;            // btn 在 pre 内
+        if (!pre) return;
+        var copy = pre.querySelector('.copy-code-button');
+        if (!copy) return;
+
+        function apply() {
+            var h = copy.offsetHeight;          // Copy 高度（两态相同，仅宽度变）
+            if (!h) return;
+            btn.style.boxSizing = 'border-box';
+            btn.style.width = h + 'px';
+            btn.style.height = h + 'px';
+            btn.style.padding = '0';
+            // 紧贴 Copy 当前左边界（Copy 宽度变化时自动跟随）
+            var copyRight = pre.clientWidth - (copy.offsetLeft + copy.offsetWidth);
+            btn.style.right = (copyRight + copy.offsetWidth + 2) + 'px';
+            // 同步收起高度到 CSS 变量：按钮高 + 上下留白（字体缩放后自动同步）。
+            var w = btn.closest('.collapsible-wrap');
+            if (w) w.style.setProperty('--collapse-h', (h + 20) + 'px');
+        }
+        apply();
+
+        // 监听 Copy 文字变化(Copy→Copied→Copy)，实时重定位，避免被遮挡。
+        if (!btn._copyObserved && window.MutationObserver) {
+            var mo = new MutationObserver(apply);
+            mo.observe(copy, { childList: true, characterData: true, subtree: true });
+            btn._copyObserved = true;
+        }
+    }
+
+    // 重新对齐全部：代码块按钮→Copy，图表按钮→收起高度。
+    // 字体缩放时 Copy/按钮高度变化，调用此函数刷新尺寸与 --collapse-h。
+    function realignAll() {
+        var section = document.querySelector('.markdown-section');
+        if (!section) return;
+        // 代码块：对齐 Copy + 设收起高度
+        section.querySelectorAll('.collapsible-btn[data-align-copy="1"]').forEach(alignToCopy);
+        // 图表：收起高度 = 按钮高 + 上下留白（与代码块一致，栏比按钮略大）
+        section.querySelectorAll('.collapsible-diagram').forEach(function (wrap) {
+            var b = wrap.querySelector('.collapsible-btn');
+            if (b && b.offsetHeight) {
+                wrap.style.setProperty('--collapse-h', (b.offsetHeight + 20) + 'px');
+            }
+        });
+    }
+
+    // 监听 .book 的 class 变化：fontsettings 切字号会改 font-size-N class，
+    // 触发后重新对齐所有按钮/收起高度，保证字体缩放后同步变化。
+    function watchFontSize() {
+        var book = document.querySelector('.book');
+        if (!book || book._fsWatched || !window.MutationObserver) return;
+        var mo = new MutationObserver(function () { realignAll(); });
+        mo.observe(book, { attributes: true, attributeFilter: ['class'] });
+        book._fsWatched = true;
+    }
+
+    function processAll() {
+        var section = document.querySelector('.markdown-section');
+        if (!section) return;
+
+        // 代码块
+        section.querySelectorAll('pre').forEach(wrapOne);
+        // 图表
+        section.querySelectorAll('.plantuml-diagram, .language-mermaid svg').forEach(wrapOne);
+
+        // 对齐所有按钮 + 设收起高度（此时 Copy 应已注入）
+        realignAll();
+        // 注册字号变化监听
+        watchFontSize();
+    }
+
+    // 优先用 gitbook 的 page.change 事件（与 COPY 按钮同时机，规避 DOM 重建）
+    if (window.gitbook && window.gitbook.events) {
+        window.gitbook.events.bind('page.change', processAll);
+    }
+    // 兜底：mermaid/plantuml 异步渲染晚于 page.change，延迟再处理一次
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(processAll, 800);
+        });
+    } else {
+        setTimeout(processAll, 800);
+    }
+})();
+</script>

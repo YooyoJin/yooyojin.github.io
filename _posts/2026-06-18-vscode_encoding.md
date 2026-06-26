@@ -28,7 +28,7 @@ VSCode有三个层级，优先级从低到高，高优先级会覆盖低优先�
 - 用户设置，全局`settings.json`，本机所有项目;
 - 工作区设置，项目`.vscode/settings.json`，仅当前项目；
 
-### 2. VSCode配置项目UTF-8
+### 3. VSCode配置项目UTF-8
 
 既然如此，我们就可以利用这个优先级，覆盖所有人的全局配置。
 1. `Ctrl+Shift+P`，输入`Preferences: Open Workspace Settings (JSON)`，这里即自动创建一个空的`settings.json`;

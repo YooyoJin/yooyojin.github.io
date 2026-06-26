@@ -120,7 +120,7 @@ MCU ─── 电流互感器 ─── 大电流变压器 ─── 接触调�
 - 最后，根据求出的Rntc值，查询NTC的温度-电阻对照表或使用方程式等，即可计算出当前的温度值。
 
 我们拿NTC温度传感器一份阻值表作为参考，阻值表如下，表中写了的一些重要参数：
-```
+``` cmd
 TEMPERATURE VS RESISTANCE TABLE
 Resistance 10k Ohms at 25deg. C
 Resistance Tolerance + / -1%

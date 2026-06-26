@@ -10,18 +10,18 @@ permalink: /
 
 ✨ 总结：这是一个在代码和bug之间反复横跳的人类，记录TA如何从入门到……到入门更远一点的日常。如果博客内容对你也有帮助，那就太酷了！
 
-## 快速导航（点击展开⏷）
+## 快速导航，点击展开
 
 <details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">💔 血泪史⏷</summary>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">💔 血泪史</summary>
 <p style="margin-bottom: 0em;"><strong>嵌入式开发应用笔记：</strong></p>
 <ul>
-<li><em>MPPT开发笔记（总索引）</em> <a href="./jekyll/2026-04-13-mppt_case.html">(2026-04-13-mppt_case.html)</a></li>
+<li><em>MPPT开发笔记（索引）</em> <a href="./jekyll/2026-04-13-mppt_case.html">(2026-04-13-mppt_case.html)</a></li>
 <li><em>简易三项保护器开发笔记</em> <a href="./jekyll/2026-04-10-phase_protector.html">(2026-04-10-phase_protector.html)</a></li>
 <li><em>RL78开发笔记</em> <a href="./jekyll/2026-02-26-rl78.html">(2026-02-26-rl78.html)</a></li>
 <li><em>蜂鸣器开发笔记</em> <a href="./jekyll/2026-01-12-beep_case.html">(2026-01-12-beep_case.html)</a></li>
 <li><em>串口转485应用笔记（UM3085EESA）</em> <a href="./jekyll/2025-12-16-485_case.html">(2025-12-16-485_case.html)</a></li>
-<li><em>C2000开发笔记（总索引）</em> <a href="./jekyll/2025-11-18-c2000.html">(2025-11-18-c2000.html)</a></li>
+<li><em>C2000开发笔记（索引）</em> <a href="./jekyll/2025-11-18-c2000.html">(2025-11-18-c2000.html)</a></li>
 <li><em>LED驱动控制芯片开发笔记（TM1637）</em> <a href="./jekyll/2025-11-06-led_driver_chip_case.html">(2025-11-06-led_driver_chip_case.html)</a></li>
 <li><em>MCU常见输入输出设备</em> <a href="./jekyll/2025-09-12-common_device_of_mcu.html">(2025-09-12-common_device_of_mcu.html)</a></li>
 <li><em>电机驱动开发笔记（LV8731V）</em> <a href="./jekyll/2025-08-22-driver_case.html">(2025-08-22-driver_case.html)</a></li>
@@ -40,7 +40,7 @@ permalink: /
 </details>
 
 <details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经⏷</summary>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">📖 圣经</summary>
 <ul>
 <li><em>储能系统的热管理</em> <a href="./jekyll/2026-04-27-energy_storage_thermal_management.html">(2026-04-27-energy_storage_thermal_management.html)</a></li>
 <li><em>制冷系统构件</em> <a href="./jekyll/2025-09-12-refrigeration_system_components.html">(2025-09-12-refrigeration_system_components.html)</a></li>
@@ -58,7 +58,7 @@ permalink: /
 </details>
 
 <details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🛠️ 舞铲阶级必胜⏷</summary>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🛠️ 舞铲阶级必胜</summary>
 <ul>
 <li><em>VSCode应用-软件编码</em> <a href="./jekyll/2026-06-18-vscode_encoding.html">(2026-06-18-vscode_encoding.html)</a></li>
 <li><em>智谱AI简易热点抓取脚本</em> <a href="./jekyll/2026-05-28-zhipu_hotnews.html">(2026-05-28-zhipu_hotnews.html)</a></li>
@@ -81,7 +81,7 @@ permalink: /
 </details>
 
 <details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🧙 一点点魔法⏷</summary>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🧙 一点点魔法</summary>
 <ul>
 <li><em>滤波方法</em> <a href="./jekyll/2025-09-18-wave_filtering.html">(2025-09-18-wave_filtering.html)</a></li>
 <li><em>插值方法</em> <a href="./jekyll/2025-09-15-Interpolation.html">(2025-09-15-Interpolation.html)</a></li>
@@ -90,7 +90,7 @@ permalink: /
 </details>
 
 <details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🧭 生存指南⏷</summary>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🧭 生存指南</summary>
 <ul>
 <li><em>问题分析与心态</em> <a href="./jekyll/2026-01-12-problem_and_mindset.html">(2026-01-12-problem_and_mindset.html)</a></li>
 <li><em>"完美"陷阱</em> <a href="./jekyll/2025-10-15-perfect_trap.html">(2025-10-15-perfect_trap.html)</a></li>
@@ -107,7 +107,7 @@ permalink: /
 </details>
 
 <details>
-<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🔗 其他链接⏷</summary>
+<summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🔗 其他链接</summary>
 <ul>
 <li><em>修订历史（详见git提交记录）</em> <a href="https://github.com/YooyoJin/yooyojin.github.io">(https://github.com/YooyoJin/yooyojin.github.io)</a></li>
 <li><em>草稿页</em> <a href="./pages/design/draft/">(draft.html)</a></li>
