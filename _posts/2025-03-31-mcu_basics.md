@@ -215,7 +215,7 @@ HC32F460 4GB地址空间布局 (Cortex-M):
     - 中断执行完成回归main函数
 
 HC32F460 GCC版本启动代码（Reset handler部分）：
-```
+``` cmd
 /*
 ;<h> Reset handler start.
 */
