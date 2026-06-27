@@ -10,7 +10,7 @@ plantuml: true
 ---
 
 ## 1. 电机分类
-```plantuml
+``` plantuml
 
 @startmindmap
 +_ 电机

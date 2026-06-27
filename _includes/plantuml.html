@@ -1,20 +1,89 @@
-<script src="https://cdn.jsdelivr.net/npm/plantuml-encoder/dist/plantuml-encoder.min.js"></script>
 <script>
-function render_plantuml() {
-    document.querySelectorAll('.language-plantuml, .plantuml').forEach(function(block) {
-        var umlCode = (block.textContent || block.innerText).trim();
-        var encoded = plantumlEncoder.encode(umlCode);
-        var img = document.createElement('img');
-        img.src = 'https://www.plantuml.com/plantuml/svg/' + encoded;
-        img.alt = 'PlantUML diagram';
-        img.className = 'plantuml-diagram';
-        block.parentNode.replaceChild(img, block);
-    });
-}
+// PlantUML 渲染：
+// 1) plantuml-encoder 脚本改为可控加载，失败自动重试（解决首次访问 CDN 慢/抖动导致 plantumlEncoder 未定义）。
+// 2) 生成图片加 onerror 重试（解决 plantuml.com 首次响应慢/失败），重试上限后回退显示源码。
+// 3) DOM 就绪后再渲染，避免找不到元素。
+(function () {
+    var ENCODER_URL = 'https://cdn.jsdelivr.net/npm/plantuml-encoder/dist/plantuml-encoder.min.js';
+    var PLANTUML_BASE = 'https://www.plantuml.com/plantuml/svg/';
+    var MAX_IMG_RETRY = 2;          // 单图最大重试次数
+    var MAX_SCRIPT_RETRY = 2;       // encoder 脚本最大重试次数
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", render_plantuml);
-} else {
-    render_plantuml();
-}
+    function onDomReady(cb) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', cb);
+        } else {
+            cb();
+        }
+    }
+
+    // 加载 encoder 脚本（带重试）
+    function loadEncoder(retries, done) {
+        var s = document.createElement('script');
+        s.src = ENCODER_URL;
+        s.onload = function () {
+            if (window.plantumlEncoder) { done(true); }
+            else if (retries > 0) { setTimeout(function () { loadEncoder(retries - 1, done); }, 600); }
+            else { done(false); }
+        };
+        s.onerror = function () {
+            if (retries > 0) { setTimeout(function () { loadEncoder(retries - 1, done); }, 600); }
+            else { done(false); }
+        };
+        document.head.appendChild(s);
+    }
+
+    // 给图片挂 onerror：失败重试，超限则回退显示原始 UML 代码
+    function attachImgRetry(img, umlCode, block) {
+        var tried = 0;
+        img.addEventListener('error', function () {
+            if (tried >= MAX_IMG_RETRY) {
+                // 回退：img 在 DOM 中，block 已被移出，用 img.parentNode 把代码块换回去
+                try { img.parentNode.replaceChild(block, img); } catch (e) {}
+                if (window.console) console.warn('[plantuml] img load failed, fallback to source');
+                return;
+            }
+            tried++;
+            // 加 query 防缓存，退避后重试
+            setTimeout(function () {
+                var sep = img.src.indexOf('?') === -1 ? '?' : '&';
+                img.src = img.src.split('?')[0] + sep + 'retry=' + tried + '_' + Date.now();
+            }, 600 * tried);
+        });
+    }
+
+    function render_plantuml() {
+        if (!window.plantumlEncoder) return;
+        var blocks = document.querySelectorAll('.language-plantuml, .plantuml');
+        blocks.forEach(function (block) {
+            // 防重复（已被替换为 img）
+            if (block.tagName === 'IMG') return;
+            var umlCode = (block.textContent || block.innerText).trim();
+            if (!umlCode) return;
+            var encoded;
+            try { encoded = plantumlEncoder.encode(umlCode); }
+            catch (e) {
+                if (window.console) console.warn('[plantuml] encode failed:', e);
+                return; // 保留原始代码块可见
+            }
+            var img = document.createElement('img');
+            img.src = PLANTUML_BASE + encoded;
+            img.alt = 'PlantUML diagram';
+            img.className = 'plantuml-diagram';
+            attachImgRetry(img, umlCode, block);
+            block.parentNode.replaceChild(img, block);
+        });
+    }
+
+    onDomReady(function () {
+        if (window.plantumlEncoder) {
+            render_plantuml();
+            return;
+        }
+        loadEncoder(MAX_SCRIPT_RETRY, function (ok) {
+            if (ok) render_plantuml();
+            else if (window.console) console.warn('[plantuml] encoder script load failed after retries');
+        });
+    });
+})();
 </script>

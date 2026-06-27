@@ -3,8 +3,71 @@
         mermaid.initialize({
             startOnLoad: false,
             theme: "default",
+            // useMaxWidth:false：让 SVG 输出固定像素尺寸，交给 applyMermaidScale
+            // 按 --mermaid-scale 等比缩放；若用默认 true，Mermaid 注入的 inline
+            // max-width 会与下面的手设 width/height 冲突。
+            flowchart: { useMaxWidth: false },
+            // 用固定字号计算节点布局，与页面字号解耦，
+            // 避免页面字号变大时 Mermaid 把节点算得过宽、缩放后比例失调。
+            themeVariables: { fontSize: "14px" }
         });
-        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+
+        var nodes = document.querySelectorAll('.language-mermaid');
+        // mermaid.init 在 v11 返回 Promise，渲染（异步）完成后再缩放并监听字号切换。
+        // 用 Promise.resolve 包一层，兼容老版本返回 undefined 的情况。
+        Promise.resolve(mermaid.init(undefined, nodes)).then(function () {
+            applyMermaidScale();
+            watchBookClass();
+        });
+    }
+
+    // 读取当前字号档位对应的 --mermaid-scale（由 CSS 按 .book.font-size-0~4 定义）
+    function getMermaidScale() {
+        var book = document.querySelector('.book');
+        var scale = book
+            ? parseFloat(getComputedStyle(book).getPropertyValue('--mermaid-scale'))
+            : NaN;
+        return (!scale || isNaN(scale)) ? 1 : scale;
+    }
+
+    // 按 --mermaid-scale 给每个 SVG 设置 width/height：
+    // SVG 自带 viewBox，设置外框 width/height 后，内部矢量（含 <text>）会等比缩放，
+    // 文字必然同比例缩小 —— 杜绝「矩形缩了、字没缩」导致文字溢出 rect 再被裁切的问题。
+    function applyMermaidScale() {
+        var scale = getMermaidScale();
+        var svgs = document.querySelectorAll('.language-mermaid svg');
+        svgs.forEach(function (svg) {
+            var w = null, h = null;
+            // 优先用 viewBox 的宽高（矢量图等比缩放的基准）
+            var vb = svg.getAttribute('viewBox');
+            if (vb) {
+                var p = vb.trim().split(/[\s,]+/);
+                w = parseFloat(p[2]);
+                h = parseFloat(p[3]);
+            }
+            // 回退：用 SVG 自身的 width/height 属性
+            if (!w || !h) {
+                w = parseFloat(svg.getAttribute('width'));
+                h = parseFloat(svg.getAttribute('height'));
+            }
+            if (w && h) {
+                svg.style.width = (w * scale) + 'px';
+                svg.style.height = (h * scale) + 'px';
+                svg.style.maxWidth = 'none';
+            }
+        });
+    }
+
+    // 字号 A+/A- 切换时，fontsettings 插件只改 .book 的 class（font-size-N），
+    // 这里监听该 class 变化，按新档位的 --mermaid-scale 重新缩放所有 Mermaid 图。
+    // 只观察 class 属性，且 applyMermaidScale 只改 SVG inline style，不会触发死循环。
+    function watchBookClass() {
+        var book = document.querySelector('.book');
+        if (!book || typeof MutationObserver === 'undefined') return;
+        if (window.__mermaidBookObserver) window.__mermaidBookObserver.disconnect();
+        var observer = new MutationObserver(function () { applyMermaidScale(); });
+        observer.observe(book, { attributes: true, attributeFilter: ['class'] });
+        window.__mermaidBookObserver = observer;
     }
 
     function initialize_mermaid() {
