@@ -1,7 +1,9 @@
 <style>
 /* === 代码块 / 图表可折叠 ===
  * 结构：.collapsible-wrap[.collapsible-code|.collapsible-diagram]
- *       > [.collapsible-btn > .collapsible-arrow(▶), .collapsible-content > 原元素]
+ *       > [.collapsible-content > 原元素] + .collapsible-btn(▶)
+ * 按钮（折叠 + Copy）统一挂在 wrap 上（wrap 是 position:relative 且不滚动），
+ * 钉在右上角可视区，不再随 pre 的横向滚动条移动。
  * 箭头：展开态转 90° 朝下，收缩态朝右（单字形旋转，两态大小一致）；
  * 按钮与 Copy 按钮（右）盒模型逐项一致 → 等高对齐；
  * 折叠时保留一条与按钮等高的窄框，背景继承内容区（随主题自适应，Copy 不消失）。
@@ -25,7 +27,7 @@
     justify-content: center;
 }
 .collapsible-btn:hover { background-color: #455A64; }
-.collapsible-code .collapsible-btn { right: 70px; }    /* 兜底，JS 对齐后会覆盖 */
+.collapsible-code .collapsible-btn { right: 75px; }   /* 兜底，JS 对齐后会覆盖 */
 .collapsible-diagram .collapsible-btn { right: 5px; }
 
 /* 箭头：单字形 ▶，收缩态朝右；展开态（无 collapsed）旋转 90° 朝下。
@@ -99,25 +101,20 @@
         arrow.textContent = '▶';
         btn.appendChild(arrow);
 
-        // 代码块：尺寸对齐同 pre 内的 Copy 按钮（正方形 + 紧贴 Copy）。
+        // 代码块：尺寸对齐同 wrap 内的 Copy 按钮（正方形 + 紧贴 Copy）。
         // 因 Copy 由插件异步注入，须在 processAll 末尾统一读取对齐。
         if (isCode) {
             btn.dataset.alignCopy = '1';
         }
 
         // 替换结构：parent > wrap > [content > el]
-        // 代码块：btn 放进 pre 内部（与 Copy 按钮同参照系，top:5px 自然对齐）
-        // 图表：  btn 放在 wrap 上（图表无 Copy，无所谓对齐）
+        // 按钮统一放进 wrap（wrap 是 position:relative 且不滚动）：
+        // 钉在右上角可视区，不再随 pre 的横向滚动条移动。
+        // 代码块的 Copy 按钮也由 toggle.js 注入到同一 wrap，二者共用参照系。
         parent.insertBefore(wrap, el);
         wrap.appendChild(content);
         content.appendChild(el);
-        // 代码块：btn 放进 pre 内部（与 Copy 按钮同参照系，随横向滚动条移动，copy 正常）。
-        // 图表：  btn 放在 wrap 上（图表无 Copy，无横向滚动）。
-        if (isCode) {
-            el.appendChild(btn);
-        } else {
-            wrap.appendChild(btn);
-        }
+        wrap.appendChild(btn);
 
         // 点击切换：纯 height 卷帘（jQuery slideUp 式）。
         // 关键：toggle 前先用 inline 固定当前实际高度作为过渡起点，
@@ -138,7 +135,7 @@
             // 留白随字号缩放（按钮高越大留白越大），保证字体放大后比例协调。
             var btnH = 0;
             if (isCode) {
-                var cp = el.querySelector('.copy-code-button');
+                var cp = wrap.querySelector('.copy-code-button');
                 if (cp && cp.offsetHeight) btnH = cp.offsetHeight;
             } else {
                 if (btn.offsetHeight) btnH = btn.offsetHeight;
@@ -185,13 +182,15 @@
         });
     }
 
-    // 对齐代码块折叠按钮到同 pre 内的 Copy 按钮：正方形、等高、紧贴 Copy。
-    // 两按钮都在 pre（横向滚动容器）内，随横向滚动条移动，但 copy 功能保持正常。
-    // Copy 点击后文字 Copy→Copied 变宽，用 MutationObserver 实时重算 right 让位。
+    // 对齐代码块折叠按钮到同 wrap 内的 Copy 按钮：正方形、等高、紧贴 Copy 左侧。
+    // 现在两按钮都在 .collapsible-wrap（不滚动）上：
+    //   - Copy 固定 right:5px（toggle.js 设的 inline 样式）；
+    //   - 折叠按钮 right = Copy 宽度 + 间距，随 Copy 文字变宽自动让位。
+    // 用 MutationObserver 监听 Copy 文字(Copy→Copied)实时重算。
     function alignToCopy(btn) {
-        var pre = btn.parentElement;            // btn 在 pre 内
-        if (!pre) return;
-        var copy = pre.querySelector('.copy-code-button');
+        var wrap = btn.closest('.collapsible-wrap');   // btn 现在在 wrap 上
+        if (!wrap) return;
+        var copy = wrap.querySelector('.copy-code-button');
         if (!copy) return;
 
         function apply() {
@@ -201,12 +200,12 @@
             btn.style.width = h + 'px';
             btn.style.height = h + 'px';
             btn.style.padding = '0';
-            // 紧贴 Copy 当前左边界（Copy 宽度变化时自动跟随）
-            var copyRight = pre.clientWidth - (copy.offsetLeft + copy.offsetWidth);
-            btn.style.right = (copyRight + copy.offsetWidth + 2) + 'px';
+            btn.style.top = '5px';
+            // Copy 距 wrap 右边 5px，折叠按钮紧贴 Copy 左侧再留 5px 间距
+            var GAP = 5;
+            btn.style.right = (copy.offsetWidth + 5 + GAP) + 'px';
             // 同步收起高度到 CSS 变量：按钮高 + 上下留白（字体缩放后自动同步）。
-            var w = btn.closest('.collapsible-wrap');
-            if (w) w.style.setProperty('--collapse-h', (h + 20) + 'px');
+            wrap.style.setProperty('--collapse-h', (h + 20) + 'px');
         }
         apply();
 
@@ -218,11 +217,33 @@
         }
     }
 
+    // 确保 Copy 按钮落在对应 .collapsible-wrap 内（不随 pre 横向滚动）。
+    // 正常时序下 collapsible 先建 wrap，toggle 后注入 Copy 到 wrap，无需搬迁；
+    // 兜底：若 Copy 被追加到了 wrap 的父元素（与 wrap 平级），按顺序搬进 wrap。
+    function ensureCopyInWrap() {
+        var section = document.querySelector('.markdown-section');
+        if (!section) return;
+        section.querySelectorAll('.collapsible-code').forEach(function (wrap) {
+            if (wrap.querySelector('.copy-code-button')) return;   // 已在 wrap 内
+            var host = wrap.parentElement;
+            if (!host) return;
+            // 取第一个与 wrap 平级的游离 Copy（Copy 与 wrap 均按 pre 顺序创建）
+            for (var i = 0; i < host.children.length; i++) {
+                var c = host.children[i];
+                if (c !== wrap && c.classList && c.classList.contains('copy-code-button')) {
+                    wrap.appendChild(c);
+                    return;
+                }
+            }
+        });
+    }
+
     // 重新对齐全部：代码块按钮→Copy，图表按钮→收起高度。
     // 字体缩放时 Copy/按钮高度变化，调用此函数刷新尺寸与 --collapse-h。
     function realignAll() {
         var section = document.querySelector('.markdown-section');
         if (!section) return;
+        ensureCopyInWrap();
         // 代码块：对齐 Copy + 设收起高度
         section.querySelectorAll('.collapsible-btn[data-align-copy="1"]').forEach(alignToCopy);
         // 图表：收起高度 = 按钮高 + 上下留白（与代码块一致，栏比按钮略大）

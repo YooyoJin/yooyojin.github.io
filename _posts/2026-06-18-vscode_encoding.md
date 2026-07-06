@@ -2,7 +2,7 @@
 title: VSCode应用-软件编码
 author: YooyoJin
 date: 2026-06-18
-last_modified_at: 2026-06-18
+last_modified_at: 2026-07-03
 category: Jekyll
 layout: post
 ---
@@ -58,3 +58,13 @@ VSCode有三个层级，优先级从低到高，高优先级会覆盖低优先�
   "editor.detectIndentation": false,
 }
 ```
+
+## 常见问题
+
+### Cline处理GBK编码程序，当程序中出现中文时，处理异常缓慢
+
+在使用AI工具处理代码时，发现代码替换非常慢，而且逐行修改。发现是因为项目年代较久，文件编码统一为GBK，而当前主流AI模型和开发环境均以UTF-8为标准。当文件中包含中文字符时，AI虽然识别了GBK，但是处理起来比较困难，处理的小心翼翼，怕把项目中的中文给干掉了。
+
+于是让AI写了个脚本处理编码转换问题（将GBK转成UTF-8），当然也可以用VScode，手动保存，奈何代码太多。它写了一个PowerShell脚本，完成了转换。
+
+后续更换高级的模型后，模型自行解决了，白转换了。

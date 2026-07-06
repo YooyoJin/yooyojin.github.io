@@ -53,13 +53,24 @@ require(["gitbook", "jquery"], function (gitbook, $) {
 
     gitbook.events.bind("page.change", function () {
         $("pre").each(function () {
-            $(this).css("position", "relative");
+            // pre 自身仍可作为定位上下文（兜底），但 Copy 按钮不再放进 pre。
+            // pre 是横向滚动容器，按钮放进去会随横向滚动移动，无法钉在右上角。
+            // 这里把按钮放进外层不滚动的包裹层（.collapsible-wrap）；
+            // 若没有包裹层（未启用折叠），则放进 pre 的父元素。
+            var $pre = $(this);
 
             var $copyCodeButton = $("<button class='copy-code-button'>Copy</button>");
             $copyCodeButton.css({ "position": "absolute", "top": "5px", "right": "5px", "padding": "3px", "background-color": "#313E4E", "color": "white", "border-radius": "5px", "-moz-border-radius": "5px", "-webkit-border-radius": "5px", "border": "2px solid #CCCCCC" });
             $copyCodeButton.click(function () {
-                var $codeContainer = $(this).siblings("code");
-                if ($codeContainer) {
+                // 按钮已搬到外层包裹层，用 closest 回找 code；兜底用 siblings。
+                var $codeContainer = $(this).closest('.collapsible-wrap').find('code').first();
+                if (!$codeContainer.length) {
+                    $codeContainer = $(this).siblings("code").first();
+                    if (!$codeContainer.length) {
+                        $codeContainer = $(this).parent().find('code').first();
+                    }
+                }
+                if ($codeContainer.length) {
                     selectElementText($codeContainer.get(0));
                     var selectedText = getSelectedText();
 
@@ -80,7 +91,13 @@ require(["gitbook", "jquery"], function (gitbook, $) {
                 }
             });
 
-            $(this).append($copyCodeButton);
+            // 优先放进 .collapsible-wrap（不随 pre 横向滚动），兜底放进父元素。
+            var $host = $pre.closest('.collapsible-wrap');
+            if (!$host.length) {
+                $host = $pre.parent();
+            }
+            $host.css("position", "relative");
+            $host.append($copyCodeButton);
         });
     });
 });
