@@ -6,6 +6,7 @@ last_modified_at: 2025-10-30
 category: Jekyll
 layout: post
 mermaid: true
+cover: https://github.com/YooyoJin/picx-images-hosting/raw/master/draft/页封测试.67y5fwa5lz.gif
 ---
 
 ## 博客BUG
@@ -35,7 +36,9 @@ mermaid: true
 
 验证网站地图： 访问 https://你的域名.com/sitemap.xml 查看生成的网站地图。
 
-## Test
+## 功能测试
+
+![测试小丑](https://github.com/YooyoJin/picx-images-hosting/raw/master/draft/测试.6f1dbba5d7.webp "测试小丑")
 
 ``` mermaid
 ---
@@ -64,17 +67,7 @@ xychart-beta
 >   > "这里是引用的原文内容……"
 >   > ——《文章标题》[^1]
 
-[^1]: [《book》](https://xxxxxxxxxx)，【xxxxxxxxxxxxx】
-
 Joseph Yiu. (2014). _《ARM Cortex-M3与Cortex-M4权威指南（第3版，中译）》_
-
-[^1]: 赤诚Xie. (2024). _MCU的启动到bootloader原理详解_. [https://www.cnblogs.com/chicheng/p/18267699](https://www.cnblogs.com/chicheng/p/18267699)
-
-[^2]: XHSC. (2024). _RM_HC32F460_F45x_A460系列参考手册_Rev1.5_.
-
-[^3]: 码农爱学习. (2021). _单片机程序烧录的3种方式(ISP、ICP、IAP)是什么？_. [https://zhuanlan.zhihu.com/p/367821312](https://zhuanlan.zhihu.com/p/367821312)
-
-[^4]:林接接. (2025). _典型arm32位单片机启动流程（从上电到main.c）_. [https://www.cnblogs.com/jiejielin-blogs/p/19008377](https://www.cnblogs.com/jiejielin-blogs/p/19008377)
 
 ``` cmd
 +3.3V
@@ -92,3 +85,49 @@ Joseph Yiu. (2014). _《ARM Cortex-M3与Cortex-M4权威指南（第3版，中译
   ├─────────────────────┘
  GND
 ```
+
+```diff
+  ---
+  title: Page with cover image
+  author: Tao He
+  date: 2022-05-24
+  category: Jekyll
+  layout: post
++ cover: /assets/jekyll-gitbook/dinosaur.gif
+  ---
+```
+
+
+> ##### TIP
+>
+> 提示提示提示
+{: .block-tip }
+
+
+> ##### WARNING
+>
+> 警告警告警告
+{: .block-warning }
+
+> ##### DANGER
+>
+> 上面必须有一行空格引用，不然没有色彩了
+{: .block-danger }
+
+<div class="table-wrapper" markdown="block">
+
+|title1|title2|title3|title4|title5|title6|title7|title8|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|哦i阿尔法i哦欸黑奥刚好欸干哈欸哦i阿尔松改哦过后挨饿刚好个号i俄国好饿嘎嘎|2|3|4|5|6|爱和覅u和覅u啊恶化u而规划俄国哈哈该黑改好|8|
+|哦i阿尔法i哦欸黑奥刚好欸干哈欸哦i阿尔松改哦过后挨饿刚好个号i俄国好饿嘎嘎|2|3|4|5|6|爱和覅u和覅u啊恶化u而规划俄国哈哈该黑改好|8|
+|哦i阿尔法i哦欸黑奥刚好欸干哈欸哦i阿尔松改哦过后挨饿刚好个号i俄国好饿嘎嘎|2|3|4|5|6|爱和覅u和覅u啊恶化u而规划俄国哈哈该黑改好|8|
+|哦i阿尔法i哦欸黑奥刚好欸干哈欸哦i阿尔松改哦过后挨饿刚好个号i俄国好饿嘎嘎|2|3|4|5|6|爱和覅u和覅u啊恶化u而规划俄国哈哈该黑改好|8|
+
+</div>
+
+这个会自动换行没有滚动条
+
+
+## 参考资料
+
+[^1]: 赤诚Xie. (2024). _MCU的启动到bootloader原理详解_. [https://www.cnblogs.com/chicheng/p/18267699](https://www.cnblogs.com/chicheng/p/18267699)
