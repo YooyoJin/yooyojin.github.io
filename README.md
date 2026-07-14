@@ -20,7 +20,7 @@ permalink: /
 <li><em>简易三项保护器开发笔记</em> <a href="./jekyll/2026-04-10-phase_protector.html">(2026-04-10-phase_protector.html)</a></li>
 <li><em>RL78开发笔记</em> <a href="./jekyll/2026-02-26-rl78.html">(2026-02-26-rl78.html)</a></li>
 <li><em>蜂鸣器开发笔记</em> <a href="./jekyll/2026-01-12-beep_case.html">(2026-01-12-beep_case.html)</a></li>
-<li><em>串口转485应用笔记（UM3085EESA）</em> <a href="./jekyll/2025-12-16-485_case.html">(2025-12-16-485_case.html)</a></li>
+<li><em>串口转485芯片开发笔记（UM3085EESA）</em> <a href="./jekyll/2025-12-16-485_case.html">(2025-12-16-485_case.html)</a></li>
 <li><em>C2000开发笔记（索引）</em> <a href="./jekyll/2025-11-18-c2000.html">(2025-11-18-c2000.html)</a></li>
 <li><em>LED驱动控制芯片开发笔记（TM1637）</em> <a href="./jekyll/2025-11-06-led_driver_chip_case.html">(2025-11-06-led_driver_chip_case.html)</a></li>
 <li><em>MCU常见输入输出设备</em> <a href="./jekyll/2025-09-12-common_device_of_mcu.html">(2025-09-12-common_device_of_mcu.html)</a></li>
