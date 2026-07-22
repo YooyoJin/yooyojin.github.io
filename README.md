@@ -66,7 +66,7 @@ permalink: /
 <li><em>智谱AI简易热点抓取脚本</em> <a href="./jekyll/2026-05-28-zhipu_hotnews.html">(2026-05-28-zhipu_hotnews.html)</a></li>
 <li><em>J-LINK RTT应用</em> <a href="./jekyll/2025-11-24-rtt.html">(2025-11-24-rtt.html)</a></li>
 <li><em>Clang-Format代码格式刷</em> <a href="./jekyll/2025-10-16-clang_format.html">(2025-10-16-clang_format.html)</a></li>
-<li><em>Modbus调试工具</em> <a href="./jekyll/2025-04-27-modbus_tool.html">(2025-04-27-modbus_tool.html)</a></li>
+<li><em>Modbus与它的调试工具们</em> <a href="./jekyll/2025-04-27-modbus_tool.html">(2025-04-27-modbus_tool.html)</a></li>
 <li><em>Keil开发环境</em> <a href="./jekyll/2025-04-28-keil.html">(2025-04-28-keil.html)</a></li>
 <li><em>VMware虚拟机网络配置</em> <a href="./jekyll/2025-03-07-vmware_network_configuration.html">(2025-03-07-vmware_network_configuration.html)</a></li>
 <li><em>本地部署DeepSeek</em> <a href="./jekyll/2025-03-01-local_deployment_deepseek.html">(2025-03-01-local_deployment_deepseek.html)</a></li>
