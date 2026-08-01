@@ -20,7 +20,7 @@ permalink: /
 <li><em>简易三项保护器开发笔记</em> <a href="./jekyll/2026-04-10-phase_protector.html">(2026-04-10-phase_protector.html)</a></li>
 <li><em>RL78开发笔记</em> <a href="./jekyll/2026-02-26-rl78.html">(2026-02-26-rl78.html)</a></li>
 <li><em>蜂鸣器开发笔记</em> <a href="./jekyll/2026-01-12-beep_case.html">(2026-01-12-beep_case.html)</a></li>
-<li><em>串口转485应用笔记（UM3085EESA）</em> <a href="./jekyll/2025-12-16-485_case.html">(2025-12-16-485_case.html)</a></li>
+<li><em>串口转485芯片开发笔记（UM3085EESA）</em> <a href="./jekyll/2025-12-16-485_case.html">(2025-12-16-485_case.html)</a></li>
 <li><em>C2000开发笔记（索引）</em> <a href="./jekyll/2025-11-18-c2000.html">(2025-11-18-c2000.html)</a></li>
 <li><em>LED驱动控制芯片开发笔记（TM1637）</em> <a href="./jekyll/2025-11-06-led_driver_chip_case.html">(2025-11-06-led_driver_chip_case.html)</a></li>
 <li><em>MCU常见输入输出设备</em> <a href="./jekyll/2025-09-12-common_device_of_mcu.html">(2025-09-12-common_device_of_mcu.html)</a></li>
@@ -45,12 +45,12 @@ permalink: /
 <li><em>储能系统的热管理</em> <a href="./jekyll/2026-04-27-energy_storage_thermal_management.html">(2026-04-27-energy_storage_thermal_management.html)</a></li>
 <li><em>制冷系统构件</em> <a href="./jekyll/2025-09-12-refrigeration_system_components.html">(2025-09-12-refrigeration_system_components.html)</a></li>
 <li><em>电路基础</em> <a href="./jekyll/2025-09-12-circuit_basics.html">(2025-09-12-circuit_basics.html)</a></li>
-
 <li><em>制冷理论基础-R454C的饱和温度计算</em> <a href="./jekyll/2026-07-10-refrigeration_basics_r454c_saturation_temperature.html">(2026-07-10-refrigeration_basics_r454c_saturation_temperature.html)</a></li>
 <li><em>制冷理论基础</em> <a href="./jekyll/2025-07-01-refrigeration_basics.html">(2025-07-01-refrigeration_basics.html)</a></li>
 <li><em>电机理论基础</em> <a href="./jekyll/2025-07-01-motor_basics.html">(2025-07-01-motor_basics.html)</a></li>
 <li><em>无线通信协议基础</em> <a href="./jekyll/2025-03-31-wireless_communication_protocol_basics.html">(2025-03-31-wireless_communication_protocol_basics.html)</a></li>
 <li><em>有线通信协议基础</em> <a href="./jekyll/2025-03-10-wired_communication_protocol_basics.html">(2025-03-10-wired_communication_protocol_basics.html)</a></li>
+<li><em>MCU基础-FPU浮点运算单元</em> <a href="./jekyll/2026-07-21-mcu_basics_fpu.html">(2026-07-21-mcu_basics_fpu.html)</a></li>
 <li><em>MCU基础</em> <a href="./jekyll/2025-03-31-mcu_basics.html">(2025-03-31-mcu_basics.html)</a></li>
 <li><em>RT-Thread基础</em> <a href="./jekyll/2025-03-14-rtthread.html">(2025-03-14-rtthread.html)</a></li>
 <li><em>RAM、ROM存储基础</em> <a href="./jekyll/2025-03-01-ram_rom.html">(2025-03-01-ram_rom.html)</a></li>
@@ -66,7 +66,7 @@ permalink: /
 <li><em>智谱AI简易热点抓取脚本</em> <a href="./jekyll/2026-05-28-zhipu_hotnews.html">(2026-05-28-zhipu_hotnews.html)</a></li>
 <li><em>J-LINK RTT应用</em> <a href="./jekyll/2025-11-24-rtt.html">(2025-11-24-rtt.html)</a></li>
 <li><em>Clang-Format代码格式刷</em> <a href="./jekyll/2025-10-16-clang_format.html">(2025-10-16-clang_format.html)</a></li>
-<li><em>Modbus调试工具</em> <a href="./jekyll/2025-04-27-modbus_tool.html">(2025-04-27-modbus_tool.html)</a></li>
+<li><em>Modbus与它的调试工具们</em> <a href="./jekyll/2025-04-27-modbus_tool.html">(2025-04-27-modbus_tool.html)</a></li>
 <li><em>Keil开发环境</em> <a href="./jekyll/2025-04-28-keil.html">(2025-04-28-keil.html)</a></li>
 <li><em>VMware虚拟机网络配置</em> <a href="./jekyll/2025-03-07-vmware_network_configuration.html">(2025-03-07-vmware_network_configuration.html)</a></li>
 <li><em>本地部署DeepSeek</em> <a href="./jekyll/2025-03-01-local_deployment_deepseek.html">(2025-03-01-local_deployment_deepseek.html)</a></li>

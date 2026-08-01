@@ -2,7 +2,7 @@
 title: 有线通信协议基础
 author: YooyoJin
 date: 2025-03-10
-last_modified_at: 2025-12-20
+last_modified_at: 2026-07-15
 category: Jekyll
 layout: post
 mermaid: true
@@ -672,7 +672,7 @@ CAN的仲裁涉及到CAN ID，ID决定优先级（ID 并不是表示发送的目
 
 ## 6. MODBUS
 
-MODBUS工业领域常用的通信协议之一，属于应用层协议。是一种串行通信协议，协议规范公开，无需授权费用，支持广泛厂商设备兼容。
+MODBUS工业领域常用的通信协议之一，属于应用层协议，跟上面其他硬件协议不一样，不管物理层特性，只管数据打包，常需要依赖485、232（MODBUS RTU/ASCII）、以太网（MODBUS TCP/IP、MODBUS OVER UDP）这些底层协议。协议规范公开，无需授权费用，支持广泛厂商设备兼容。
 
 特点：
 - 帧格式清晰（地址+功能码+数据+校验）；

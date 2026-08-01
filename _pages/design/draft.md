@@ -15,14 +15,12 @@ cover: https://github.com/YooyoJin/picx-images-hosting/raw/master/draft/页封�
 1. google 搜索图标异常
 1. 博客搜索界面跳转存在异常，如果在本页面搜索本页面的内容将无法跳转，仍会跳转到搜索页面
 1. 目前文章通过侧边栏展示内容目录，但是所有内容没有分类，完全的机载一起，后续是否可以增加一个档案页面，将内容分类并以目录的形式可以跳转到指定博客内容页
-1. 如何配置初始字体大小
-1. ai能不能帮我改blog？很难
-1. 博客页面跳转，跳转到目标点位错误
+1. 如何配置初始字体大小?
+1. 博客页面跳转，跳转到目标点位错误BUG
     - 在页面间跳转，必错
     - 在同页面锚点跳转第一次（从其他页面进入到目标页面）必错，后续正常跳转
     - 屏蔽mermaid的功能锚点跳转正确
     - 考虑锚点在mermaid渲染之后。
-1. 代码块缩放
 
 ## 博客内容企划
 
@@ -33,10 +31,17 @@ cover: https://github.com/YooyoJin/picx-images-hosting/raw/master/draft/页封�
 1. 空调热泵能源解决方案行业调研
 1. Modbus Holding Register定义与应用解析补充
 1. 补充ARM架构
+1. MODBUS 04 03 区别？
+1. FPU单元开启？不要写在一起了，又臭又长。
 
-验证网站地图： 访问 https://你的域名.com/sitemap.xml 查看生成的网站地图。
+
+验证网站地图：访问 https://你的域名.com/sitemap.xml 查看生成的网站地图。
 
 ## 功能测试
+
+图床管理网站：https://picx.xpoet.cn/#/upload，使用GitHub OAuth授权登录，关联图床仓库即可。
+
+仓库硬性上线10G，单个文件最大100MB，单次推送2GB
 
 ![测试小丑](https://github.com/YooyoJin/picx-images-hosting/raw/master/draft/测试.6f1dbba5d7.webp "测试小丑")
 
