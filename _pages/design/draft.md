@@ -68,6 +68,8 @@ xychart-beta
 
 > 此处参考赤诚Xie《MCU的启动到bootloader原理详解》[^1]
 
+跳转[EEPROM驱动开发笔记（M24C32）](./2025-06-19-eeprom_case.html)
+
 > 正如作者B所述：
 >   > "这里是引用的原文内容……"
 >   > ——《文章标题》[^1]
