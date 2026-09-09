@@ -16,6 +16,7 @@ permalink: /
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">💔 血泪史</summary>
 <p style="margin-bottom: 0em;"><strong>嵌入式开发应用笔记：</strong></p>
 <ul>
+<li><em>开关：我确实关了，但我只关了一半</em> <a href="./jekyll/2026-09-07-isolation_transformer.html">(2026-09-07-isolation_transformer.html)</a></li>
 <li><em>MPPT开发笔记（索引）</em> <a href="./jekyll/2026-04-13-mppt_case.html">(2026-04-13-mppt_case.html)</a></li>
 <li><em>简易三项保护器开发笔记</em> <a href="./jekyll/2026-04-10-phase_protector.html">(2026-04-10-phase_protector.html)</a></li>
 <li><em>RL78开发笔记</em> <a href="./jekyll/2026-02-26-rl78.html">(2026-02-26-rl78.html)</a></li>
