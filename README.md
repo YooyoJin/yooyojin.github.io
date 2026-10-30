@@ -17,6 +17,7 @@ permalink: /
 <p style="margin-bottom: 0em;"><strong>嵌入式开发应用笔记：</strong></p>
 <ul>
 <li><em>开关：我确实关了，但我只关了一半</em> <a href="./jekyll/2026-09-07-isolation_transformer.html">(2026-09-07-isolation_transformer.html)</a></li>
+<li><em>MCU基础-BootLoader简易实现</em> <a href="./jekyll/2026-08-18-mcu_basics_bootloader.html">(2026-08-18-mcu_basics_bootloader.html)</a></li>
 <li><em>MPPT开发笔记（索引）</em> <a href="./jekyll/2026-04-13-mppt_case.html">(2026-04-13-mppt_case.html)</a></li>
 <li><em>简易三项保护器开发笔记</em> <a href="./jekyll/2026-04-10-phase_protector.html">(2026-04-10-phase_protector.html)</a></li>
 <li><em>RL78开发笔记</em> <a href="./jekyll/2026-02-26-rl78.html">(2026-02-26-rl78.html)</a></li>
@@ -63,6 +64,7 @@ permalink: /
 <details>
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🛠️ 舞铲阶级必胜</summary>
 <ul>
+<li><em>缩写给我往好的缩啊</em> <a href="./jekyll/2026-09-18-death_note.html">(2026-09-18-death_note.html)</a></li>
 <li><em>VSCode应用-软件编码</em> <a href="./jekyll/2026-06-18-vscode_encoding.html">(2026-06-18-vscode_encoding.html)</a></li>
 <li><em>智谱AI简易热点抓取脚本</em> <a href="./jekyll/2026-05-28-zhipu_hotnews.html">(2026-05-28-zhipu_hotnews.html)</a></li>
 <li><em>J-LINK RTT应用</em> <a href="./jekyll/2025-11-24-rtt.html">(2025-11-24-rtt.html)</a></li>
@@ -80,6 +82,7 @@ permalink: /
 <li><em>关于Dump</em> <a href="./jekyll/2024-11-04-dump.html">(2024-11-04-dump.html)</a></li>
 <li><em>GDB使用基础</em> <a href="./jekyll/2024-11-04-gdb.html">(2024-11-04-gdb.html)</a></li>
 <li><em>Qt开发总结</em> <a href="./jekyll/2024-11-02-qt.html">(2024-11-02-qt.html)</a></li>
+<li><em>Github博客搭建</em> <a href="./jekyll/2024-11-01-jekyll_github_blog.html">(2024-11-01-jekyll_github_blog.html)</a></li>
 </ul>
 </details>
 
@@ -105,7 +108,6 @@ permalink: /
 <li><em>ATE测试行业发展现状分析（2023）</em> <a href="./jekyll/2025-01-17-development_status_of_ate.html">(2025-01-17-development_status_of_ate.html)</a></li>
 <li><em>网站收录</em> <a href="./jekyll/2024-11-07-web_site_inclusion.html">(2024-11-07-web_site_inclusion.html)</a></li>
 <li><em>老板看了沉默，人事看了流泪</em> <a href="./jekyll/2024-11-04-labor_law.html">(2024-11-04-labor_law.html)</a></li>
-<li><em>Github博客搭建</em> <a href="./jekyll/2024-11-01-jekyll_github_blog.html">(2024-11-01-jekyll_github_blog.html)</a></li>
 </ul>
 </details>
 
