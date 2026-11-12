@@ -64,6 +64,7 @@ permalink: /
 <details>
 <summary style="cursor: pointer; font-size: 1.2em; font-weight: bold;">🛠️ 舞铲阶级必胜</summary>
 <ul>
+<li><em>VSCode应用-clangd极速配置</em> <a href="./jekyll/2026-11-12-vscode_clangd.html">(2026-11-12-vscode_clangd.html)</a></li>
 <li><em>缩写给我往好的缩啊</em> <a href="./jekyll/2026-09-18-death_note.html">(2026-09-18-death_note.html)</a></li>
 <li><em>VSCode应用-软件编码</em> <a href="./jekyll/2026-06-18-vscode_encoding.html">(2026-06-18-vscode_encoding.html)</a></li>
 <li><em>智谱AI简易热点抓取脚本</em> <a href="./jekyll/2026-05-28-zhipu_hotnews.html">(2026-05-28-zhipu_hotnews.html)</a></li>
