@@ -2,12 +2,12 @@
 title: VSCode应用-clangd极速配置
 author: YooyoJin
 date: 2026-11-12
-last_modified_at: 2026-11-12
+last_modified_at: 2026-11-13
 category: Jekyll
 layout: post
 ---
 
-同事安利：CMake工程配clangd，补全跳转很丝滑。捣鼓了一下午，结论：确实丝滑，但每个工程都得先喂一份编译说明书，通用性不如微软C/C++插件省心。
+同事安利：CMake工程配clangd，补全跳转很丝滑。捣鼓了一下午，结论：确实丝滑，但每个工程都得先喂一份编译说明书，通用性不如微软C/C++插件省心，这个不像C/C++插件可以自己写，clangd配置得生成，不好写。
 
 项目原本是Keil单片机工程，后来引入了CMake，正好具备配置条件。
 
@@ -18,14 +18,19 @@ layout: post
 1. 获取clangd语言服务器[^1]
     - VSCode插件里直接点Download language server，自动下载自动配，最省事
     - 不想用插件自带的，去[LLVM官方 releases](https://github.com/llvm/llvm-project/releases)下载`LLVM-x.x.x-win64.exe`，安装时勾选Add LLVM to the system PATH，装完命令行`clangd --version`能出版本号即可，VSCode会自动识别
-1. 生成compile_commands.json[^2]，工程目录下执行，删旧build再生成，防止残留的CMakeCache干扰
+1. 生成compile_commands.json，工程目录下执行，删旧build再生成，防止残留的CMakeCache干扰[^2]
     - 执行下面命令
     ``` cmd
         Remove-Item -Recurse -Force build  # 删除旧缓存
         cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON  # 重新生成（注意使用 MinGW 生成器）
     ```
     - 成功后build目录下出现compile_commands.json
-1. settings.json指路，文件生成在`main-board/build/`下，VSCode默认在根目录找，需要手动指定
+    - 嫌命令太麻烦的话也可以增加CMakeList.txt如下配置，可以在编译时自动生成compile_commands.json
+    ``` cameklist
+        # 导出compile_commands.json供VS Code IntelliSense使用(跳转/补全)
+        set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    ```
+1. settings.json指路，文件生成在`main-board/build/`下，VSCode默认在根目录找，需要手动重新指定
     - 路径按VSCode实际打开的工作区层级调整
     ``` json
     {
@@ -38,25 +43,17 @@ layout: post
 1. 重启生效，`Ctrl+Shift+P`执行`clangd: Restart language server`
     - 红线消失，`F12`/`Ctrl+Click`跳转，补全和悬停提示精准
 
-``` cmd
-    # 删除旧缓存
-    Remove-Item -Recurse -Force build
-
-    # 重新生成（注意使用 MinGW 生成器）
-    cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-```
-
 ## 2. 使用体验
 
 丝滑是真丝滑，兄弟诚不欺我。跳转快、补全准，悬停提示比微软插件详细，CMake工程开箱即用。
 
-但毛病也明显：每换一个工程都要重新生成一份compile_commands.json。临时接手的老Keil工程、别人的杂活项目，没有现成的编译数据库，还得现配一套，麻烦。微软C/C++插件虽然笨点，胜在啥工程都能凑合补全。
+但问题也明显：每换一个工程都要重新生成一份`compile_commands.json`。临时接手的老Keil工程、别人的杂活项目，没有现成的编译数据库，就不行，也需要手写`compile_flags.txt`，麻烦。微软C/C++插件虽然笨点，胜在啥工程都能凑合补全。
 
 ## 常见问题&解决办法
 
 ### 1. cmake执行成功，但没有生成compile_commands.json
 
-Windows下不指定生成器，CMake默认用MSVC生成器，而MSVC不支持导出compile_commands.json。命令跑完不报错，文件就是没有，属于悄悄摆烂。换MinGW Makefiles生成器即可，见配置步骤。
+Windows下不指定生成器，CMake默认用MSVC生成器，而MSVC不支持导出`compile_commands.json`。命令跑完不报错，文件就是没有，属于悄悄摆烂。换MinGW Makefiles生成器即可，见配置步骤。
 
 ### 2. 提示CMake was unable to find a build program corresponding to "Ninja"
 
@@ -91,14 +88,11 @@ C:\Users\你的用户名\AppData\Roaming\Code\User\globalStorage\llvm-vs-code-ex
 
 它也不会动系统环境变量，只改VSCode内部的`clangd.path`。设置里搜`clangd.path`，路径指向AppData就是插件自动填的。
 
-已经手动装好clangd的没必要点自动下载，保持现有环境即可，避免版本不一致。
+已经手动装好clangd的没必要点自动下载，保持现有环境即可，注意配置环境变量，避免版本不一致。
 
 ### 7. clangd必须用CMake吗？
 
-不是。clangd只认编译数据库，CMake只是生成手段之一：
-- 纯Keil/IAR：手写`compile_flags.txt`，或用`k2c`转换`.uvprojx`
-- Makefile工程：`bear -- make`拦截编译自动生成
-- 简单单文件：直接手写`compile_flags.txt`
+不是。clangd只认编译数据库，CMake只是生成手段之一，也可以手写`compile_flags.txt`，这里没有实践过！看网上说可以。
 
 ## 参考资料
 
