@@ -2,7 +2,7 @@
 title: Clang-Format代码格式刷
 author: YooyoJin
 date: 2025-10-16
-last_modified_at: 2025-10-16
+last_modified_at: 2026-11-17
 category: Jekyll
 layout: post
 mermaid: true
@@ -141,7 +141,7 @@ SpacesInParentheses: false
 SpacesInSquareBrackets: false
 ```
 
-## 常见问题
+## 常见问题&解决办法
 
 ### Clang-Format格式化失败请查看输出窗口
 
@@ -156,8 +156,16 @@ Error reading D:\Program Files\LLVM\formats\my.clang-format: no such file or dir
 
 重新匹配路径后可以正确执行格式刷新，也是非常的安逸！
 
+### 装了clangd插件后，格式化不按原有规则走
+
+问题背景：之前用C/C++插件格式化一切正常，装了clangd插件后格式化结果变成了LLVM默认风格。原因是clangd插件接管了C/C++的格式化（把自己注册为默认formatter），但它不认`C_Cpp: Clang_format_style`里配置的规则路径，只从被格式化源文件所在目录逐级向上查找固定文件名为`.clang-format`或`_clang-format`的文件，找不到就回退LLVM默认风格，所以这里得放根目录。
+
+解决办法：
+1. 规则文件改名为`.clang-format`，放在仓库根目录。
+1. `Ctrl+Shift+P`执行`clangd: Restart language server`，clangd对规则文件有缓存，不重启不生效；
+
 ## 参考资料
 
-[^1]: Ruby1019. [VScode使用clang format文档自动代码格式化（C语言）](https://blog.csdn.net/weixin_42217191/article/details/129516325)
+[^1]:Ruby1019. [VScode使用clang format文档自动代码格式化（C语言）](https://blog.csdn.net/weixin_42217191/article/details/129516325)
 
 [^2]:Clang Team. [ClangFormatStyleOptions](https://clang.llvm.org/docs/ClangFormatStyleOptions.html))
