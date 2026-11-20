@@ -168,4 +168,4 @@ Error reading D:\Program Files\LLVM\formats\my.clang-format: no such file or dir
 
 [^1]:Ruby1019. [VScode使用clang format文档自动代码格式化（C语言）](https://blog.csdn.net/weixin_42217191/article/details/129516325)
 
-[^2]:Clang Team. [ClangFormatStyleOptions](https://clang.llvm.org/docs/ClangFormatStyleOptions.html))
+[^2]:Clang Team. [ClangFormatStyleOptions](https://clang.llvm.org/docs/ClangFormatStyleOptions.html)

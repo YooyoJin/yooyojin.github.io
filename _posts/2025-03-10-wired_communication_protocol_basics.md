@@ -2,7 +2,7 @@
 title: 有线通信协议基础
 author: YooyoJin
 date: 2025-03-10
-last_modified_at: 2026-07-15
+last_modified_at: 2026-11-20
 category: Jekyll
 layout: post
 mermaid: true
@@ -350,10 +350,10 @@ SPI（Serial Peripheral Interface，串行外围设备接口），与I2C和UART�
 - 不支持错误检测，依赖硬件可靠性，或者协议上的设计（CRC校验）来保证数据可靠；
 
 SPI协议是一种主从式通信协议，其中一个设备（主设备）控制通信过程，而其他设备（从设备）响应主设备的请求。SPI使用四根线来传输数据：
-- MOSI(Master Out Slave In，主设备发送数据线)；
-- MISO(Master In Slave Out，主设备接收数据线)；
+- MOSI(Master Out Slave In，主设备发送从设备接收数据线)；
+- MISO(Master In Slave Out，主设备接收从折欸发送数据线)；
 - SCK(Serial Clock，时钟线)；
-- SS(Slave Select，时钟线)；
+- SS(Slave Select，片选线)；
 - 当然这里还需要需要电源和共参考的地线；
 
 ### 3.1. SPI工作原理
@@ -365,7 +365,7 @@ SPI协议是一种主从式通信协议，其中一个设备（主设备）控�
 
 SPI协议支持多种工作模式，，这些模式的主要区别在于时钟极性（CPOL）和时钟相位（CPHA）的不同设置。两者决定了数据传输的时序：
 - CPOL（Clock Polarity）：控制时钟信号的空闲状态（高电平或低电平）。如果CPOL为0，则时钟在空闲时为低电平；如果CPOL为1，则时钟在空闲时为高电平；
-- CPHA（Clock Phase）：控制数据的采样时刻。CPHA决定了数据在时钟的哪个边沿被采样（上升沿或下降沿）；
+- CPHA（Clock Phase）：控制数据的采样时刻。CPHA决定了数据在时钟的哪个边沿被采样（上升沿或下降沿），哪个边沿被移出（这里移除是指允许总线电平变化，主机和从机同时改变数据线上的电平，把下一个bit推上线）；
 
 SPI有四种常见模式，分别由CPOL和CPHA的不同组合产生：
 - 模式0：CPOL=0, CPHA=0（时钟空闲时低，数据在时钟的上升沿采样）；
@@ -373,7 +373,7 @@ SPI有四种常见模式，分别由CPOL和CPHA的不同组合产生：
 - 模式2：CPOL=1, CPHA=0（时钟空闲时高，数据在时钟的上升沿采样）；
 - 模式3：CPOL=1, CPHA=1（时钟空闲时高，数据在时钟的下降沿采样）；
 
-选择正确的SPI模式非常重要，它必须与从设备的SPI设置兼容。
+选择正确的SPI模式非常重要，它必须与从设备的SPI设置兼容！
 
 ### 3.2. SPI的基本通信过程
 
@@ -383,8 +383,8 @@ sequenceDiagram
     participant 从机
     主机 ->> 从机: SS 拉低（开始通信）
     主机 ->> 从机: SCK（时钟信号开始）
-    主机 ->> 从机: MOSI 发送数据位（如 0xA5）
-    从机 ->> 主机: MISO 返回数据位（如 0x3C）
+    主机 ->> 从机: MOSI 发送数据位（如 0xA5），根据SPI模式在时钟边沿对MOSI进行采集
+    从机 ->> 主机: MISO 返回数据位（如 0x3C），根据SPI模式在时钟边沿对MISO进行移出
     主机 ->> 从机: MOSI 发送下一个数据位
     从机 ->> 主机: MISO 返回下一个数据位
     主机 ->> 从机: SS 拉高（结束通信）
